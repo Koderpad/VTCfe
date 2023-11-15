@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
+import Cart from "./pages/Cart";
 import { MyProfile, PasswordChanges } from "./features/userManagement";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="cart" element={<Cart />} />
 
         {/* user/account */}
         <Route path="user/account" element={<MyAccount />}>
