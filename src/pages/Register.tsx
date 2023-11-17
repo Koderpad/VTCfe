@@ -4,7 +4,6 @@ import Logo_fix from "../components/ui-styled/Logo-fix";
 function Register() {
   return (
     <div className="flex flex-row bg-[#caf7fa] h-auto">
-      {/* create 2 components left, right by tailwind*/}
       <div className="w-1/2 shadow-2xl bg-[url('/public/BiaPhai_Login.png')] flex justify-center items-center">
         <Logo_fix />
       </div>
