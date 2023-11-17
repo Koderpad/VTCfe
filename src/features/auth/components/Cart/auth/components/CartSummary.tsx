@@ -1,10 +1,11 @@
 
 import React from 'react';
+import VoucherForm from './VoucherForm';
 
 const CartSummary = () => {
     return (
-        <div className="tw-md:w-1/4">
-            <div className="tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6">
+        <div className="tw-md:w-1/4 ">
+            <div className="tw-bg-white tw-rounded-lg tw-shadow-md tw-p-6 ">
                 <h2 className="tw-text-lg tw-font-semibold tw-mb-4">Summary</h2>
                 <div className="tw-flex tw-justify-between tw-mb-2">
                     <span>Subtotal</span>
@@ -17,6 +18,9 @@ const CartSummary = () => {
                 <div className="tw-flex tw-justify-between tw-mb-2">
                     <span>Shipping</span>
                     <span>$0.00</span>
+                </div>
+                <div>
+                  <VoucherForm/>
                 </div>
                 <hr className="tw-my-2" />
                 <div className="tw-flex tw-justify-between tw-mb-2">
