@@ -7,71 +7,71 @@ function RegisForm_fix() {
   const handleCheckboxChange = (isMale: boolean) => setIsMaleChecked(isMale);
   return (
     <>
-      <div className="tw-flex tw-w-full tw-max-w-full tw-items-start tw-gap-2.5 tw-max-md:ml-1">
-        <form className="tw-space-y-3" action="#">
+      <div className="flex w-full max-w-full items-start gap-2.5 max-md:ml-1">
+        <form className="space-y-3" action="#">
           {/* tên tài khoản */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/account_circle.png
                 "
               />
             </div>
-            <div className="tw-flex tw-flex-col">
+            <div className="flex flex-col">
               <input
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="text"
                 id="username"
                 placeholder="Tên Tài Khoản"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
           {/* mật khẩu */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/pass.png
                       "
               />
             </div>
-            <div className="tw-flex tw-flex-col">
+            <div className="flex flex-col">
               <input
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="password"
                 id="password"
                 placeholder="Mật khẩu"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
           {/* email */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/mail.png
                       "
               />
             </div>
-            <div className="tw-flex tw-flex-col">
+            <div className="flex flex-col">
               <input
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="email"
                 id="email"
                 placeholder="Địa chỉ email"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
           {/* giới tính */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/sex.png
@@ -80,8 +80,8 @@ function RegisForm_fix() {
             </div>
             <span>Giới tính</span>
             {/* checkbox select Nam or Nữ */}
-            <div className="tw-flex tw-flex-row tw-gap-44 tw-ml-4">
-              <div className="tw-flex tw-gap-6 tw-ml-32">
+            <div className="flex flex-row gap-44 ml-4">
+              <div className="flex gap-6 ml-32">
                 <label htmlFor="male">Nam</label>
                 <input
                   id="male"
@@ -92,7 +92,7 @@ function RegisForm_fix() {
                   onChange={() => handleCheckboxChange(true)}
                 />
               </div>
-              <div className="tw-flex tw-gap-6">
+              <div className="flex gap-6">
                 {/* <br /> */}
                 <label htmlFor="female">Nữ</label>
                 <input
@@ -110,77 +110,77 @@ function RegisForm_fix() {
           </div>
           <br />
           {/* họ và tên */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/account_circle.png
                       "
               />
             </div>
-            <div className="tw-flex tw-flex-col">
+            <div className="flex flex-col">
               <input
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="text"
                 id="fullname"
                 placeholder="Họ và tên"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
           {/* ngày sinh*/}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/birthday.png
                       "
               />
             </div>
-            <span className="tw-mt-5 tw-mr-3">Ngày sinh: </span>
-            <div className="tw-flex tw-flex-col tw-mt-3">
+            <span className="mt-5 mr-3">Ngày sinh: </span>
+            <div className="flex flex-col mt-3">
               <input
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="date"
                 id="date"
                 placeholder="Ngày sinh"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
           {/* sđt */}
-          {/* <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          {/* <div className="flex gap-2">
+            <div className="flex">
               <TextIcon
                 srcSet="
                 /public/phone.png
                       "
               />
             </div>
-            <div className="tw-flex tw-flex-col">
+            <div className="flex flex-col">
               <input
                 name="phone"
-                className="tw-block tw-w-full tw-bg-transparent tw-border-none focus:tw-outline-none tw-border-0 tw-py-1.5 tw-sm:text-sm tw-sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
                 type="tel"
                 id="phone"
                 placeholder="Số điện thoại"
               />
             </div>
           </div>
-          <div className="tw-bg-neutral-400 tw-w-[427px] tw-h-px tw-max-md:max-w-full" />
+          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br /> */}
           {/* checkbox agree đăng ký */}
-          <div className="tw-flex tw-gap-2">
-            <div className="tw-flex">
+          <div className="flex gap-2">
+            <div className="flex">
               <input type="checkbox" name="agree" />
             </div>
-            <div className="tw-flex tw-flex-col">
-              <p className="tw-ml-2 tw-font-serif">
+            <div className="flex flex-col">
+              <p className="ml-2 font-serif">
                 Creating an account means you’re okay with our Terms
               </p>
-              <p className="tw-ml-2 tw-font-serif">
+              <p className="ml-2 font-serif">
                 {" "}
                 of Service, Privacy Policy, and default Notification Settings
               </p>
@@ -188,16 +188,16 @@ function RegisForm_fix() {
           </div>
           <br />
           {/* button submit */}
-          <div className="tw-flex tw-flex-row tw-gap-2 tw-w-full">
+          <div className="flex flex-row gap-2 w-full">
             <button
               type="submit"
-              className="tw-border tw-w-[40rem] tw-h-[3rem] tw-shadow-[2px_4px_6px_0px_rgba(79,79,79,0.15)] tw-bg-sky-500 tw-bg-opacity-80 tw-flex min-h-[34px] tw-flex-col tw-rounded-2xl tw-border-solid tw-border-stone-300"
+              className="border w-[40rem] h-[3rem] shadow-[2px_4px_6px_0px_rgba(79,79,79,0.15)] bg-sky-500 bg-opacity-80 flex min-h-[34px] flex-col rounded-2xl border-solid border-stone-300"
             >
-              <div className="tw-text-white tw-font-extrabold tw-text-xl tw-mt-2 tw-self-center">
+              <div className="text-white font-extrabold text-xl mt-2 self-center">
                 Đăng Ký
               </div>
             </button>
-            {/* <div className="tw-w-0.5/4"></div> */}
+            {/* <div className="w-0.5/4"></div> */}
           </div>
         </form>
       </div>

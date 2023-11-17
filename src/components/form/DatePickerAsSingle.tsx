@@ -15,13 +15,13 @@ function DatePickerAsSingle({
   handleChange,
 }: DatePickerAsSingleProps) {
   return (
-    <div className="tw-block tw-w-full tw-mb-4">
-      <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor={labelFor}>
+    <div className="block w-full mb-4">
+      <label className="block text-gray-700 mb-2" htmlFor={labelFor}>
         {labelText}
       </label>
-      <div className="tw-w-full">
+      <div className="w-full">
         <DatePicker
-          className="tw-w-full tw-bg-gray-200 tw-border tw-border-gray-200 tw-rounded tw-py-2 tw-px-4 tw-text-gray-700 tw-leading-tight focus:tw-bg-white focus:tw-border-gray-500 focus:tw-outline-none"
+          className="w-full bg-gray-200 border border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:bg-white focus:border-gray-500 focus:outline-none"
           showIcon
           id={labelFor}
           selected={_setStartDate}

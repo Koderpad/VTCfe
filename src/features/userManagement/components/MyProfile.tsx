@@ -123,15 +123,13 @@ function MyProfile() {
 
   return (
     <>
-      <div className="tw-bg-green-600 tw-w-full tw-h-full">
-        <div className="tw-h-full tw-w-full tw-p-10 tw-bg-white">
-          <h1 className="tw-text-red-600 tw-text-4xl tw-pb-6">
-            Edit Your Profile
-          </h1>
+      <div className="bg-green-600 w-full h-full">
+        <div className="h-full w-full p-10 bg-white">
+          <h1 className="text-red-600 text-4xl pb-6">Edit Your Profile</h1>
           <div>
-            <form className="tw-w-full" action="#">
-              <div className="tw-flex tw-justify-between tw-w-full tw-gap-5">
-                <div className="tw-flex tw-flex-col tw-w-2/5 tw-gap-4">
+            <form className="w-full" action="#">
+              <div className="flex justify-between w-full gap-5">
+                <div className="flex flex-col w-2/5 gap-4">
                   <CustomInput
                     labelText="Họ và tên"
                     labelFor="name"
@@ -157,23 +155,23 @@ function MyProfile() {
                     handleInputChange={() => null}
                   />
                 </div>
-                <div className="tw-flex tw-flex-col tw-w-2/5 tw-gap-4">
+                <div className="flex flex-col w-2/5 gap-4">
                   <DatePickerAsSingle
                     labelFor="birthdate"
                     labelText="Ngày sinh"
                     _setStartDate={_birthday ? new Date(_birthday) : new Date()}
                     handleChange={handleDateChange}
                   />
-                  <div className="tw-block tw-w-[63%] tw-mb-4">
+                  <div className="block w-[63%] mb-4">
                     <label
-                      className="tw-block tw-text-gray-700 tw-mb-2"
+                      className="block text-gray-700 mb-2"
                       htmlFor="gender"
                     >
                       Giới tính
                     </label>
                     <select
                       id="gender"
-                      className="tw-w-full tw-bg-gray-200 tw-border tw-border-gray-300 tw-text-gray-900 tw-text-2xl tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500 tw-block tw-p-2.5"
+                      className="w-full bg-gray-200 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                       value={gender}
                       onChange={handleGenderChange}
                     >
@@ -182,41 +180,38 @@ function MyProfile() {
                     </select>
                   </div>
                   {/* submit */}
-                  <div className="tw-block tw-relative tw-justify-center">
+                  <div className="block relative justify-center">
                     <button
                       type="button"
                       onClick={() => setOpen(true)}
-                      className="tw-w-1/3 -tw-bottom-60 tw-left-44 tw-absolute tw-bg-blue-500 tw-text-white tw-font-bold tw-py-6 tw-px-6 tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500"
+                      className="w-1/3 -bottom-60 left-44 absolute bg-blue-500 text-white font-bold py-6 px-6 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     >
                       Cập nhật
                     </button>
                     <ModalSaveInf open={open} onClose={() => setOpen(false)}>
-                      <div className="tw-text-center tw-w-auto">
-                        <div className="tw-w-full tw-h-full tw-flex tw-justify-center">
-                          <img
-                            className="tw-w-1/5"
-                            src="/public/edit_info.svg"
-                          />
+                      <div className="text-center w-auto">
+                        <div className="w-full h-full flex justify-center">
+                          <img className="w-1/5" src="/public/edit_info.svg" />
                         </div>
-                        <div className="tw-mx-auto tw-my-4 tw-w-full">
-                          <h3 className="tw-text-2xl tw-font-black tw-text-gray-800">
+                        <div className="mx-auto my-4 w-full">
+                          <h3 className="text-2xl font-black text-gray-800">
                             Xác nhận chỉnh sửa
                           </h3>
-                          <p className="tw-text-lg tw-text-gray-500">
+                          <p className="text-lg text-gray-500">
                             Bạn có chắc chắn muốn thay đổi thông tin không?
                           </p>
                         </div>
-                        <div className="tw-flex tw-justify-between tw-gap-20">
+                        <div className="flex justify-between gap-20">
                           <button
                             type="button"
-                            className=" tw-w-2/3 tw-shadow-2xl tw-bg-blue-500 tw-text-white tw-font-bold tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500"
+                            className=" w-2/3 shadow-2xl bg-blue-500 text-white font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500"
                             onClick={() => setOpen(false)}
                           >
                             Hủy
                           </button>
                           <button
                             type="submit"
-                            className="tw-w-2/3  tw-shadow-2xl tw-bg-red-600 tw-text-white tw-font-bold tw-py-4 tw-px-4 tw-rounded-lg focus:tw-ring-blue-500 focus:tw-border-blue-500"
+                            className="w-2/3  shadow-2xl bg-red-600 text-white font-bold py-4 px-4 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                             // onClick={() => setOpen(false)}
                             onClick={handleSubmit}
                           >

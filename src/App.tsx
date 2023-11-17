@@ -6,6 +6,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
 import { MyProfile, PasswordChanges } from "./features/userManagement";
+import { DetailProduct } from "./pages/DetailProduct";
+// import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
           <Route path="profile" element={<MyProfile />} />
           <Route path="pw_changes" element={<PasswordChanges />} />
         </Route>
+
+        {/* product */}
+        <Route path="product" element={<DetailProduct />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

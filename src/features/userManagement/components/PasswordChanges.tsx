@@ -1,9 +1,5 @@
 function PasswordChanges() {
-  return (
-    <>
-      <div>Password Changes</div>
-    </>
-  );
+  return <></>;
 }
 
 export default PasswordChanges;

@@ -6,15 +6,15 @@ function Header_search_wrapper() {
   return (
     <>
       {/* header search wrapper */}
-      <div className="tw-flex tw-items-center tw-justify-center tw-w-full tw-h-[85px] tw-z-[100] tw-bg-transparent">
+      <div className="flex items-center justify-center w-full h-[85px] z-[100] bg-transparent">
         {/* header with search */}
         <div
           className="
-            tw-flex
-            tw-w-4/5
-            tw-h-full
-            tw-pt-[2rem]
-            tw-pb-[0.625rem]
+            flex
+            w-4/5
+            h-full
+            pt-[2rem]
+            pb-[0.625rem]
           "
         >
           {/* search logo */}

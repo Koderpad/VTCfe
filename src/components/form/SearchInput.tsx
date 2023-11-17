@@ -11,18 +11,18 @@ function Search() {
   return (
     <>
       <form>
-        <div className="tw-flex tw-h-[40px] tw-justify-between tw-rounded-md tw-bg-white tw-shadow tw-shadow-black/20">
+        <div className="flex h-[40px] justify-between rounded-md bg-white shadow shadow-black/20">
           <input
             type="text"
-            className="tw-flex tw-text-3xl tw-flex-1 tw-py-2 tw-px-3 
-             focus:tw-outline-black focus:tw-outline-offset-4 "
+            className="flex text-3xl flex-1 py-2 px-3 
+             focus:outline-black focus:outline-offset-4 "
             placeholder="Tìm kiếm..."
             onClick={() => setShowResults(true)}
             onChange={handleInputChange}
           />
-          <span className="tw-m-1 tw-inline-flex tw-cursor-pointer tw-items-center tw-rounded-md tw-bg-indigo-600 tw-px-2 tw-py-2 hover:tw-bg-indigo-700">
+          <span className="m-1 inline-flex cursor-pointer items-center rounded-md bg-indigo-600 px-2 py-2 hover:bg-indigo-700">
             <svg
-              className="tw-text-white"
+              className="text-white"
               width="32"
               height="32"
               viewBox="0 0 24 24"
@@ -37,14 +37,12 @@ function Search() {
       </form>
       {/* result */}
       {showResults && searchTerm && (
-        <div className="tw-absolute tw-mt-2 tw-w-full tw-overflow-hidden tw-rounded-md tw-bg-white ">
-          <div className="tw-cursor-pointer tw-h-14 tw-py-2 tw-px-3 hover:tw-bg-slate-100">
-            <p className="tw-text-3xl tw-font-sans tw-text-gray-600">
-              iphone 14
-            </p>
+        <div className="absolute mt-2 w-full overflow-hidden rounded-md bg-white ">
+          <div className="cursor-pointer h-14 py-2 px-3 hover:bg-slate-100">
+            <p className="text-3xl font-sans text-gray-600">iphone 14</p>
           </div>
-          <div className="tw-cursor-pointer tw-h-14 tw-py-2 tw-px-3 hover:tw-bg-slate-100">
-            <p className="tw-text-3xl tw-font-sans tw-text-gray-600">
+          <div className="cursor-pointer h-14 py-2 px-3 hover:bg-slate-100">
+            <p className="text-3xl font-sans text-gray-600">
               iphone 15 pro max
             </p>
           </div>
@@ -52,16 +50,16 @@ function Search() {
       )}
     </>
 
-    // <div className=" tw-w-auto tw-h-full tw-bg-transparent tw-select-auto tw-z-40">
-    //   <div className="tw-w-auto tw-z-50 tw-relative tw-mx-auto tw-mt-36">
-    //     <div className="tw-bg-white tw-w-full tw-h-16 tw-rounded-xl tw-mb-3 tw-shadow-lg tw-p-2">
+    // <div className=" w-auto h-full bg-transparent select-auto z-40">
+    //   <div className="w-auto z-50 relative mx-auto mt-36">
+    //     <div className="bg-white w-full h-16 rounded-xl mb-3 shadow-lg p-2">
     //       <input
     //         type="text"
     //         placeholder="Search"
-    //         className="tw-w-full tw-h-auto tw-text-2xl tw-rounded-lg focus:tw-outline-none focus:tw-ring focus:tw-border-blue-300"
+    //         className="w-full h-auto text-2xl rounded-lg focus:outline-none focus:ring focus:border-blue-300"
     //       />
     //     </div>
-    //     <div className="tw-bg-white tw-w-full tw-rounded-xl tw-shadow-xl tw-overflow-hidden tw-p-1">
+    //     <div className="bg-white w-full rounded-xl shadow-xl overflow-hidden p-1">
     //       {/* <!-- items --> */}
     //       <div className="w-full flex p-3 pl-4 items-center hover:bg-gray-300 rounded-lg cursor-pointer">
     //         <div className="mr-4">
@@ -184,7 +182,7 @@ function Search() {
     //         </div>
     //       </div>
     //       {/* <!-- items --> */}
-    //       <div className="w-full flex p-3 pl-4 items-center hover:tw-bg-gray-300 rounded-lg cursor-pointer">
+    //       <div className="w-full flex p-3 pl-4 items-center hover:bg-gray-300 rounded-lg cursor-pointer">
     //         <div className="mr-4">
     //           <div className="h-9 w-9 rounded-sm flex items-center justify-center text-3xl">
     //             <svg

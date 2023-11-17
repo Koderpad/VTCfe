@@ -16,25 +16,23 @@ const ModalSaveInf: React.FC<ModelSaveInfProps> = ({
       <div
         onClick={onClose}
         className={`
-      tw-fixed tw-inset-0 tw-flex tw-justify-center tw-items-center tw-transition-colors 
-      ${open ? "tw-visible tw-bg-black/20" : "tw-invisible"}
+      fixed inset-0 flex justify-center items-center transition-colors 
+      ${open ? "visible bg-black/20" : "invisible"}
       `}
       >
         {/* modal */}
         <div
           onClick={(e) => e.stopPropagation()}
           className={`
-            tw-bg-white tw-rounded-xl tw-shadow tw-p-6 tw-transition-all 
-            ${
-              open ? "tw-scale-100 tw-opacity-100" : "tw-scale-125 tw-opacity-0"
-            }
+            bg-white rounded-xl shadow p-6 transition-all 
+            ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
         `}
         >
           <button
             type="button"
             onClick={onClose}
             className="
-                    tw-absolute tw-top-2 tw-right-2 tw-p-1 tw-rounded-lg tw-text-gray-400 tw-bg-white hover:tw-bg-gray-50 hover:tw-text-gray-600
+                    absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600
                   "
           >
             <svg

@@ -25,17 +25,17 @@ function ContentTooltip() {
 
   return (
     <>
-      <div className="tw-absolute tw-w-64 tw-left-0 tw-ml-none tw-shadow-lg tw-bg-white tw-rounded">
+      <div className="absolute w-64 left-0 ml-none shadow-lg bg-white rounded">
         {/* content */}
         {/* Dropdown content */}
-        <ul className="tw-list-none tw-m-0 tw-p-0 tw-w-full tw-h-full ">
-          <li className="tw-py-2 tw-pl-4 tw-text-2xl tw-text-gray-800 hover:tw-text-green-600 hover:tw-bg-gray-200 tw-cursor-pointer tw-transition tw-duration-300 tw-ease-in-out">
+        <ul className="list-none m-0 p-0 w-full h-full ">
+          <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
             <a href="#">Tài khoản của tôi</a>
           </li>
-          <li className="tw-py-2 tw-pl-4 tw-text-2xl tw-text-gray-800 hover:tw-text-green-600 hover:tw-bg-gray-200 tw-cursor-pointer tw-transition tw-duration-300 tw-ease-in-out">
+          <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
             <a href="#">Đơn mua</a>
           </li>
-          <li className="tw-py-2 tw-pl-4 tw-text-2xl tw-text-gray-800 hover:tw-text-green-600 hover:tw-bg-gray-200 tw-cursor-pointer tw-transition tw-duration-300 tw-ease-in-out">
+          <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
             {/* <Link onClick={handleLogout}>Đăng xuất</Link> */}
             <Link to="/login">
               <button onClick={handleLogout}>Đăng xuất</button>

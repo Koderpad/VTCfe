@@ -6,9 +6,9 @@ function Navbar() {
   return (
     <>
       {/* navbar */}
-      <div className="tw-flex tw-items-center tw-justify-center tw-h-[34px] tw-z-[100] tw-bg-transparent tw-relative tw-min-w-[1200px]">
+      <div className="flex items-center justify-center h-[34px] z-[100] bg-transparent relative min-w-[1200px]">
         {/* mid */}
-        <nav className="tw-flex tw-w-4/5 tw-h-full">
+        <nav className="flex w-4/5 h-full">
           {/* start: -> vendor */}
           <Nav_vendor />
 

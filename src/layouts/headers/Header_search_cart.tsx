@@ -1,13 +1,9 @@
 function Header_search_cart() {
   return (
     <>
-      <div className="tw-flex  tw-w-1/6 tw-px-5">
-        <div className="tw-flex tw-w-full tw-justify-end tw-items-center tw-pr-16 tw-pb-16">
-          <a
-            className="tw-h-[48px] tw-w-12"
-            id="cart_drawer_target_id"
-            href="#"
-          >
+      <div className="flex  w-1/6 px-5">
+        <div className="flex w-full justify-end items-center pr-16 pb-16">
+          <a className="h-[48px] w-12" id="cart_drawer_target_id" href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"

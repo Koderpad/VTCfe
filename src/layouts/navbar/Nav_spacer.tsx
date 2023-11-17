@@ -1,7 +1,7 @@
 function Nav_spacer() {
   return (
     <>
-      <div className="tw-grow"></div>
+      <div className="grow"></div>
     </>
   );
 }

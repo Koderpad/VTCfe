@@ -1,11 +1,11 @@
 function Footer_v1() {
   return (
-    <footer className="tw-bg-[#0CFEFE]">
-      <div className="tw-mx-auto tw-max-w-5xl tw-px-4 tw-py-16 sm:tw-px-6 lg:tw-px-8">
-        <div className="tw-flex tw-justify-center tw-text-teal-600">
-          <img className="tw-h-32" src="/public/Logo.png" />
+    <footer className="bg-[#0CFEFE]">
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="flex justify-center text-teal-600">
+          <img className="h-32" src="/public/Logo.png" />
           {/* <svg
-            className="tw-h-8"
+            className="h-8"
             viewBox="0 0 118 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -53,14 +53,14 @@ function Footer_v1() {
           </svg> */}
         </div>
 
-        <p className="tw-mx-auto tw-mt-6 tw-max-w-md tw-text-center tw-leading-relaxed tw-text-gray-500">
+        <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500">
           Công ty Cổ phần VTC
         </p>
 
-        <ul className="tw-mt-12 tw-flex tw-flex-wrap tw-justify-center tw-gap-6 md:tw-gap-8 lg:tw-gap-12">
+        <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               About
@@ -69,7 +69,7 @@ function Footer_v1() {
 
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               Careers
@@ -78,7 +78,7 @@ function Footer_v1() {
 
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               History
@@ -87,7 +87,7 @@ function Footer_v1() {
 
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               Services
@@ -96,7 +96,7 @@ function Footer_v1() {
 
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               Projects
@@ -105,7 +105,7 @@ function Footer_v1() {
 
           <li>
             <a
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
               href="/"
             >
               Blog
@@ -113,17 +113,17 @@ function Footer_v1() {
           </li>
         </ul>
 
-        <ul className="tw-mt-12 tw-flex tw-justify-center tw-gap-6 md:tw-gap-8">
+        <ul className="mt-12 flex justify-center gap-6 md:gap-8">
           <li>
             <a
               href="/"
               rel="noreferrer"
               target="_blank"
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
             >
-              <span className="tw-sr-only">Facebook</span>
+              <span className="sr-only">Facebook</span>
               <svg
-                className="tw-h-6 tw-w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -142,11 +142,11 @@ function Footer_v1() {
               href="/"
               rel="noreferrer"
               target="_blank"
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
             >
-              <span className="tw-sr-only">Instagram</span>
+              <span className="sr-only">Instagram</span>
               <svg
-                className="tw-h-6 tw-w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -165,11 +165,11 @@ function Footer_v1() {
               href="/"
               rel="noreferrer"
               target="_blank"
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
             >
-              <span className="tw-sr-only">Twitter</span>
+              <span className="sr-only">Twitter</span>
               <svg
-                className="tw-h-6 tw-w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -184,11 +184,11 @@ function Footer_v1() {
               href="/"
               rel="noreferrer"
               target="_blank"
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
             >
-              <span className="tw-sr-only">GitHub</span>
+              <span className="sr-only">GitHub</span>
               <svg
-                className="tw-h-6 tw-w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -207,11 +207,11 @@ function Footer_v1() {
               href="/"
               rel="noreferrer"
               target="_blank"
-              className="tw-text-gray-700 tw-transition hover:tw-text-gray-700/75"
+              className="text-gray-700 transition hover:text-gray-700/75"
             >
-              <span className="tw-sr-only">Dribbble</span>
+              <span className="sr-only">Dribbble</span>
               <svg
-                className="tw-h-6 tw-w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"

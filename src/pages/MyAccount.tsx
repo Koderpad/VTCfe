@@ -11,35 +11,35 @@ function MyAccount() {
   const fullName = state ? state["fullName"] : null;
 
   return (
-    <div className="tw-grid tw-grid-rows-auto">
+    <div className="grid grid-rows-auto">
       <Header_not_fixed />
 
       {/* flex div wrapper */}
-      <div className="tw-flex tw-justify-self-center tw-w-[1200px] tw-h-[568px] tw-pt-[20px] tw-pb-[50px] tw-mb-14">
+      <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14">
         {/* left nav side */}
-        <div className="tw-flex tw-flex-col tw-w-[180px] tw-h-[568px]">
+        <div className="flex flex-col w-[180px] h-[568px]">
           <Breadcrumb />
 
           {/* navbar */}
-          <div className="tw-mt-11">
+          <div className="mt-11">
             <div>
               {/* name of list */}
-              <h1 className="tw-text-2xl tw-font-bold tw-text-gray-800 tw-mb-1">
+              <h1 className="text-2xl font-bold text-gray-800 mb-1">
                 Manage My Account
               </h1>
-              <ul className="tw-pl-4 ">
+              <ul className="pl-4 ">
                 <li>
-                  <Link to="profile" className=" hover:tw-text-green-600 ">
+                  <Link to="profile" className=" hover:text-green-600 ">
                     My Profile
                   </Link>
                 </li>
                 <li>
-                  <Link to="pw_changes" className=" hover:tw-text-green-600 ">
+                  <Link to="pw_changes" className=" hover:text-green-600 ">
                     Password Changes
                   </Link>
                 </li>
                 <li>
-                  <Link to="dashboard" className=" hover:tw-text-green-600 ">
+                  <Link to="dashboard" className=" hover:text-green-600 ">
                     My Payment Options
                   </Link>
                 </li>
@@ -49,13 +49,13 @@ function MyAccount() {
         </div>
 
         {/* right content side */}
-        <div className="tw-flex tw-flex-col tw-w-[1020px] tw-h-[568px]">
+        <div className="flex flex-col w-[1020px] h-[568px]">
           {/* welcome */}
-          <div className="tw-self-end">Xin chào, {fullName}</div>
+          <div className="self-end">Xin chào, {fullName}</div>
 
           {/* content */}
-          <div className="tw-h-full tw-mt-11 tw-pl-16 ">
-            <div className="tw-h-full tw-shadow-xl tw-shadow-indigo-500/40">
+          <div className="h-full mt-11 pl-16 ">
+            <div className="h-full shadow-xl shadow-indigo-500/40">
               <Outlet />
             </div>
           </div>

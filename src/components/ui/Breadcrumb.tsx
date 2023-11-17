@@ -1,15 +1,15 @@
 function Breadcrumb() {
   return (
     <>
-      <nav className="tw-flex tw-h-[24px]" aria-label="Breadcrumb">
-        <ol className="tw-inline-flex tw-items-center tw-space-x-1 md:tw-space-x-3">
-          <li className="tw-inline-flex tw-items-center">
+      <nav className="flex h-[24px]" aria-label="Breadcrumb">
+        <ol className="inline-flex items-center space-x-1 md:space-x-3">
+          <li className="inline-flex items-center">
             <a
               href="#"
-              className="tw-inline-flex tw-items-center tw-text-sm tw-font-medium tw-text-gray-700 hover:tw-text-blue-600 dark:tw-text-gray-400 dark:hover:tw-text-white"
+              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
             >
               <svg
-                className="tw-w-3 tw-h-3 tw-mr-2.5"
+                className="w-3 h-3 mr-2.5"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -21,9 +21,9 @@ function Breadcrumb() {
             </a>
           </li>
           <li>
-            <div className="tw-flex tw-items-center">
+            <div className="flex items-center">
               <svg
-                className="tw-w-3 tw-h-3 tw-text-gray-400 tw-mx-1"
+                className="w-3 h-3 text-gray-400 mx-1"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -39,16 +39,16 @@ function Breadcrumb() {
               </svg>
               <a
                 href="#"
-                className="tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-700 hover:tw-text-blue-600 md:tw-ml-2 dark:tw-text-gray-400 dark:hover:tw-text-white"
+                className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"
               >
                 Projects
               </a>
             </div>
           </li>
           <li aria-current="page">
-            <div className="tw-flex tw-items-center">
+            <div className="flex items-center">
               <svg
-                className="tw-w-3 tw-h-3 tw-text-gray-400 tw-mx-1"
+                className="w-3 h-3 text-gray-400 mx-1"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -62,7 +62,7 @@ function Breadcrumb() {
                   d="m1 9 4-4-4-4"
                 />
               </svg>
-              <span className="tw-ml-1 tw-text-sm tw-font-medium tw-text-gray-500 md:tw-ml-2 dark:tw-text-gray-400">
+              <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
                 Flowbite
               </span>
             </div>

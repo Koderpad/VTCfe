@@ -4,31 +4,31 @@ import styled from "styled-components";
 function Nav_link() {
   return (
     <>
-      <div className="tw-flex tw-gap-1">
+      <div className="flex gap-1">
         {/* account */}
         <StyledToolTip>
           {/* account container */}
-          <div className="tw-flex tw-cursor-pointer hover:">
+          <div className="flex cursor-pointer hover:">
             {/* avatar */}
-            <div className="tw-w-10 tw-h-10 tw-rounded-full tw-overflow-hidden">
+            <div className="w-10 h-10 rounded-full overflow-hidden">
               <img
                 src="https://down-vn.img.susercontent.com/file/vn-11134226-7r98o-ln4gdiy4aasz87_tn"
-                className="tw-w-full tw-h-full tw-object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
 
             {/* username */}
             <div
-              className="tw-flex tw-items-center tw-text-white tw-outline-none
-            tw-text-xl tw-font-medium tw-p-1
+              className="flex items-center text-white outline-none
+            text-xl font-medium p-1
             "
             >
               nguyenquoctrung999
             </div>
           </div>
           {/* <Tooltip /> */}
-          <div className="tooltipContent tw-flex tw-invisible ">
-            <div className="tw-w-0 tw-h-0 tw-relative ">
+          <div className="tooltipContent flex invisible ">
+            <div className="w-0 h-0 relative ">
               <ContentTooltip />
             </div>
           </div>

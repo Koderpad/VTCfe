@@ -48,23 +48,23 @@
 
 export default function Example() {
   return (
-    <main className="tw-grid tw-min-h-full tw-place-items-center tw-bg-white tw-px-6 tw-py-24 sm:tw-py-32 lg:tw-px-8">
-      <div className="tw-text-center">
-        <p className="tw-text-base tw-font-semibold tw-text-indigo-600">404</p>
-        <h1 className="tw-mt-4 tw-text-3xl tw-font-bold tw-tracking-tight tw-text-gray-900 sm:tw-text-5xl">
+    <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <div className="text-center">
+        <p className="text-base font-semibold text-indigo-600">404</p>
+        <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           Page not found
         </h1>
-        <p className="tw-mt-6 tw-text-base tw-leading-7 tw-text-gray-600">
+        <p className="mt-6 text-base leading-7 text-gray-600">
           Sorry, we couldn’t find the page you’re looking for.
         </p>
-        <div className="tw-mt-10 tw-flex tw-items-center tw-justify-center tw-gap-x-6">
+        <div className="mt-10 flex items-center justify-center gap-x-6">
           <a
             href="#"
-            className="tw-rounded-md tw-bg-indigo-600 tw-px-3.5 tw-py-2.5 tw-text-sm tw-font-semibold tw-text-white tw-shadow-sm hover:tw-bg-indigo-500 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-indigo-600"
+            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Go back home
           </a>
-          <a href="#" className="tw-text-sm tw-font-semibold tw-text-gray-900">
+          <a href="#" className="text-sm font-semibold text-gray-900">
             Contact support <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
