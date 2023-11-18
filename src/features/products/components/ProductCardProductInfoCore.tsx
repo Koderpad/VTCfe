@@ -171,6 +171,12 @@ export const ProductCardProductInfoCore = () => {
           </div>
         </div>
       </div>
+
+
+
+
+
+      
       {/* quantity */}
       <div className="w-auto mb-8 ">
         <label

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Form from "../../../components/ui-styled/Form";
 import FormRowVertical from "../../../components/ui-styled/FormRowVertical";
 import Input from "../../../components/ui-styled/Input";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useRef, useState } from "react";
@@ -20,6 +20,9 @@ function LoginForm() {
   // const errRef = useRef();
   // const errRef = useRef(null);
   const errRef = useRef<HTMLInputElement>(null);
+      const navigate = useNavigate();
+      const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +30,7 @@ function LoginForm() {
 
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value);
@@ -46,7 +49,17 @@ function LoginForm() {
 
       setUsername("");
       setPassword("");
-      navigate("/user/account");
+      //Check user role and navigate to the corresponding page
+      if (customerDTO.roles.includes("ADMIN")) {
+        navigate("/admin", { replace: true });
+      } else if (customerDTO.roles.includes("CUSTOMER")) {
+        navigate("/user/account", { replace: true });
+      } else {
+        navigate(from, { replace: true });
+      }
+      // navigate(from, { replace: true });
+
+      // navigate("/user/account");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error = err as Error;
