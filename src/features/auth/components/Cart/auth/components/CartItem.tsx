@@ -1,6 +1,70 @@
 import React, { useState } from 'react';
-import VoucherForm from './VoucherForm';
+// import VoucherForm from './VoucherForm';
 import products from './ProductData';
+import VoucherForm from './VoucherForm';
+
+// const VoucherForm = () => {
+//   const [voucherCode, setVoucherCode] = useState('');
+//   const [showVoucherForm, setShowVoucherForm] = useState(false);
+
+//   const handleVoucherChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+//     setVoucherCode(e.target.value);
+//   };
+
+//   const handleApplyVoucher = () => {
+//     // Xử lý logic khi áp dụng voucher
+//     console.log(`Applying voucher code: ${voucherCode}`);
+//     // Thêm logic xử lý voucher ở đây
+//   };
+
+//   const handleToggleVoucherForm = () => {
+//     setShowVoucherForm(!showVoucherForm);
+//   };
+
+//   return (
+//     <div className="tw-flex ">
+//       <div className="tw-flex-shrink-0 tw-mr-2">
+//         <div className="tw-flex items-center">
+//           {/* Hình ảnh voucher (thay thế đường dẫn bằng đường dẫn hình ảnh của bạn) */}
+//           <img
+//             src="./public/voucher.png"
+//             alt="Voucher Icon"
+//             className="tw-w-5 tw-h-5 tw-mr-1"
+//           />
+//           <span
+//             onClick={handleToggleVoucherForm}
+//             className="tw-cursor-pointer tw-text-blue-500"
+//           >
+//             Xem voucher
+//           </span>
+//         </div>
+//       </div>
+//       {showVoucherForm && (
+//         <div className="tw-flex-grow tw-ml-0"> {/* Thêm class `tw-ml-0` để canh lề trái */}
+//           <div>
+//             <input
+//               type="text"
+//               placeholder="Enter voucher code"
+//               value={voucherCode}
+//               onChange={handleVoucherChange}
+//               className="tw-py-2 tw-px-3 tw-w-full tw-border tw-rounded tw-outline-none"
+//             />
+//           </div>
+//           <div className="tw-mt-2">
+//             <button
+//               onClick={handleApplyVoucher}
+//               className="tw-bg-blue-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-lg"
+//             >
+//               Apply
+//             </button>
+//           </div>
+//           {/* Hiển thị danh sách item voucher dưới đây */}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
 
 interface Product {
     id: number;
@@ -20,7 +84,11 @@ interface Product {
         return acc;
       }, {} as { [productId: number]: number })
     );
-  
+    const [isHoveringVoucher, setIsHoveringVoucher] = useState(false);
+
+      const handleToggleVoucherForm = () => {
+        setShowVoucherForm(!setShowVoucherForm);
+      }
     const toggleShopCheckbox = () => {
       setShopCheckboxChecked(!isShopCheckboxChecked);
       if (!isShopCheckboxChecked) {
@@ -120,7 +188,7 @@ interface Product {
             ))}
           </tbody>
         </table>
-        <div>
+        <div className='tw-w-40'>
           <VoucherForm />
         </div>
       </div>
@@ -129,3 +197,7 @@ interface Product {
 };
 
 export default CartItem;
+function setShowVoucherForm(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
