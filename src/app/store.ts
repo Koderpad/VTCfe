@@ -17,6 +17,7 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
+import { productApi } from "../features/products/services/productApi.ts";
 
 const persistConfig = {
     key: 'root',
@@ -26,6 +27,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    [productApi.reducerPath]: productApi.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -38,7 +40,7 @@ export const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat(apiSlice.middleware),
+        }).concat([apiSlice.middleware,productApi.middleware]),
     devTools: true
 });
 

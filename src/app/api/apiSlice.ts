@@ -8,7 +8,7 @@ import { RootState } from "../../app/store"; // Import the type of your store's 
 import { BASE_URL_VTC } from "../../constants/urls.js";
 import { logOut, setCredentials } from "../../features/auth/authSlice.js";
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL_VTC,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
