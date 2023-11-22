@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
 import Cart from "./pages/Cart";
 import { MyProfile, PasswordChanges } from "./features/userManagement";
+import Address from "./pages/Address";
+
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="address" element={<Address />}/>
 
         {/* user/account */}
         <Route path="user/account" element={<MyAccount />}>
