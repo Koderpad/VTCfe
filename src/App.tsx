@@ -11,6 +11,7 @@ import RequireAuth from "./features/auth/RequireAuth";
 import AdminPage from "./pages/admins/AdminPage";
 import VendorPage from "./pages/vendors/VendorPage";
 import Unauthorized from "./pages/Unauthorized";
+import { ProductsByCategory } from "./pages/ProductsByCategory";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -22,11 +23,10 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="product" element={<DetailProduct />} />
+        <Route path="products" element={<ProductsByCategory />} />
 
         {/* private routes */}
-        <Route element={<RequireAuth allowedRoles={["CUSTOMER", "VENDOR"]} />
-          }
-        >
+        <Route element={<RequireAuth allowedRoles={["CUSTOMER", "VENDOR"]} />}>
           {/* user/account */}
           <Route path="user/account" element={<MyAccount />}>
             <Route path="profile" element={<MyProfile />} />
