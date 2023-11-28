@@ -1,0 +1,21 @@
+name: Qodana
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - dev
+      - dev-v1
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@v2023.2
+        env:
+          QODANA_TOKEN: ${{ secrets.eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJvcmdhbml6YXRpb24iOiJBTk9RRyIsInByb2plY3QiOiJBUm5YRSIsInRva2VuIjoiejhkTUoifQ.voIdv1P-sTFX0WaAfkqCEnqD_IMbRGuELeCjaxr3IMQ }}
