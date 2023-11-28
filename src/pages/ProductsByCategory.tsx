@@ -1,6 +1,6 @@
 //create ProductDetail page
 
-import { FilterAndProducts } from "../features/products/components/ProductsBy/Category/FilterAndProducts";
+import { FilterAndProducts } from "../features/common/products/components/ProductsBy/Category/FilterAndProducts";
 import Footer_v1 from "../layouts/footers/Footer_v1";
 import Header_not_fixed from "../layouts/headers/Header_not_fixed";
 

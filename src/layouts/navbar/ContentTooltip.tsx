@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logOut } from "../../features/auth/authSlice";
+import { logOut } from "../../features/common/auth/authSlice";
 import React from "react";
 import { persistor } from "../../app/store";
 

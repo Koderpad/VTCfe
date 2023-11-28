@@ -1,4 +1,4 @@
-import RegisForm_fix from "../features/auth/components/RegisForm_fix.js";
+import RegisForm_fix from "../features/common/auth/components/RegisForm_fix.js";
 
 function Register_rightSide() {
   return (

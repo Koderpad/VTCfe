@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {useSelector, useDispatch, TypedUseSelectorHook} from "react-redux";
 import {apiSlice} from "./api/apiSlice.js";
-import authReducer from "../features/auth/authSlice.ts";
+import authReducer from "../features/common/auth/authSlice.ts";
 import storage                          from 'redux-persist/lib/storage'
 // import { persistReducer, persistStore } from 'redux-persist'
 import { combineReducers }              from '@reduxjs/toolkit'
@@ -17,7 +17,7 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
-import { productApi } from "../features/products/services/productApi.ts";
+import { productApi } from "../features/common/products/services/productApi.ts";
 
 const persistConfig = {
     key: 'root',

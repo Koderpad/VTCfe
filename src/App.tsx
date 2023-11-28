@@ -5,13 +5,14 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
-import { MyProfile, PasswordChanges } from "./features/userManagement";
+import { MyProfile, PasswordChanges } from "./features/common/userManagement";
 import { DetailProduct } from "./pages/DetailProduct";
-import RequireAuth from "./features/auth/RequireAuth";
+import RequireAuth from "./features/common/auth/RequireAuth";
 import AdminPage from "./pages/admins/AdminPage";
 import VendorPage from "./pages/vendors/VendorPage";
 import Unauthorized from "./pages/Unauthorized";
 import { ProductsByCategory } from "./pages/ProductsByCategory";
+import { AddProduct } from "./pages/vendors/AddProduct";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="product" element={<DetailProduct />} />
         <Route path="products" element={<ProductsByCategory />} />
+        <Route path="product/new" element={<AddProduct/>} />
 
         {/* private routes */}
         <Route element={<RequireAuth allowedRoles={["CUSTOMER", "VENDOR"]} />}>

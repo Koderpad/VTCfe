@@ -1,6 +1,6 @@
 //create ProductDetail page
 
-import { ProductCard } from "../features/products/components/ProductDetail/ProductCard";
+import { ProductCard } from "../features/common/products/components/ProductDetail/ProductCard";
 import Footer_v1 from "../layouts/footers/Footer_v1";
 import Header_not_fixed from "../layouts/headers/Header_not_fixed";
 
