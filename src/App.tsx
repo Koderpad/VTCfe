@@ -8,6 +8,7 @@ import MyAccount from "./pages/MyAccount";
 import Cart from "./pages/Cart";
 import { MyProfile, PasswordChanges } from "./features/userManagement";
 import Address from "./pages/Address";
+import PayMent from "./pages/PayMent";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="cart" element={<Cart />} />
         <Route path="address" element={<Address />}/>
+        <Route path="payment" element={<PayMent />}/>
 
         {/* user/account */}
         <Route path="user/account" element={<MyAccount />}>
