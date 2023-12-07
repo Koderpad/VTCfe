@@ -1,8 +1,21 @@
-import Footer_v1 from "../../../layouts/footers/Footer_v1";
-import Header_v1 from "../../../layouts/headers/Header_v1";
-import CartItem from "./Cart/auth/components/CartItem";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Footer_v1 from '../../../layouts/footers/Footer_v1';
+import Header_v1 from '../../../layouts/headers/Header_v1';
+import Vouchers from './vouchers';
+import AddressForm from './AddressForm';
 
 function PayMentForm() {
+  const navigate = useNavigate();
+  const navigate1 = useNavigate();
+  const [showVoucherForm, setShowVoucherForm] = useState(false);
+ 
+  const handleToggleVoucherForm = () => {
+    setShowVoucherForm(!showVoucherForm);
+  };
+  const handleNavigateToVouchers = () => {
+    navigate('src/features/auth/components/vouchers.tsx');
+  };
   return (
     <>
       <div className="tw-bg-gray">
@@ -16,10 +29,9 @@ function PayMentForm() {
             style={{ width: "50px", height: "50px" }}
           />
 
-          {/* Text with vertical line */}
           <div className="tw-flex items-center">
             <span className="tw-whitespace-nowrap">VTC</span>
-            {/* Vertical line */}
+
             <div className="tw-h-10 tw-w-1 tw-bg-black tw-ml-4"></div>
             <span className="tw-whitespace-nowrap tw-ml-4">Thanh Toán</span>
           </div>
@@ -36,8 +48,12 @@ function PayMentForm() {
                         <span className="tw-text-gray-700 tw-text-2xl font-medium tw-ml-16">số 1 võ văn ngân tỉnh lâm đồng </span>
                     </div>
                     <div className="tw-flex tw-items-center tw-justify-end tw-flex-grow ">
-                        <button className="tw-bg-blue-500 tw-hover:bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded focus:tw-outline-none focus:tw-shadow-outline" type="button">
-                        Thay đổi
+                        <button
+                            className="tw-bg-blue-500 tw-hover:bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded focus:tw-outline-none focus:tw-shadow-outline"
+                            type="button"
+
+                        >
+                            Thay đổi
                         </button>
                     </div>
                 </div>
@@ -82,32 +98,52 @@ function PayMentForm() {
 
               {/* Voucher Section */}
 
-            <div className="tw-flex tw-justify-between tw-px-4 tw-items-center tw-mb-4">
-                <div className="tw-flex items-center">
+              <div className="tw-flex tw-justify-between tw-px-4 tw-items-center tw-mb-4">
+                    <div className="tw-flex items-center">
                     {/* Placeholder icon, replace the src with the actual path to your icon */}
                     <img
-                    src="public\discount-voucher-outline-icon-thin-line-black-discount-voucher-icon-vector.jpg"
-                    alt="Voucher Icon"
-                    className="tw-mr-2"
-                    style={{ width: '30px', height: '28px' }}
+                        src="public\discount-voucher-outline-icon-thin-line-black-discount-voucher-icon-vector.jpg"
+                        alt="Voucher Icon"
+                        className="tw-mr-2"
+                        style={{ width: '30px', height: '28px' }}
                     />
                     <span className="tw-text-red-500">Voucher của shop</span>
+                    </div>
+                    <button
+                    className="tw-text-blue-500 hover:tw-underline cursor-pointer"
+                    onClick={() => {
+                        handleToggleVoucherForm();
+                        // handleNavigateToVouchers(); 
+                    }}
+                    >
+                    Chọn voucher
+                    </button>
                 </div>
-                <span className="tw-text-blue-500">Chọn voucher</span>
-            </div>
-            <div className="tw-flex tw-justify-between tw-px-4 tw-items-center tw-mb-4">
-                <div className="tw-flex items-center">
-                    {/* Placeholder icon, replace the src with the actual path to your icon */}
-                    <img
-                    src="public\discount-voucher-outline-icon-thin-line-black-discount-voucher-icon-vector.jpg"
-                    alt="Voucher Icon"
-                    className="tw-mr-2"
-                    style={{ width: '30px', height: '28px' }}
-                    />
-                    <span className="tw-text-red-500">Voucher VTC</span>
-                </div>
-                <span className="tw-text-blue-500">Chọn voucher</span>
-            </div>
+
+                {showVoucherForm && <Vouchers onClose={function (): void {
+                      throw new Error('Function not implemented.');
+                  } } />}
+                <div className="tw-flex tw-justify-between tw-px-4 tw-items-center tw-mb-4">
+                            <div className="tw-flex items-center">
+                            {/* Placeholder icon, replace the src with the actual path to your icon */}
+                            <img
+                                src="public\discount-voucher-outline-icon-thin-line-black-discount-voucher-icon-vector.jpg"
+                                alt="Voucher Icon"
+                                className="tw-mr-2"
+                                style={{ width: '30px', height: '28px' }}
+                            />
+                            <span className="tw-text-red-500">Voucher VTC</span>
+                            </div>
+                            <button
+                            className="tw-text-blue-500 hover:tw-underline cursor-pointer"
+                            onClick={() => {
+                                handleToggleVoucherForm();
+                                // handleNavigateToVouchers(); 
+                            }}
+                            >
+                            Chọn voucher
+                            </button>
+                        </div>
         </div>
         
 

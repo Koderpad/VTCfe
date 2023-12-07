@@ -2,22 +2,24 @@
 import React from "react";
 import PayMentForm from "../features/auth/components/PayMentForm";
 import styled from "styled-components";
+import Vouchers from "../features/auth/components/vouchers";
 
 function PayMent() {
   return (
     <PayMentPageContainer>
-        <div>
             <PayMentForm />
-        </div>
-
     </PayMentPageContainer>
+           
   );
 }
 
 const PayMentPageContainer = styled.div`
   height: 1000px;
-  background : #EEEEEE;
-  position: relative;   
+  background : #ffff;
+     
 `;
 
 export default PayMent;
+
+
+
