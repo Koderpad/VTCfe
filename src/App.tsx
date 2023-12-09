@@ -13,6 +13,7 @@ import VendorPage from "./pages/vendors/VendorPage";
 import Unauthorized from "./pages/Unauthorized";
 import { ProductsByCategory } from "./pages/ProductsByCategory";
 import { AddProduct } from "./pages/vendors/AddProduct";
+import Cart from "./pages/Cart";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -22,14 +23,26 @@ function App() {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+
+        {/* LẤY LẠI MẬT KHẨU
+            YÊU THÍCH CON CẶC
+            THEO DÕI CỬA HÀNG
+            ĐƠN HÀNG
+            CART
+            THANH TOÁN
+            QUẢN LÝ MÃ GIẢM GIÁ PRROFILE
+            ĐÁNH GIÁ VÀ COMMENT
+        */}
+
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="product" element={<DetailProduct />} />
         <Route path="products" element={<ProductsByCategory />} />
-        <Route path="product/new" element={<AddProduct/>} />
+        <Route path="product/new" element={<AddProduct />} />
 
         {/* private routes */}
         <Route element={<RequireAuth allowedRoles={["CUSTOMER", "VENDOR"]} />}>
           {/* user/account */}
+          <Route path="cart" element={<Cart />} />
           <Route path="user/account" element={<MyAccount />}>
             <Route path="profile" element={<MyProfile />} />
             <Route path="pw_changes" element={<PasswordChanges />} />

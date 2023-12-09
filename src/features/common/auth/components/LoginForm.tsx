@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Form from "../../../components/ui-styled/Form";
-import FormRowVertical from "../../../components/ui-styled/FormRowVertical";
-import Input from "../../../components/ui-styled/Input";
+import Form from "../../../../components/ui-styled/Form";
+import FormRowVertical from "../../../../components/ui-styled/FormRowVertical";
+import Input from "../../../../components/ui-styled/Input";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
