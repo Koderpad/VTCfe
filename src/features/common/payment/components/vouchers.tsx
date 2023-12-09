@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const OuterDiv = styled.div`
   position: fixed;
@@ -58,59 +58,63 @@ const Vouchers: React.FC<VouchersProps> = ({ onClose }) => {
     onClose();
   };
   const voucherData = [
-    { id: 1, name: 'Voucher 1', image: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Voucher 2', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Voucher 3', image: 'https://via.placeholder.com/150' },
+    { id: 1, name: "Voucher 1", image: "https://via.placeholder.com/150" },
+    { id: 2, name: "Voucher 2", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
     // Add more voucher data as needed
   ];
 
   return (
     <>
-    {isVisible && (
-    <OuterDiv>
-      <InnerDiv>
-      <CloseButton onClick={handleOnClose}>x</CloseButton>
-        <div className="tw-border tw-border-solid  tw-z-50">
-          {/* Form nhập voucher */}
-          <div className='tw-flex tw-flex-col'>
-            <div className=" tw-p-4 tw-rounded-md tw-mb-4 tw-mt-2">
-              <div className="tw-flex tw-flex-row tw-items-center tw-mb-2">
-                <input
-                  type="text"
-                  placeholder="Nhập mã giảm giá"
-                  className="tw-py-2 tw-px-3 tw-border tw-rounded tw-outline-none tw-mr-2" />
-                <button
-                  className="tw-bg-blue-500 tw-text-white tw-py-2 tw-px-4 tw-rounded-lg"
-                >
-                  Apply
-                </button>
+      {isVisible && (
+        <OuterDiv>
+          <InnerDiv>
+            <CloseButton onClick={handleOnClose}>x</CloseButton>
+            <div className="border border-solid  z-50">
+              {/* Form nhập voucher */}
+              <div className="flex flex-col">
+                <div className=" p-4 rounded-md mb-4 mt-2">
+                  <div className="flex flex-row items-center mb-2">
+                    <input
+                      type="text"
+                      placeholder="Nhập mã giảm giá"
+                      className="py-2 px-3 border rounded outline-none mr-2"
+                    />
+                    <button className="bg-blue-500 text-white py-2 px-4 rounded-lg">
+                      Apply
+                    </button>
+                  </div>
+                </div>
+                <div className="max-h-80 overflow-y-auto">
+                  {/* Duyệt và hiển thị các khung voucher */}
+                  {voucherData.map((voucher) => (
+                    <VoucherItem key={voucher.id}>
+                      <VoucherImage
+                        src={voucher.image}
+                        alt={`Voucher ${voucher.id}`}
+                      />
+                      <p className="justify-center mt-8 ml-4">{voucher.name}</p>
+                      <VoucherCheckbox
+                        type="checkbox"
+                        className="ml-36 h-4 w-4"
+                      />
+                    </VoucherItem>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className='tw-max-h-80 tw-overflow-y-auto'>
-              {/* Duyệt và hiển thị các khung voucher */}
-              {voucherData.map((voucher) => (
-                <VoucherItem key={voucher.id}>
-                  <VoucherImage src={voucher.image} alt={`Voucher ${voucher.id}`} />
-                  <p className="tw-justify-center tw-mt-8 tw-ml-4">{voucher.name}</p>
-                  <VoucherCheckbox type="checkbox" className="tw-ml-36 tw-h-4 tw-w-4" />
-                </VoucherItem>
-              ))}
-            </div>
-          </div>
-        </div>
-  
-      </InnerDiv>
-    </OuterDiv>
-  )}
-  </>
+          </InnerDiv>
+        </OuterDiv>
+      )}
+    </>
   );
-}
+};
 
 export default Vouchers;
