@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import AddForm from "./AddForm";
 
-interface AddressProps {
+export interface AddressProps {
   name: string;
   phoneNumber: string;
   address: string;
@@ -58,11 +59,7 @@ const Address: React.FC<AddressProps> = ({ name, phoneNumber, address }) => {
 };
 const AddressForm = () => {
   const [showForm, setShowForm] = useState(false);
-  const [province, setProvince] = useState("");
-  const [district, setDistrict] = useState("");
-  const [address, setAddress] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [listAddress, setListAddress] = useState<AddressProps[]>([]);
 
   const handleShowForm = () => {
     setShowForm(true);
@@ -70,26 +67,6 @@ const AddressForm = () => {
 
   const handleCloseForm = () => {
     setShowForm(false);
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    // Do something with the form data
-    console.log({
-      province,
-      district,
-      address,
-      fullName,
-      phoneNumber,
-    });
-
-    // Reset form fields
-    setProvince("");
-    setDistrict("");
-    setAddress("");
-    setFullName("");
-    setPhoneNumber("");
   };
 
   return (
@@ -109,104 +86,12 @@ const AddressForm = () => {
           ) : null}
         </div>
         {showForm && (
-          <div className="fixed inset-0 flex items-center justify-center">
-            <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 border-2 border-gray-400">
-              <form onSubmit={handleSubmit} className="mg-2 ">
-                {/* Form fields */}
-                <div className="mb-4">
-                  <label
-                    className="block mb-2 font-bold text-gray-700"
-                    htmlFor="province"
-                  >
-                    Tỉnh:
-                  </label>
-                  <input
-                    type="text"
-                    id="province"
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    value={province}
-                    onChange={(e) => setProvince(e.target.value)}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block mb-2 font-bold text-gray-700"
-                    htmlFor="district"
-                  >
-                    Huyện:
-                  </label>
-                  <input
-                    type="text"
-                    id="district"
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block mb-2 font-bold text-gray-700"
-                    htmlFor="address"
-                  >
-                    Địa chỉ nhà:
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block mb-2 font-bold text-gray-700"
-                    htmlFor="fullName"
-                  >
-                    Họ và Tên:
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block mb-2 font-bold text-gray-700"
-                    htmlFor="phoneNumber"
-                  >
-                    Số điện thoại:
-                  </label>
-                  <input
-                    type="text"
-                    id="phoneNumber"
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </div>
-                {/* Other form fields */}
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    className="text-gray-500 hover:text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-                    onClick={handleCloseForm}
-                  >
-                    Đóng
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <AddForm
+            handleCloseForm={handleCloseForm}
+            showForm={showForm}
+            listAddress={listAddress}
+            setListAddress={setListAddress}
+          />
         )}
       </div>
       <div className="mt-4">

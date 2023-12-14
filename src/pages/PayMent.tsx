@@ -1,8 +1,8 @@
 // PayMent.tsx
 import React from "react";
-import PayMentForm from "../features/auth/components/PayMentForm";
+
 import styled from "styled-components";
-import Vouchers from "../features/auth/components/vouchers";
+import PayMentForm from "../features/common/payment/components/PayMentForm";
 
 function PayMent() {
   return (

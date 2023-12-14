@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.6.2",
     "preline": "^2.0.0",
     "react": "^18.2.0",
     "react-advanced-cropper": "^0.19.4",

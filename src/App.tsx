@@ -14,6 +14,8 @@ import Unauthorized from "./pages/Unauthorized";
 import { ProductsByCategory } from "./pages/ProductsByCategory";
 import { AddProduct } from "./pages/vendors/AddProduct";
 import Cart from "./pages/Cart";
+import Address from "./pages/Address";
+import PayMent from "./pages/PayMent";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -23,7 +25,8 @@ function App() {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-
+        <Route path="address" element={<Address />} />
+        <Route path="payment" element={<PayMent />} />
         {/* LẤY LẠI MẬT KHẨU
             YÊU THÍCH CON CẶC
             THEO DÕI CỬA HÀNG

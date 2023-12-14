@@ -1,5 +1,6 @@
-import AddressForm from "../features/auth/components/AddressForm";
+
 import styled, { css } from "styled-components";
+import AddressForm from "../features/common/address/components/AddressForm";
 function address() {
     return(
         <AddressPageContainer>

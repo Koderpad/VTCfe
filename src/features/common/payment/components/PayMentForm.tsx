@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Footer_v1 from "../../../layouts/footers/Footer_v1";
-import Header_v1 from "../../../layouts/headers/Header_v1";
+
+
 import Vouchers from "./vouchers";
-import AddressForm from "./AddressForm";
+import Header_v1 from "../../../../layouts/headers/Header_v1";
+import Footer_v1 from "../../../../layouts/footers/Footer_v1";
 
 function PayMentForm() {
   const navigate = useNavigate();
