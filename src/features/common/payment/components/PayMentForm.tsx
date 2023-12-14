@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 
 
 import Vouchers from "./vouchers";
 import Header_v1 from "../../../../layouts/headers/Header_v1";
 import Footer_v1 from "../../../../layouts/footers/Footer_v1";
+=======
+import Footer_v1 from "../../../../layouts/footers/Footer_v1";
+import Header_v1 from "../../../../layouts/headers/Header_v1";
+import Vouchers from "./vouchers";
+import AddressForm from "../../address/components/AddressForm";
+>>>>>>> 08b400b55e33385eb39654a29715ea063247804b
 
 function PayMentForm() {
   const navigate = useNavigate();
-  const navigate1 = useNavigate();
   const [showVoucherForm, setShowVoucherForm] = useState(false);
 
   const handleToggleVoucherForm = () => {
     setShowVoucherForm(!showVoucherForm);
   };
-  const handleNavigateToVouchers = () => {
-    navigate("src/features/auth/components/vouchers.tsx");
-  };
+
   return (
     <>
       <div className="bg-gray">

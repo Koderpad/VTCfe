@@ -1,6 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const ProductCardProductInfoCore = () => {
+export const ProductCardProductInfoCore = ({ data }) => {
+  console.log("data attribute: ", data);
+
+  const getAttributes = () => {
+    const attributes = [];
+
+    // Check if data.productVariantDTOs is defined
+    if (data && data.productVariantDTOs) {
+      // Loop through each product variant
+      data.productVariantDTOs.forEach((variant) => {
+        // Check if variant.attributeDTOs is defined
+        if (variant.attributeDTOs) {
+          console.log("variant.attributeDTOs", variant.attributeDTOs);
+          // Loop through each attribute in the variant
+          variant.attributeDTOs.forEach((attribute) => {
+            // Check if the attribute is not already in the array
+            const existingAttribute = attributes.find(
+              (a) => a.name === attribute.name
+            );
+
+            // If not, add it to the array
+            if (!existingAttribute) {
+              attributes.push({
+                name: attribute.name,
+                values: [attribute.value],
+              });
+            } else {
+              // If already exists, add the value to the existing attribute
+              existingAttribute.values.push(attribute.value);
+            }
+
+            console.log("exist attributes ", existingAttribute);
+          });
+        }
+      });
+    }
+
+    return attributes;
+  };
+  const attributes = getAttributes();
+  useEffect(() => {
+    // getAttributes();
+    const attributes = getAttributes();
+    console.log("attributes", attributes);
+  }, []);
+
+  // Inside your component
+
   const buttonLabels = [
     "1 TB",
     "2 TB",
@@ -72,7 +119,27 @@ export const ProductCardProductInfoCore = () => {
   };
   return (
     <>
-      <div className="mb-8">
+      {attributes.map((attribute, index) => (
+        <div key={index} className="mb-8 ">
+          <h2 className="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
+            {attribute.name}
+          </h2>
+          <div>
+            <div className="flex flex-wrap -mb-2 overflow-y-auto h-32">
+              {attribute.values.map((value, index) => (
+                <button
+                  key={index}
+                  className="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:border-blue-400 hover:text-blue-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400"
+                >
+                  {value}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* <div className="mb-8">
         <h2 className="w-[5rem] pb-1 mb-4 text-2xl font-bold border-b border-blue-300">
           Colors
         </h2>
@@ -87,8 +154,8 @@ export const ProductCardProductInfoCore = () => {
             <div className="w-6 h-6 bg-blue-200 rounded-full"></div>
           </button>
         </div>
-      </div>
-      <div className="mb-8 ">
+      </div> */}
+      {/* <div className="mb-8 ">
         <h2 className="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
           RAM
         </h2>
@@ -104,8 +171,8 @@ export const ProductCardProductInfoCore = () => {
             ))}
           </div>
         </div>
-      </div>
-      {divCount.map((_, index) => (
+      </div> */}
+      {/* {divCount.map((_, index) => (
         <div key={index} className="mb-8 ">
           <h2 className="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
             RAM
@@ -123,17 +190,16 @@ export const ProductCardProductInfoCore = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
       {/* fix xong inline */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <div className="mb-6 inline-block border-b border-blue-300 dark:border-gray-600">
           <h2 className="pb-1 text-xl font-semibold  dark:text-gray-400">
-            StorageStorageStorageStorage
+            Storage
           </h2>
         </div>
         <div>
           <div className="flex flex-wrap -mb-2 overflow-y-auto max-h-32">
-            {/* <div className="flex flex-wrap -mx-2 -mb-2"> */}
             {buttonLabels.map((label, index) => (
               <button
                 key={index}
@@ -150,33 +216,9 @@ export const ProductCardProductInfoCore = () => {
                 {label}
               </button>
             ))}
-            {/* <button
-                              onClick={() => handleClick("256 GB")}
-                              className="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:border-blue-400 dark:border-gray-400 hover:text-blue-600 dark:hover:border-gray-300 dark:text-gray-400"
-                            >
-                              256 GB
-                            </button>
-                            <button
-                              onClick={() => handleClick("112 GB")}
-                              className="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:border-blue-400 hover:text-blue-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400"
-                            >
-                              112 GB
-                            </button>
-                            <button
-                              onClick={() => handleClick("1 TB")}
-                              className="px-4 py-2 mb-2 mr-2 font-semibold border rounded-md hover:border-blue-400 hover:text-blue-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400"
-                            >
-                              1 TB
-                            </button> */}
           </div>
         </div>
-      </div>
-
-
-
-
-
-      
+      </div> */}
       {/* quantity */}
       <div className="w-auto mb-8 ">
         <label

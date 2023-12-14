@@ -20,8 +20,8 @@ function LoginForm() {
   // const errRef = useRef();
   // const errRef = useRef(null);
   const errRef = useRef<HTMLInputElement>(null);
-      const navigate = useNavigate();
-      const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const [username, setUsername] = useState("");
@@ -114,7 +114,7 @@ function LoginForm() {
       </p>
 
       <Label_forgot>
-        <Link to="#">Forgot Your Password?</Link>
+        <Link to="/forgot-password">Forgot Your Password?</Link>
       </Label_forgot>
 
       <ButtonContainer>
