@@ -17,6 +17,8 @@ import {
 import { productApi } from "../features/common/products/services/productApi.ts";
 import productDataInAddProductReducer from "../features/vendor/redux/reducer/addProductSlice.ts";
 import { productsApi } from "../features/common/redux/api/productsApi.ts";
+import { cartApi } from "../features/common/redux/api/cartApi.ts";
+import { categoryApi } from "../features/common/redux/api/categoryApi.tsx";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   productInAddProduct: productDataInAddProductReducer,
   [productsApi.reducerPath]: productsApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });

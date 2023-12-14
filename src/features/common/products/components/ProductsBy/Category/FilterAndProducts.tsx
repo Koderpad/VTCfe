@@ -1,5 +1,7 @@
 import { useGetProductsByCategoryQuery } from "../../../../redux/api/productsApi";
-
+import axios from "axios";
+import { CategoryPart } from "./CategoryPart";
+import { Link } from "react-router-dom";
 type AttributeDTO = {
   attributeId: number;
   name: string;
@@ -45,8 +47,6 @@ export const FilterAndProducts = () => {
     isLoading,
   } = useGetProductsByCategoryQuery(categoryId);
 
-  console.log(products);
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -62,9 +62,8 @@ export const FilterAndProducts = () => {
           <div className="flex flex-wrap mb-24 -mx-3">
             {/* filter */}
             <div className="w-full pr-2 lg:w-1/6 lg:block">
-              <div className="p-4 mb-5 bg-white border border-gray-200 ">
+              {/* <div className="p-4 mb-5 bg-white border border-gray-200 ">
                 <h2 className="text-2xl font-bold dark:text-gray-400">
-                  {" "}
                   Categories
                 </h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
@@ -123,7 +122,8 @@ export const FilterAndProducts = () => {
                 >
                   View More
                 </a>
-              </div>
+              </div> */}
+              <CategoryPart />
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">
                   Product Status
@@ -153,6 +153,7 @@ export const FilterAndProducts = () => {
                     </label>
                   </li>
                 </ul>
+                C
               </div>
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">Brand</h2>
@@ -265,9 +266,6 @@ export const FilterAndProducts = () => {
 
               {/* grid */}
               <div className="grid grid-cols-4 gap-4">
-                {/* {Array.from({ length: 10 }, (_, index) => ( */}
-                {/* {Array.isArray(products) &&
-                  products.map((product: Product) => ( */}
                 {products.productDTOs.map((product: Product) => (
                   <div
                     key={product.productId}
@@ -275,20 +273,20 @@ export const FilterAndProducts = () => {
                   >
                     <div className="border border-gray-300 dark:border-gray-700">
                       <div className="relative bg-gray-200">
-                        <a href="#" className="">
+                        <Link to={`/product/${product.productId}`} className="">
                           <img
                             src={product.image}
                             alt=""
                             className="object-cover w-full h-56 mx-auto "
                           />
-                        </a>
+                        </Link>
                       </div>
                       <div className="p-3 ">
                         <div className="flex items-center justify-between gap-2 mb-2">
                           <h3 className="text-xl font-medium dark:text-gray-400">
                             {product.name}
                           </h3>
-                          <ul className="flex">
+                          {/* <ul className="flex">
                             <li>
                               <a href=" #">
                                 <svg
@@ -345,11 +343,11 @@ export const FilterAndProducts = () => {
                                 </svg>
                               </a>
                             </li>
-                          </ul>
+                          </ul> */}
                         </div>
                         <p className="text-lg ">
                           <span className="text-green-600 dark:text-green-600">
-                            $Khong biet
+                            {product.productVariantDTOs[0].price}đ
                           </span>
                         </p>
                       </div>

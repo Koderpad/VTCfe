@@ -1,13 +1,13 @@
 import { ProductCardProductInfoCore } from "./ProductCardProductInfoCore";
+import { DescripProduct } from "../../../../vendor/products/components/AddProduct/MainContent/BasicInfo/EditRow/DescripProduct";
 
-export const ProductCardProductInfo = () => {
-
+export const ProductCardProductInfo = ({ product }) => {
   return (
     <section className="lg:pl-20">
       <div className="mb-8 ">
         {/* name product */}
-        <h2 className="max-w-xl mb-6 text-5xl font-bold dark:text-gray-400 md:text-4xl">
-          Macbook Pro M130c90
+        <h2 className=" mb-6 text-5xl font-bold dark:text-gray-400 md:text-4xl">
+          {product ? product.name : "Product Name"}
         </h2>
         {/* star, sold */}
         <div className="flex mb-2">
@@ -83,19 +83,19 @@ export const ProductCardProductInfo = () => {
         </div>
         {/* price */}
         <p className="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-          <span>$1500.99</span>
-          <span className="text-base font-normal text-gray-500 line-through dark:text-gray-400">
+          <span>{product ? product.productVariantDTOs[0].price : "0"}đ</span>
+          {/* <span className="text-base font-normal text-gray-500 line-through dark:text-gray-400">
             $1800.99
-          </span>
+          </span> */}
         </p>
-        <p className="max-w-md text-gray-700 dark:text-gray-400">
-          Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem
-          ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum
-          dor amet Lorem ispum dor amet
+        <p className=" text-gray-700 dark:text-gray-400">
+          {product ? product.description : "description"}
         </p>
       </div>
       {/* attribute of product */}
-      <ProductCardProductInfoCore/>
+      <ProductCardProductInfoCore
+        data={product ? product.productVariantDTOs : null}
+      />
       <div className="flex flex-wrap items-center gap-4">
         <button className="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
           Add to cart

@@ -25,7 +25,7 @@ function MyAccount() {
             <div>
               {/* name of list */}
               <h1 className="text-2xl font-bold text-gray-800 mb-1">
-                Manage My Account
+                Quản lý tài khoản
               </h1>
               <ul className="pl-4 ">
                 <li>
@@ -38,9 +38,23 @@ function MyAccount() {
                     Password Changes
                   </Link>
                 </li>
+                {/* space */}
                 <li>
-                  <Link to="dashboard" className=" hover:text-green-600 ">
-                    My Payment Options
+                  <Link
+                    to="favorite-products"
+                    className=" hover:text-green-600 "
+                  >
+                    Sản phẩm yêu thích
+                  </Link>
+                </li>
+                <li>
+                  <Link to="follow-shop" className=" hover:text-green-600 ">
+                    Cửa hàng theo dõi
+                  </Link>
+                </li>
+                <li>
+                  <Link to="voucher-wallet" className=" hover:text-green-600 ">
+                    Kho voucher
                   </Link>
                 </li>
               </ul>
@@ -49,7 +63,8 @@ function MyAccount() {
         </div>
 
         {/* right content side */}
-        <div className="flex flex-col w-[1020px] h-[568px]">
+        <div className="flex flex-col w-[1020px] h-[568px] ">
+          {/* <div className="flex flex-col w-[1020px] h-[568px]"> */}
           {/* welcome */}
           <div className="self-end">Xin chào, {fullName}</div>
 

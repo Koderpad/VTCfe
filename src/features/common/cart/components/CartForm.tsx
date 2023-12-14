@@ -1,11 +1,44 @@
-// import TextIcon from "../../../../components/ui/TextIcon";
 import VoucherForm from "./VoucherForm";
 import CartItem from "./CartItem";
-// import CartSummary from "./CartSummary";
 import Header_v1 from "../../../../layouts/headers/Header_v1";
 import Footer_v1 from "../../../../layouts/footers/Footer_v1";
+import {
+  useGetListCartByUsernameQuery,
+  useDeleteCartMutation,
+} from "../../redux/api/cartApi";
+import { useEffect, useState } from "react";
 
 function CartForm() {
+  const { data, error, isLoading, refetch } =
+    useGetListCartByUsernameQuery("cus");
+  console.log(data);
+
+  // const [deleteCart] = useDeleteCartMutation();
+
+  const [selectedProducts, setSelectedProducts] = useState<{
+    [shopId: number]: number[];
+  }>({});
+
+  const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
+    console.log("cart ID: ", cartIds);
+    setSelectedProducts((prevSelectedProducts) => ({
+      ...prevSelectedProducts,
+      [shopId]: cartIds,
+    }));
+  };
+
+  const generateOutputData = () => {
+    // const outputData = Object.keys(selectedProducts).map((shopId) => ({
+    //   shopId: parseInt(shopId),
+    //   cartIds: selectedProducts[parseInt(shopId)],
+    // }));
+    console.log(selectedProducts);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   return (
     <>
       <div>
@@ -15,9 +48,18 @@ function CartForm() {
         <div className="container mx-full px-16">
           <h1 className="ext-2xl font-semibold mb-4">Shopping Cart</h1>
           <div className="flex flex-col gap-4">
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {data
+              ? data.listCartByShopDTOs.map((item) => (
+                  <CartItem
+                    key={item.shopId}
+                    data={item}
+                    onSelectedProductsChange={(
+                      shopId: number,
+                      cartIds: number[]
+                    ) => handleSelectedProductsChange(shopId, cartIds)}
+                  />
+                ))
+              : null}
           </div>
           <div
             id="footer-cart"
@@ -43,7 +85,10 @@ function CartForm() {
                 </div>
               </div>
               <div className="flex w-full justify-end pt-14">
-                <button className="w-[200px] h-[50px] bg-blue-500 text-white py-2 px-4 rounded-lg mt-4">
+                <button
+                  className="w-[200px] h-[50px] bg-blue-500 text-white py-2 px-4 rounded-lg mt-4"
+                  onClick={generateOutputData}
+                >
                   Mua hàng
                 </button>
               </div>

@@ -19,7 +19,11 @@ export const userApi = apiSlice.injectEndpoints({
         body: userProfile,
       }),
     }),
+    getVouchers: builder.query({
+      query: () => "/customer/voucher/list",
+    }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+export const { useGetUserQuery, useUpdateUserMutation, useGetVouchersQuery } =
+  userApi;
