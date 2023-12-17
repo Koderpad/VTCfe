@@ -49,6 +49,7 @@ const CartItem: React.FC<VoucherComponentProps> = ({
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [isShopCheckboxChecked, setShopCheckboxChecked] =
     useState<boolean>(false);
+
   const [deleteCart] = useDeleteCartMutation();
 
   // const [productQuantities, setProductQuantities] = useState<{
@@ -79,13 +80,39 @@ const CartItem: React.FC<VoucherComponentProps> = ({
     }
   };
 
+  // const toggleProductCheckbox = (cartId: number) => {
+  //   setSelectedProducts((prevSelectedProducts) => {
+  //     if (prevSelectedProducts.includes(cartId)) {
+  //       // Deselect the product
+  //       return prevSelectedProducts.filter((id) => id !== cartId);
+  //     } else {
+  //       // Select the product
+  //       return [...prevSelectedProducts, cartId];
+  //     }
+  //   });
+  // };
+
   const toggleProductCheckbox = (cartId: number) => {
     setSelectedProducts((prevSelectedProducts) => {
       if (prevSelectedProducts.includes(cartId)) {
         // Deselect the product
-        return prevSelectedProducts.filter((id) => id !== cartId);
+        const newSelectedProducts = prevSelectedProducts.filter(
+          (id) => id !== cartId
+        );
+
+        // Kiểm tra nếu đã bỏ chọn tất cả các sản phẩm, thì đặt isShopCheckboxChecked về false
+        if (newSelectedProducts.length === 0) {
+          setShopCheckboxChecked(false);
+        }
+
+        return newSelectedProducts;
       } else {
         // Select the product
+        // Nếu đang ở chế độ isShopCheckboxChecked true, thì đặt về false
+        if (isShopCheckboxChecked) {
+          setShopCheckboxChecked(false);
+        }
+
         return [...prevSelectedProducts, cartId];
       }
     });
@@ -103,16 +130,16 @@ const CartItem: React.FC<VoucherComponentProps> = ({
     // });
   };
 
-  // const handleDeleteCartItem = (cartId: number) => {
-  //   console.log("cartId: ", cartId);
-  // };
   const handleDeleteCartItem = async (cartId: number) => {
     try {
       // Call the mutate function with the cartId to delete
       await deleteCart(cartId);
 
-      // After successful deletion, you may want to refetch the cart data
-      window.location.reload();
+      // Update the component state after successful deletio
+
+      // Optionally, you may want to trigger a refetch of your cart data here
+      // to ensure your component reflects the latest state from the server.
+      // Refetching logic depends on how you fetch cart data in your app.
     } catch (error) {
       // Handle error if the deletion fails
       console.error("Error deleting cart item:", error);
@@ -188,7 +215,7 @@ const CartItem: React.FC<VoucherComponentProps> = ({
                   ${cart.productVariantDTO.price.toFixed(2)}
                 </td>
                 <td className="py-4">
-                  <div className="flex items-center w-1/3 rounded-full border border-gray-200 bg-white">
+                  <div className="flex items-center w-1/2 rounded-full  border-gray-200 bg-white">
                     <button
                       onClick={() => handleQuantityChange(cart.cartId, -1)}
                       className="border rounded-md py-2 px-4 mr-2"

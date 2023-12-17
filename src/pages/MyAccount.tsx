@@ -11,11 +11,12 @@ function MyAccount() {
   const fullName = state ? state["fullName"] : null;
 
   return (
-    <div className="grid grid-rows-auto">
+    // <div className="grid grid-rows-auto">
+    <div className="grid grid-rows-auto min-h-screen">
       <Header_not_fixed />
 
       {/* flex div wrapper */}
-      <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14">
+      <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14 min-h-[568px]">
         {/* left nav side */}
         <div className="flex flex-col w-[180px] h-[568px]">
           <Breadcrumb />
@@ -36,6 +37,11 @@ function MyAccount() {
                 <li>
                   <Link to="pw_changes" className=" hover:text-green-600 ">
                     Password Changes
+                  </Link>
+                </li>
+                <li>
+                  <Link to="address" className=" hover:text-green-600 ">
+                    Địa chỉ
                   </Link>
                 </li>
                 {/* space */}
@@ -70,7 +76,7 @@ function MyAccount() {
 
           {/* content */}
           <div className="h-full mt-11 pl-16 ">
-            <div className="h-full shadow-xl shadow-indigo-500/40">
+            <div className="h-full shadow-xl shadow-indigo-500/40 overflow-y-auto">
               <Outlet />
             </div>
           </div>

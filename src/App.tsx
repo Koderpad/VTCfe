@@ -22,6 +22,13 @@ import { FollowShopList } from "./features/common/userManagement/components/Foll
 import VoucherList from "./features/common/userManagement/components/VoucherList";
 import PayMent from "./pages/PayMent";
 import { Home } from "./pages/Home";
+import Address from "./features/common/userManagement/components/Address";
+import ProfileAdmin from "./features/admin/profile";
+import CatagoryAdmin from "./features/admin/catagory";
+import ProductAdmin from "./features/admin/products";
+import StoreAdmin from "./features/admin/store";
+import VoucherAdmin from "./features/admin/voucher";
+import UserAdmin from "./features/admin/user";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -33,6 +40,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="address" element={<Address />} />
         <Route path="/" element={<Home />} />
 
         {/* LẤY LẠI MẬT KHẨU - DONE
@@ -40,8 +48,8 @@ function App() {
             
             QUẢN LÝ MÃ GIẢM GIÁ PRROFILE - DONE
             CART - tạm DONE
-            THANH TOÁN
-            ĐƠN HÀNG
+            THANH TOÁN - DONE với 1 voucher
+            ĐƠN HÀNG - chờ api của bé vượng
             HOME PAGE
             XEM CỬA HÀNG :>>>
             
@@ -51,12 +59,14 @@ function App() {
             
             ĐỊA CHỈ 
             ĐÁNH GIÁ VÀ COMMENT
+
+
+            shop
         */}
 
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="product/:productId" element={<DetailProduct />} />
         <Route path="products" element={<ProductsByCategory />} />
-        <Route path="product/new" element={<AddProduct />} />
 
         {/* private routes */}
         <Route element={<RequireAuth allowedRoles={["CUSTOMER", "VENDOR"]} />}>
@@ -69,15 +79,24 @@ function App() {
             <Route path="favorite-products" element={<FavoriteProducts />} />
             <Route path="follow-shop" element={<FollowShopList />} />
             <Route path="voucher-wallet" element={<VoucherList />} />
+            <Route path="address" element={<Address />} />
           </Route>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-          <Route path="/admin" element={<AdminPage />} />
+          {/* <Route path="/admin" element={<AdminPage />} /> */}
+          <Route path="admin" element={<AdminPage />} />
+          <Route path="admin/profile" element={<ProfileAdmin />} />
+          <Route path="admin/category" element={<CatagoryAdmin />} />
+          <Route path="admin/product" element={<ProductAdmin />} />
+          <Route path="admin/store" element={<StoreAdmin />} />
+          <Route path="admin/voucher" element={<VoucherAdmin />} />
+          <Route path="admin/user" element={<UserAdmin />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
           <Route path="/vendor" element={<VendorPage />} />
+          <Route path="product/new" element={<AddProduct />} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} />

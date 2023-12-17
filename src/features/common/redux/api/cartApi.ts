@@ -11,6 +11,13 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    addNewCart: builder.mutation({
+      query: (data) => ({
+        url: `/customer/cart/add`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     // login: builder.mutation({
     //   query: (data) => ({
     //     url: "/auth/login",
@@ -36,4 +43,8 @@ export const cartApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetListCartByUsernameQuery, useDeleteCartMutation } = cartApi;
+export const {
+  useGetListCartByUsernameQuery,
+  useDeleteCartMutation,
+  useAddNewCartMutation,
+} = cartApi;

@@ -1,16 +1,18 @@
+import { Link } from "react-router-dom";
+
 function Nav_vendor() {
   return (
     <>
       <div className="flex items-center">
         {/* shopee */}
-        <a
-          href="#"
+        <Link
+          to={"/vendor"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-white no-underline text-xl font-medium p-1 outline-none"
         >
           Kênh Người Bán
-        </a>
+        </Link>
       </div>
     </>
   );

@@ -1,15 +1,115 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-export const ProductCardProductInfoCore = ({ data }) => {
+interface Attribute {
+  name: string;
+  values: string[];
+}
+
+interface AttributeDTO {
+  attributeId: number;
+  name: string;
+  value: string;
+  active: boolean;
+  shopId: number;
+}
+
+// Định nghĩa kiểu dữ liệu cho đối tượng biến thể sản phẩm
+interface ProductVariantDTO {
+  productVariantId: number;
+  sku: string;
+  image: string;
+  price: number;
+  quantity: number;
+  status: string;
+  productId: number;
+  attributeDTOs: AttributeDTO[];
+}
+
+// Định nghĩa kiểu dữ liệu cho đối tượng sản phẩm
+interface dataType {
+  productVariantDTOs: ProductVariantDTO[];
+}
+
+//!BEGIN FUNCTION-------------------------
+export const ProductCardProductInfoCore = ({
+  data,
+  selectedVariantID_ForAddToCart,
+  selectedQuantity_ForAddToCart,
+}: {
+  data: ProductVariantDTO[] | null;
+  selectedVariantID_ForAddToCart: (id: number) => void;
+  selectedQuantity_ForAddToCart: (quantity: number) => void;
+}) => {
+  //!BEGIN HANDLE FUNCTION---------------------------------
   console.log("data attribute: ", data);
+  const [attributes, setAttributes] = useState<Attribute[]>([]);
+
+  const [selectedAttributes, setSelectedAttributes] = useState<
+    Record<string, string>
+  >({});
+
+  const [selectedVariantInfo, setSelectedVariantInfo] = useState<{
+    price: number;
+    quantity: number;
+  } | null>(null);
+
+  // Inside your component
+  const [value, setValue] = useState(1);
+
+  const handleClickAttribute = (attributeName: string, value: string) => {
+    const newSelectedAttributes = {
+      ...selectedAttributes,
+    };
+
+    if (newSelectedAttributes[attributeName] === value) {
+      delete newSelectedAttributes[attributeName];
+    } else {
+      newSelectedAttributes[attributeName] = value;
+    }
+
+    console.log("newSelectedAttributes: ", newSelectedAttributes);
+    setSelectedAttributes(newSelectedAttributes);
+
+    // Find the selected variant based on the chosen attributes
+
+    const selectedVariant = data?.find((variant) =>
+      variant.attributeDTOs?.every(
+        (attribute) =>
+          newSelectedAttributes[attribute.name] === attribute.value &&
+          Object.keys(newSelectedAttributes).length ===
+            variant.attributeDTOs.length
+      )
+    );
+
+    console.log("selectedVariant: ", selectedVariant);
+    // Update the state with the price and quantity of the selected variant
+    if (selectedVariant) {
+      selectedVariantID_ForAddToCart(selectedVariant.productVariantId);
+      setSelectedVariantInfo({
+        price: selectedVariant.price,
+        quantity: selectedVariant.quantity,
+      });
+    } else {
+      // If no variant is found, the state equal sum of quantity
+      const quantity = data?.reduce(
+        (sum, variant) => sum + variant.quantity,
+        0
+      );
+      setSelectedVariantInfo({
+        price: data ? data[0]?.price : 0,
+        quantity: quantity || 0,
+      });
+      // setSelectedVariantInfo(null);
+    }
+  };
 
   const getAttributes = () => {
     const attributes = [];
 
     // Check if data.productVariantDTOs is defined
-    if (data && data.productVariantDTOs) {
+    if (data) {
       // Loop through each product variant
-      data.productVariantDTOs.forEach((variant) => {
+      data.forEach((variant) => {
         // Check if variant.attributeDTOs is defined
         if (variant.attributeDTOs) {
           console.log("variant.attributeDTOs", variant.attributeDTOs);
@@ -39,60 +139,26 @@ export const ProductCardProductInfoCore = ({ data }) => {
 
     return attributes;
   };
-  const attributes = getAttributes();
+
+  function removeDuplicates(attribute: Attribute): Attribute {
+    return {
+      name: attribute.name,
+      values: [...new Set(attribute.values)],
+    };
+  }
+
   useEffect(() => {
-    // getAttributes();
-    const attributes = getAttributes();
-    console.log("attributes", attributes);
+    const fetchedAttributes = getAttributes();
+    const uniqueAttributes = fetchedAttributes.map((attribute) =>
+      removeDuplicates(attribute)
+    );
+    console.log("fetchedAttributes: ", uniqueAttributes);
+    setAttributes(uniqueAttributes);
   }, []);
 
-  // Inside your component
-
-  const buttonLabels = [
-    "1 TB",
-    "2 TB",
-    "3 TB",
-    "4 TB",
-    "5 TB",
-    "6 TB",
-    "7 TB",
-    "8 TB",
-    "9 TB",
-    "10 TB",
-    "1 TB",
-    "2 TB",
-    "3 TB",
-    "4 TB",
-    "5 TB",
-    "6 TB",
-    "7 TB",
-    "8 TB",
-    "9 TB",
-    "10 TB",
-    "1 TB",
-    "4 TB",
-    "5 TB",
-    "6 TB",
-    "7 TB",
-    "8 TB",
-    "9 TB",
-    "10 TB",
-    "1 TB",
-    "2 TB",
-    "3 TB",
-    "4 TB",
-    "5 TB",
-    "6 TB",
-    "7 TB",
-    "8 TB",
-    "9 TB",
-    "10 TB",
-    "1 TB",
-  ];
-  const divCount = Array.from({ length: 0 }, (_, i) => i + 1);
-
-  // Inside your component
-  const [value, setValue] = useState(1);
+  useEffect(() => {
+    selectedQuantity_ForAddToCart(value);
+  }, [value]);
 
   const decrementValue = () => {
     if (value > 1) {
@@ -119,25 +185,38 @@ export const ProductCardProductInfoCore = ({ data }) => {
   };
   return (
     <>
-      {attributes.map((attribute, index) => (
-        <div key={index} className="mb-8 ">
-          <h2 className="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
-            {attribute.name}
-          </h2>
-          <div>
-            <div className="flex flex-wrap -mb-2 overflow-y-auto h-32">
-              {attribute.values.map((value, index) => (
-                <button
-                  key={index}
-                  className="px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:border-blue-400 hover:text-blue-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400"
-                >
-                  {value}
-                </button>
-              ))}
+      {attributes
+        ? attributes.map((attribute, index) => (
+            <div key={index} className="mb-8 ">
+              <h2 className="w-16 pb-1 mb-4 text-xl font-semibold border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">
+                {attribute.name}
+              </h2>
+              <div>
+                <div className="flex flex-wrap -mb-2 overflow-y-auto h-32">
+                  {attribute.values.map((value, index) => (
+                    <button
+                      key={index}
+                      onClick={() =>
+                        handleClickAttribute(attribute.name, value)
+                      }
+                      className={`
+                      px-4 py-2 mb-2 mr-4 font-semibold border rounded-md hover:border-blue-400
+                       hover:text-blue-600 dark:border-gray-400 dark:hover:border-gray-300 dark:text-gray-400
+                      ${
+                        selectedAttributes[attribute.name] === value
+                          ? "bg-blue-400 text-white"
+                          : ""
+                      }
+                    `}
+                    >
+                      {value}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          ))
+        : null}
 
       {/* <div className="mb-8">
         <h2 className="w-[5rem] pb-1 mb-4 text-2xl font-bold border-b border-blue-300">
@@ -247,7 +326,9 @@ export const ProductCardProductInfoCore = ({ data }) => {
           >
             <span className="m-auto text-2xl font-thin">+</span>
           </button>
-          <div className="pl-4 text-gray-700">1123 sản phẩm có sẵn</div>
+          <div className="pl-4 text-gray-700">
+            {selectedVariantInfo?.quantity} sản phẩm có sẵn
+          </div>
         </div>
       </div>
     </>

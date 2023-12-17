@@ -32,7 +32,6 @@ interface IProduct {
   productVariantDTOs: IProductVariant[];
 }
 
-
 interface IUser {
   //   customerId: 4;
   username: string;

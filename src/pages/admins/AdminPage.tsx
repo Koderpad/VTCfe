@@ -1,14 +1,11 @@
-
-import React from 'react';
-
+import React from "react";
+import AdminForm from "../../features/admin/AdminFrom";
 const AdminPage: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to Admin</h1>
-      {/* Add your code here */}
-    </div>
+    <>
+      <AdminForm />
+    </>
   );
 };
 
 export default AdminPage;
-

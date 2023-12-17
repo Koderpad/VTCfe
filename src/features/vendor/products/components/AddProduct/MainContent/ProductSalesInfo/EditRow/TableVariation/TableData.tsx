@@ -110,30 +110,6 @@ export const TableData = ({ data }: TableProps) => {
     }
   }, [data]);
 
-  // const handleInputChange = (rowIndex: number, key: string, value: string) => {
-  //   setVariantTableData((prevVariantTableData) => {
-  //     const newVariantTableData = { ...prevVariantTableData };
-
-  //     // Lấy ra item cần cập nhật
-  //     const variantDataItem = { ...newVariantTableData.data[rowIndex] };
-
-  //     // Cập nhật giá trị của key
-  //     variantDataItem[key as keyof VariantDataItem] = value as never;
-
-  //     if (Object.isFrozen({ ...variantDataItem })) {
-  //       console.log("variantDataItem is frozen");
-  //     }
-
-  //     // Cập nhật newVariantTableData với item đã được cập nhật
-  //     newVariantTableData.data[rowIndex] = { ...variantDataItem };
-
-  //     // Sử dụng dispatch hoặc thực hiện bất kỳ công việc xử lý nào khác tại đây
-
-  //     console.log("newVariantTableData", newVariantTableData);
-  //     return newVariantTableData;
-  //   });
-  // };
-
   const handleInputChange = (rowIndex: number, key: string, value: string) => {
     // Create a copy of variantTableData.data
     const newData = [...variantTableData.data];
@@ -179,6 +155,10 @@ export const TableData = ({ data }: TableProps) => {
       );
     }
     return null;
+  };
+
+  const handleImageMain = (imageData: string) => {
+    console.log("imageData: ", imageData);
   };
 
   const renderedIndex = useRef(-1);
@@ -289,7 +269,13 @@ export const TableData = ({ data }: TableProps) => {
                   <div className="flex flex-col justify-center items-center ">
                     {row.attributeValue1}
 
-                    {row.hasImage && <HandleImageMain />}
+                    {row.hasImage && (
+                      <HandleImageMain
+                        handleData={(imageData: string) =>
+                          handleInputChange(index, "image", imageData)
+                        }
+                      />
+                    )}
                   </div>
                 </td>
                 <td className="border-2 border-gray-400 px-4 py-2">
