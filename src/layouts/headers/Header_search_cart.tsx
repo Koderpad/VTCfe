@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 function Header_search_cart() {
   return (
     <>
       <div className="flex  w-1/6 px-5">
         <div className="flex w-full justify-end items-center pr-16 pb-16">
-          <a className="h-[48px] w-12" id="cart_drawer_target_id" href="#">
+          <Link className="h-[48px] w-12" id="cart_drawer_target_id" to="/cart">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -18,7 +20,7 @@ function Header_search_cart() {
                 strokeLinejoin="round"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </>

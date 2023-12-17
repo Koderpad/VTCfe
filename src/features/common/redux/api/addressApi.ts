@@ -6,10 +6,10 @@ export const addressApi = apiSlice.injectEndpoints({
       query: () => `/customer/address/all`,
     }),
     addAddress: builder.mutation({
-      query: (addressDTO) => ({
+      query: (body) => ({
         url: `/customer/address/add`,
         method: "POST",
-        body: addressDTO,
+        body: body,
       }),
     }),
   }),

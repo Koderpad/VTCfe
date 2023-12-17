@@ -122,10 +122,12 @@ function PayMentForm() {
   const res: ApiResponse = location.state.res.data;
 
   // Sử dụng hook để lấy danh sách voucher của cửa hàng
+  // const { data: shopVouchers } = useGetVoucherByShopIdQuery(
+  //   res.orderDTO.shopId ? res.orderDTO.shopId : 0
+  // );
   const { data: shopVouchers } = useGetVoucherByShopIdQuery(
-    res.orderDTO?.shopId
+    res && res.orderDTO && res.orderDTO.shopId ? res.orderDTO.shopId : 0
   );
-
   const handleVouchersOfShop = (voucherId: number) => {
     // Kiểm tra xem voucher đã được chọn chưa
     if (selectedVouchersOfShop.includes(voucherId)) {

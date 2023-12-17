@@ -1,10 +1,109 @@
 import TextIcon from "../../../../components/ui/TextIcon";
 import { useState } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function RegisForm_fix() {
   const [isMaleChecked, setIsMaleChecked] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCheckboxChange = (isMale: boolean) => setIsMaleChecked(isMale);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    email: "",
+    gender: false,
+    fullName: "",
+    birthday: "",
+  });
+
+  const handleCheckboxChange = (isMale: boolean) => {
+    setIsMaleChecked(isMale);
+    setFormData((prevData) => ({ ...prevData, gender: isMale }));
+  };
+
+  const handleUsernameInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({ ...prevData, username: value }));
+  };
+
+  const handlePasswordInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({ ...prevData, password: value }));
+  };
+
+  const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({ ...prevData, email: value }));
+  };
+
+  const handleFullNameInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({ ...prevData, fullName: value }));
+  };
+
+  const handleBirthdayInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({ ...prevData, birthday: value }));
+  };
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   // TODO: Gửi dữ liệu formData lên server ở đây
+  //   console.log("Form data:", formData);
+  // };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8181/api/auth/register",
+  //       formData
+  //     );
+
+  //     console.log("Response:", response.data);
+  //     // Điều hướng hoặc thực hiện các bước tiếp theo sau khi đăng ký thành công
+  //   } catch (error) {
+  //     console.error("Error:", error.response.data);
+  //     // Xử lý lỗi, hiển thị thông báo cho người dùng, vv.
+  //   }
+  // };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8181/api/auth/register",
+        formData
+      );
+
+      console.log("Response:", response.data);
+      // Display success toast
+      toast.success("Đăng ký thành công!");
+
+      //dừng 1 giấy để hiển thị toast
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      navigate("/login", { replace: true });
+
+      // TODO: You may want to redirect or perform other actions on successful registration
+    } catch (error) {
+      console.error("Error:", error.response.data);
+      // Display error toast
+      toast.error("Đăng ký thất bại. Vui lòng thử lại!");
+
+      // TODO: You may want to handle other error scenarios here
+    }
+  };
+
   return (
     <>
       <div className="flex w-full max-w-full items-start gap-2.5 max-md:ml-1">
@@ -24,6 +123,7 @@ function RegisForm_fix() {
                 type="text"
                 id="username"
                 placeholder="Tên Tài Khoản"
+                onChange={handleUsernameInputChange}
               />
             </div>
           </div>
@@ -44,6 +144,7 @@ function RegisForm_fix() {
                 type="password"
                 id="password"
                 placeholder="Mật khẩu"
+                onChange={handlePasswordInputChange}
               />
             </div>
           </div>
@@ -64,6 +165,7 @@ function RegisForm_fix() {
                 type="email"
                 id="email"
                 placeholder="Địa chỉ email"
+                onChange={handleEmailInputChange}
               />
             </div>
           </div>
@@ -124,6 +226,7 @@ function RegisForm_fix() {
                 type="text"
                 id="fullname"
                 placeholder="Họ và tên"
+                onChange={handleFullNameInputChange}
               />
             </div>
           </div>
@@ -145,52 +248,18 @@ function RegisForm_fix() {
                 type="date"
                 id="date"
                 placeholder="Ngày sinh"
+                onChange={handleBirthdayInputChange}
               />
             </div>
           </div>
           <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
           <br />
-          {/* sđt */}
-          {/* <div className="flex gap-2">
-            <div className="flex">
-              <TextIcon
-                srcSet="
-                /public/phone.png
-                      "
-              />
-            </div>
-            <div className="flex flex-col">
-              <input
-                name="phone"
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
-                type="tel"
-                id="phone"
-                placeholder="Số điện thoại"
-              />
-            </div>
-          </div>
-          <div className="bg-neutral-400 w-[427px] h-px max-md:max-w-full" />
-          <br /> */}
-          {/* checkbox agree đăng ký */}
-          <div className="flex gap-2">
-            <div className="flex">
-              <input type="checkbox" name="agree" />
-            </div>
-            <div className="flex flex-col">
-              <p className="ml-2 font-serif">
-                Creating an account means you’re okay with our Terms
-              </p>
-              <p className="ml-2 font-serif">
-                {" "}
-                of Service, Privacy Policy, and default Notification Settings
-              </p>
-            </div>
-          </div>
-          <br />
+
           {/* button submit */}
           <div className="flex flex-row gap-2 w-full">
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className="border w-[40rem] h-[3rem] shadow-[2px_4px_6px_0px_rgba(79,79,79,0.15)] bg-sky-500 bg-opacity-80 flex min-h-[34px] flex-col rounded-2xl border-solid border-stone-300"
             >
               <div className="text-white font-extrabold text-xl mt-2 self-center">
@@ -200,6 +269,7 @@ function RegisForm_fix() {
             {/* <div className="w-0.5/4"></div> */}
           </div>
         </form>
+        <ToastContainer position="bottom-right" />
       </div>
     </>
   );

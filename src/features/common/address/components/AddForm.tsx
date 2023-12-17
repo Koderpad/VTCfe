@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { AddressProps } from "./AddressForm";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useAddAddressMutation } from "../../redux/api/addressApi";
 
@@ -65,25 +67,56 @@ const AddForm = (props: {
 
   React.useEffect(() => {}, []);
 
-  const handleSubmit = () => {
-    const handleAddAddress = async () => {
-      try {
-        const addressDTO: AddressDTO = {
-          province: province,
-          district: district,
-          ward: ward,
-          fullAddress: detail,
-          fullName: name,
-          phone: phone,
-          status: "ACTIVE",
-        };
-        const response = await addAddress(addressDTO);
-        // Handle the response...
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    handleAddAddress();
+  // const handleSubmit = () => {
+  //   const handleAddAddress = async () => {
+  //     try {
+  //       const addressDTO: AddressDTO = {
+  //         province: province,
+  //         district: district,
+  //         ward: ward,
+  //         fullAddress: detail,
+  //         fullName: name,
+  //         phone: phone,
+  //         status: "ACTIVE",
+  //       };
+  //       const response = await addAddress(addressDTO);
+
+  //       console.log("response", response);
+  //       // Handle the response...
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   handleAddAddress();
+  // };
+
+  const handleSubmit = async () => {
+    try {
+      const addressDTO: AddressDTO = {
+        province: province,
+        district: district,
+        ward: ward,
+        fullAddress: detail,
+        fullName: name,
+        phone: phone,
+        status: "ACTIVE",
+      };
+      const response = await addAddress(addressDTO);
+
+      console.log("response", response);
+
+      // Display success toast
+      toast.success("Thêm địa chỉ thành công!");
+
+      // TODO: You may want to update the list of addresses or perform other actions on success
+    } catch (error) {
+      console.error(error);
+
+      // Display error toast
+      toast.error("Thêm địa chỉ thất bại. Vui lòng thử lại!");
+
+      // TODO: You may want to handle other error scenarios here
+    }
   };
 
   if (!props.showForm) return <></>;
@@ -208,6 +241,7 @@ const AddForm = (props: {
         </div>
         {/* </form> */}
       </div>
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

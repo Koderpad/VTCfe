@@ -95,8 +95,12 @@ const AddressForm = () => {
   const [listAddress, setListAddress] = useState<AddressProps[]>([]);
   const { data, error, isLoading } = useGetAllAddressQuery("address");
 
+  // const [listAddressDTO, setListAddressDTO] = useState<AddressDTO[]>(
+  //   data.addressDTOs ? data.addressDTOs : []
+  // );
+
   const [listAddressDTO, setListAddressDTO] = useState<AddressDTO[]>(
-    data.addressDTOs ? data.addressDTOs : []
+    data && data.addressDTOs ? data.addressDTOs : []
   );
 
   if (isLoading) {

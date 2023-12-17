@@ -124,7 +124,7 @@ function LoginForm() {
       <Label_Regis>
         <p className="don-t-have-account">
           <span className="text-wrapper">Don’t have account? </span>
-          <Link to="#" className="span">
+          <Link to="/register" className="span">
             Register Now
           </Link>
         </p>

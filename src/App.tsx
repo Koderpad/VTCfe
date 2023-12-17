@@ -40,6 +40,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="home" element={<Home />} />
         <Route path="address" element={<Address />} />
         <Route path="/" element={<Home />} />
 
