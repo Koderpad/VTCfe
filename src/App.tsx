@@ -29,6 +29,7 @@ import ProductAdmin from "./features/admin/products";
 import StoreAdmin from "./features/admin/store";
 import VoucherAdmin from "./features/admin/voucher";
 import UserAdmin from "./features/admin/user";
+import Statistical from "./pages/vendors/Statistical";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -98,6 +99,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
           <Route path="/vendor" element={<VendorPage />} />
           <Route path="product/new" element={<AddProduct />} />
+          <Route path="shop/statistical" element={<Statistical/>}/>
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
