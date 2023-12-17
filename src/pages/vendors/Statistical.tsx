@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useStatisticalBasicMutation } from '../../features/vendor/redux/api/statisticalApi';
-import { Line } from 'react-chartjs-2';
+import React, { useState } from "react";
+import { useStatisticalBasicMutation } from "../../features/vendor/redux/api/statisticalApi";
+import { Line } from "react-chartjs-2";
 
 // Import Tailwind CSS styles
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 
 interface StatisticsRequest {
-  startDate: Date | undefined;
-  endDate: Date | undefined;
+  startDate?: string;
+  endDate?: string;
   username?: string;
 }
 
@@ -18,8 +18,8 @@ interface StatisticsResponse {
   count: number;
   totalOrder: number;
   username: string;
-  dateStart: Date;
-  dateEnd: Date;
+  dateStart: string;
+  dateEnd: string;
   statisticsDTOs: StatisticsDTO[];
 }
 
@@ -32,22 +32,22 @@ interface StatisticsDTO {
 
 const Statistical: React.FC = () => {
   const [callStatisticsByDate] = useStatisticalBasicMutation();
-  const [statisticsRequest, setStatisticsRequest] = useState<StatisticsRequest | null>(null);
-  const [statisticsResponse, setStatisticsResponse] = useState<StatisticsResponse | null>(null);
+  const [statisticsRequest, setStatisticsRequest] =
+    useState<StatisticsRequest | null>(null);
+  const [statisticsResponse, setStatisticsResponse] =
+    useState<StatisticsResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleFetchData = async () => {
     try {
-      console.log('aaaaaaaaaaa');
       if (statisticsRequest) {
+        console.log("status request: ", statisticsRequest);
         setLoading(true);
         const response = await callStatisticsByDate(statisticsRequest).unwrap();
         setStatisticsResponse(response);
-      } else {
-        console.log('BBBBBBBBBB');
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -55,20 +55,35 @@ const Statistical: React.FC = () => {
 
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setStatisticsRequest((prevData) => ({
-      ...prevData,
-      startDate: value ? new Date(value) : undefined,
-    }));
+    setStatisticsRequest((prevData) => {
+      if (prevData) {
+        return {
+          ...prevData,
+          startDate: value,
+        };
+      } else {
+        return {
+          startDate: value,
+        };
+      }
+    });
   };
 
   const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setStatisticsRequest((prevData) => ({
-      ...prevData,
-      endDate: value ? new Date(value) : undefined,
-    }));
+    setStatisticsRequest((prevData) => {
+      if (prevData) {
+        return {
+          ...prevData,
+          endDate: value,
+        };
+      } else {
+        return {
+          endDate: value,
+        };
+      }
+    });
   };
-
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const usernameValue = event.target.value;
     setStatisticsRequest((prev) => {
@@ -86,7 +101,9 @@ const Statistical: React.FC = () => {
     <div className="container mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-4">Statistical</h1>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">Start Date:</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Start Date:
+        </label>
         <input
           type="date"
           className="mt-1 p-2 border rounded"
@@ -94,7 +111,9 @@ const Statistical: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">End Date:</label>
+        <label className="block text-sm font-medium text-gray-700">
+          End Date:
+        </label>
         <input
           type="date"
           className="mt-1 p-2 border rounded"
@@ -102,7 +121,9 @@ const Statistical: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">Username:</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Username:
+        </label>
         <input
           type="text"
           className="mt-1 p-2 border rounded"
@@ -121,18 +142,24 @@ const Statistical: React.FC = () => {
           <h2 className="text-xl font-semibold mt-4">Statistics Result</h2>
           <Line
             data={{
-              labels: statisticsResponse.statisticsDTOs.map((dto) => dto.date.toISOString()),
+              labels: statisticsResponse.statisticsDTOs.map((dto) =>
+                dto.date.toISOString()
+              ),
               datasets: [
                 {
-                  label: 'Total Money',
-                  data: statisticsResponse.statisticsDTOs.map((dto) => dto.totalMoney ?? 0),
-                  borderColor: 'blue',
+                  label: "Total Money",
+                  data: statisticsResponse.statisticsDTOs.map(
+                    (dto) => dto.totalMoney ?? 0
+                  ),
+                  borderColor: "blue",
                   fill: false,
                 },
                 {
-                  label: 'Total Order',
-                  data: statisticsResponse.statisticsDTOs.map((dto) => dto.totalOrder),
-                  borderColor: 'green',
+                  label: "Total Order",
+                  data: statisticsResponse.statisticsDTOs.map(
+                    (dto) => dto.totalOrder
+                  ),
+                  borderColor: "green",
                   fill: false,
                 },
               ],
