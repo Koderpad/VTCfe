@@ -31,6 +31,8 @@ import VoucherAdmin from "./features/admin/voucher";
 import UserAdmin from "./features/admin/user";
 import Statistical from "./pages/vendors/Statistical";
 import ManagerCustomer from "./pages/admins/ManagerCustomer";
+import ManagerProduct from "./pages/admins/ManagerProduct";
+import ManagerProductLocked from "./pages/admins/ManagerCustomer";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -96,6 +98,8 @@ function App() {
           <Route path="admin/voucher" element={<VoucherAdmin />} />
           <Route path="admin/user" element={<UserAdmin />} />
           <Route path="admin/manager/customers" element={<ManagerCustomer />} />
+             <Route path="admin/manager/products/locked" element={<ManagerProductLocked/>} />
+              <Route path="admin/manager/products" element={<ManagerProduct/>} />
           
         </Route>
 
