@@ -30,6 +30,7 @@ import StoreAdmin from "./features/admin/store";
 import VoucherAdmin from "./features/admin/voucher";
 import UserAdmin from "./features/admin/user";
 import Statistical from "./pages/vendors/Statistical";
+import ManagerCustomer from "./pages/admins/ManagerCustomer";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -94,6 +95,8 @@ function App() {
           <Route path="admin/store" element={<StoreAdmin />} />
           <Route path="admin/voucher" element={<VoucherAdmin />} />
           <Route path="admin/user" element={<UserAdmin />} />
+          <Route path="admin/manager/customers" element={<ManagerCustomer />} />
+          
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>

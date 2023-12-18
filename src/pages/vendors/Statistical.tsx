@@ -240,11 +240,12 @@ return (
             onChange={handleEndDateChange}
           />
         </div>
-      )}
+      )}  
     </div>
     <button
-      className="mt-4 px-6 py-3 text-white bg-blue-500 rounded hover:bg-blue-600"
+      className="mt-4 px-6 py-3 text-white bg-blue-500 rounded hover:bg-blue-600 hidden"
       onClick={handleFetchData}
+      
     >
       Lấy Dữ Liệu
     </button>
