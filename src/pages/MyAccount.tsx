@@ -11,11 +11,12 @@ function MyAccount() {
   const fullName = state ? state["fullName"] : null;
 
   return (
-    <div className="grid grid-rows-auto">
+    // <div className="grid grid-rows-auto">
+    <div className="grid grid-rows-auto min-h-screen">
       <Header_not_fixed />
 
       {/* flex div wrapper */}
-      <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14">
+      <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14 min-h-[568px]">
         {/* left nav side */}
         <div className="flex flex-col w-[180px] h-[568px]">
           <Breadcrumb />
@@ -25,7 +26,7 @@ function MyAccount() {
             <div>
               {/* name of list */}
               <h1 className="text-2xl font-bold text-gray-800 mb-1">
-                Manage My Account
+                Quản lý tài khoản
               </h1>
               <ul className="pl-4 ">
                 <li>
@@ -39,8 +40,27 @@ function MyAccount() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="dashboard" className=" hover:text-green-600 ">
-                    My Payment Options
+                  <Link to="address" className=" hover:text-green-600 ">
+                    Địa chỉ
+                  </Link>
+                </li>
+                {/* space */}
+                <li>
+                  <Link
+                    to="favorite-products"
+                    className=" hover:text-green-600 "
+                  >
+                    Sản phẩm yêu thích
+                  </Link>
+                </li>
+                <li>
+                  <Link to="follow-shop" className=" hover:text-green-600 ">
+                    Cửa hàng theo dõi
+                  </Link>
+                </li>
+                <li>
+                  <Link to="voucher-wallet" className=" hover:text-green-600 ">
+                    Kho voucher
                   </Link>
                 </li>
               </ul>
@@ -49,13 +69,14 @@ function MyAccount() {
         </div>
 
         {/* right content side */}
-        <div className="flex flex-col w-[1020px] h-[568px]">
+        <div className="flex flex-col w-[1020px] h-[568px] ">
+          {/* <div className="flex flex-col w-[1020px] h-[568px]"> */}
           {/* welcome */}
           <div className="self-end">Xin chào, {fullName}</div>
 
           {/* content */}
           <div className="h-full mt-11 pl-16 ">
-            <div className="h-full shadow-xl shadow-indigo-500/40">
+            <div className="h-full shadow-xl shadow-indigo-500/40 overflow-y-auto">
               <Outlet />
             </div>
           </div>

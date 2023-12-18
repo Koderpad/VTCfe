@@ -17,15 +17,6 @@ function Register_rightSide() {
           {/* col 1 */}
           <div className="w-full h-[150px] max-w-full">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              {/* hình ảnh lgo */}
-              {/* <div className="flex flex-col items-end w-3/5 max-md:w-full max-md:ml-0">
-                <img
-                  loading="lazy"
-                  srcSet="/public/logo_border.png"
-                  className="aspect-auto object-cover object-center w-[200px] h-[150px] overflow-hidden grow mt-3 max-md:mt-10"
-                  alt="Image"
-                />
-              </div> */}
               <div className="flex flex-col items-end place-content-end w-3/5 max-md:w-full max-md:ml-0 mt-">
                 <h1 className="text-sky-500 text-8xl font-semibold ">
                   Đăng Ký
@@ -42,13 +33,6 @@ function Register_rightSide() {
               </div>
             </div>
           </div>
-          {/* col 2 */}
-          {/* đăng ký text */}
-          {/* <h1 className="text-sky-500 text-8xl font-semibold self-center mr-40">
-            Đăng Ký
-          </h1> */}
-          {/* col 3 to ... */}
-          {/* form đăng ký */}
           <RegisForm_fix />
         </div>
       </div>

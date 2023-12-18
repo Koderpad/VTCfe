@@ -1,4 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../../../../../app/store";
+import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
+
 export const NameProduct = () => {
+  const dispatch = useDispatch();
+
+  const handleInputChange = (field: string, value: any) => {
+    dispatch(updateProduct({ field, value }));
+  };
   return (
     <>
       <div id="edit-row">
@@ -34,6 +43,7 @@ export const NameProduct = () => {
               >
                 <input
                   type="text"
+                  onChange={(e) => handleInputChange("name", e.target.value)}
                   placeholder="Nhập vào"
                   className="w-[100%] h-[40px] border border-[#ebeaed] rounded-[4px] px-[16px]"
                 />

@@ -6,16 +6,9 @@ function Header_search_wrapper() {
   return (
     <>
       {/* header search wrapper */}
-      <div className="flex items-center justify-center w-full h-[85px] z-[100] bg-transparent">
+      <div className=" w-full h-[85px] z-[100] bg-none px-60 py-2">
         {/* header with search */}
-        <div
-          className="
-            flex
-            w-4/5
-            h-full
-            pt-[2rem]
-            pb-[0.625rem]
-          "
+        <div className="flex items-center justify-between w-full h-full gap-10"
         >
           {/* search logo */}
           <Header_search_logo />

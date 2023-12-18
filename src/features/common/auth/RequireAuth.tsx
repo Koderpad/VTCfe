@@ -5,7 +5,8 @@ const RequireAuth = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const user = useUser();
   const location = useLocation();
 
-  return user.roles?.find((role: string) => allowedRoles.includes(role)) ? (
+  return user &&
+    user.roles?.find((role: string) => allowedRoles.includes(role)) ? (
     <Outlet />
   ) : user ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

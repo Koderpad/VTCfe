@@ -1,23 +1,107 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ImageModal } from "./ImageModal";
 import { ImageEditor } from "./ImageEditor";
+import { storage } from "../../../../../../../../constants/firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useDispatch } from "react-redux";
+import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
 
+const metadata = {
+  contentType: "image/jpeg",
+};
 export const ImageProduct = () => {
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
+  const [imageURL, setImageURL] = useState<string | null>(null);
 
-  console.log(imageData);
+  const dispatch = useDispatch();
+
+  const handleInputChange = (field: string, value: any) => {
+    dispatch(updateProduct({ field, value }));
+  };
+
+  // console.log(imageData);
+
+  // const uploadImageToFirebase = async (
+  //   image: File,
+  //   oldDownloadURL?: string
+  // ) => {
+  //   const storageRef = ref(storage, `images/${image.name}`);
+  //   const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+
+  //   return new Promise<string>((resolve, reject) => {
+  //     uploadTask.on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         // Your existing code to track upload progress
+  //       },
+  //       (error) => {
+  //         reject(error);
+  //       },
+  //       async () => {
+  //         // Image uploaded successfully
+  //         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+  //         // Delete old image if exists
+  //         if (oldDownloadURL) {
+  //           const oldImageRef = ref(
+  //             storage,
+  //             `images/${getFileNameFromURL(oldDownloadURL)}`
+  //           );
+  //           // Delete the file
+  //           // Note: This is asynchronous, you may want to handle it accordingly
+  //           deleteObject(oldImageRef);
+  //         }
+
+  //         resolve(downloadURL);
+  //       }
+  //     );
+  //   });
+  // };
+
+  // const getFileNameFromURL = (url: string) => {
+  //   const parts = url.split("/");
+  //   return parts[parts.length - 1];
+  // };
+
+  useEffect(() => {
+    const uploadImageToFirebase = async () => {
+      if (imageData && fileInputRef.current && fileInputRef.current.files) {
+        const file = fileInputRef.current.files[0];
+
+        if (file) {
+          const storageRef = ref(storage, `images/${file.name}`);
+          const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              // Your existing code to track upload progress
+            },
+            (error) => {
+              console.error("Error uploading image:", error);
+            },
+            async () => {
+              // Image uploaded successfully
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              console.log("Uploaded image URL:", downloadURL);
+              dispatch(updateProduct({ field: "image", value: downloadURL }));
+              // setImageURL(downloadURL);
+            }
+          );
+        }
+      }
+    };
+
+    uploadImageToFirebase();
+  }, [imageData]);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCropClick = () => {
     setIsOpen(true);
   };
-
-  // const closeModal = () => {
-  //   setIsOpen(false);
-  // };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {

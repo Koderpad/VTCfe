@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AddProductRequest } from "../../products/components/AddProduct/AddProductRequestBody";
 
 interface VariantDataItem {
   attributeName1?: string;
@@ -22,18 +23,19 @@ interface VariantTableData {
 }
 
 interface AttributeValuesItem {
+  id?: number;
   value: string;
 }
 
 ////////////////main
 interface ProductState {
-  product: any;
+  product: AddProductRequest | null;
   variantTableData: VariantTableData;
   attributeData: { [key: string]: AttributeValuesItem[] };
 }
 
 const initialState: ProductState = {
-  product: {},
+  product: null,
   variantTableData: { data: [] },
   attributeData: {},
 };
@@ -42,7 +44,7 @@ const productDataInAddProductReducer = createSlice({
   name: "productInAddProduct",
   initialState,
   reducers: {
-    setProduct: (state, action: PayloadAction<any>) => {
+    setProduct: (state, action: PayloadAction<AddProductRequest>) => {
       state.product = action.payload;
     },
     updateVariantTableData: (

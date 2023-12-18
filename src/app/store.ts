@@ -17,6 +17,14 @@ import {
 import { productApi } from "../features/common/products/services/productApi.ts";
 import productDataInAddProductReducer from "../features/vendor/redux/reducer/addProductSlice.ts";
 import { productsApi } from "../features/common/redux/api/productsApi.ts";
+import { cartApi } from "../features/common/redux/api/cartApi.ts";
+import { categoryApi } from "../features/common/redux/api/categoryApi.tsx";
+import { orderApi } from "../features/common/redux/api/orderApi.ts";
+import { voucherApi } from "../features/common/redux/api/voucherApi.ts";
+import { attributeVendorApi } from "../features/vendor/redux/api/attributeVendor.ts";
+import { addressApi } from "../features/common/redux/api/addressApi.ts";
+import { voucherAdminApi } from "../features/admin/redux/api/voucherAdminApi.ts";
+import { categoryAdminApi } from "../features/admin/redux/api/categoryAdminApi.ts";
 
 const persistConfig = {
   key: "root",
@@ -29,7 +37,15 @@ const rootReducer = combineReducers({
   auth: authReducer,
   productInAddProduct: productDataInAddProductReducer,
   [productsApi.reducerPath]: productsApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
+  [voucherApi.reducerPath]: voucherApi.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer,
+  [addressApi.reducerPath]: addressApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [voucherAdminApi.reducerPath]: voucherAdminApi.reducer,
+  [categoryAdminApi.reducerPath]: categoryAdminApi.reducer,
+  [attributeVendorApi.reducerPath]: attributeVendorApi.reducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

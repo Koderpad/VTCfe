@@ -20,8 +20,8 @@ function LoginForm() {
   // const errRef = useRef();
   // const errRef = useRef(null);
   const errRef = useRef<HTMLInputElement>(null);
-      const navigate = useNavigate();
-      const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const [username, setUsername] = useState("");
@@ -114,7 +114,7 @@ function LoginForm() {
       </p>
 
       <Label_forgot>
-        <Link to="#">Forgot Your Password?</Link>
+        <Link to="/forgot-password">Forgot Your Password?</Link>
       </Label_forgot>
 
       <ButtonContainer>
@@ -124,7 +124,7 @@ function LoginForm() {
       <Label_Regis>
         <p className="don-t-have-account">
           <span className="text-wrapper">Don’t have account? </span>
-          <Link to="#" className="span">
+          <Link to="/register" className="span">
             Register Now
           </Link>
         </p>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { VoucherDTO } from "../interfaces/voucher";
 
 const OuterDiv = styled.div`
   position: fixed;
@@ -47,30 +48,24 @@ const CloseButton = styled.button`
 `;
 
 interface VouchersProps {
+  vouchers: VoucherDTO[] | undefined;
   onClose: () => void;
+  onVoucherSelect: (voucherId: number) => void;
+  selectedVouchers: number[]; // Add a prop for selected vouchers
 }
 
-const Vouchers: React.FC<VouchersProps> = ({ onClose }) => {
+const Vouchers: React.FC<VouchersProps> = ({
+  vouchers,
+  onClose,
+  onVoucherSelect,
+  selectedVouchers,
+}) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleOnClose = () => {
     setIsVisible(false);
     onClose();
   };
-  const voucherData = [
-    { id: 1, name: "Voucher 1", image: "https://via.placeholder.com/150" },
-    { id: 2, name: "Voucher 2", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Voucher 3", image: "https://via.placeholder.com/150" },
-    // Add more voucher data as needed
-  ];
-
   return (
     <>
       {isVisible && (
@@ -92,22 +87,23 @@ const Vouchers: React.FC<VouchersProps> = ({ onClose }) => {
                     </button>
                   </div>
                 </div>
-                <div className="max-h-80 overflow-y-auto">
-                  {/* Duyệt và hiển thị các khung voucher */}
-                  {voucherData.map((voucher) => (
-                    <VoucherItem key={voucher.id}>
-                      <VoucherImage
-                        src={voucher.image}
-                        alt={`Voucher ${voucher.id}`}
-                      />
+              </div>
+              <div className="max-h-80 overflow-y-auto">
+                {/* Duyệt và hiển thị các khung voucher */}
+                {vouchers &&
+                  vouchers.map((voucher) => (
+                    <VoucherItem key={voucher.voucherId}>
+                      <VoucherImage src=" https://via.placeholder.com/150" />
                       <p className="justify-center mt-8 ml-4">{voucher.name}</p>
                       <VoucherCheckbox
                         type="checkbox"
                         className="ml-36 h-4 w-4"
+                        onChange={() => onVoucherSelect(voucher.voucherId)}
+                        checked={selectedVouchers.includes(voucher.voucherId)}
+                        // Use checked prop to mark the checkbox based on selection
                       />
                     </VoucherItem>
                   ))}
-                </div>
               </div>
             </div>
           </InnerDiv>

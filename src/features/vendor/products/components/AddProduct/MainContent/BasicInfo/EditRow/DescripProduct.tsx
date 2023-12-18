@@ -1,4 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
+import { RootState } from "../../../../../../../../app/store";
+
 export const DescripProduct = () => {
+  const dispatch = useDispatch();
+  // const product = useSelector(
+  //   (state: RootState) => state.productInAddProduct.product
+  // );
+
+  const handleInputChange = (field: string, value: any) => {
+    dispatch(updateProduct({ field, value }));
+  };
   return (
     <>
       <div id="edit-row description-wrap" className="flex">
@@ -23,6 +35,9 @@ export const DescripProduct = () => {
               <textarea
                 placeholder="Nhập vào"
                 className="w-[100%] h-[80px] border border-[#ebeaed] rounded-[4px] px-[16px] py-[12px]"
+                onChange={(e) =>
+                  handleInputChange("description", e.target.value)
+                }
               />
             </div>
             <div id="edit-main-content-error">
