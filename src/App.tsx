@@ -33,6 +33,7 @@ import Statistical from "./pages/vendors/Statistical";
 import ManagerCustomer from "./pages/admins/ManagerCustomer";
 import ManagerProduct from "./pages/admins/ManagerProduct";
 import ManagerProductLocked from "./pages/admins/ManagerCustomer";
+import ShopOrders from "./pages/vendors/ShopOrders";
 // import { DetailProduct } from "./pages/DetailProduct";
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
           <Route path="/vendor" element={<VendorPage />} />
           <Route path="product/new" element={<AddProduct />} />
           <Route path="shop/statistical" element={<Statistical/>}/>
+           <Route path="vendor/orders" element={<ShopOrders/>}/>
         </Route>
 
         <Route path="*" element={<PageNotFound />} />
