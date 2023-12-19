@@ -1,5 +1,5 @@
 // export default AddressForm;
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddForm from "./AddForm";
 import { useGetAllAddressQuery } from "../../redux/api/addressApi";
 import { set } from "date-fns";
@@ -21,24 +21,24 @@ interface AddressDTO {
   status: string; // You may want to define a more specific type for status
 }
 
-interface CustomerDTO {
-  customerId: number;
-  username: string;
-  email: string;
-  gender: boolean;
-  fullName: string;
-  birthday: string; // You may want to use a Date type
-  status: string; // You may want to define a more specific type for status
-  roles: string[];
-}
+// interface CustomerDTO {
+//   customerId: number;
+//   username: string;
+//   email: string;
+//   gender: boolean;
+//   fullName: string;
+//   birthday: string; // You may want to use a Date type
+//   status: string; // You may want to define a more specific type for status
+//   roles: string[];
+// }
 
-interface ApiResponse {
-  status: string;
-  message: string;
-  code: number;
-  addressDTOs: AddressDTO[];
-  customerDTO: CustomerDTO;
-}
+// interface ApiResponse {
+//   status: string;
+//   message: string;
+//   code: number;
+//   addressDTOs: AddressDTO[];
+//   customerDTO: CustomerDTO;
+// }
 
 const Address: React.FC<AddressProps> = ({ name, phoneNumber, address }) => {
   return (
@@ -93,15 +93,19 @@ const Address: React.FC<AddressProps> = ({ name, phoneNumber, address }) => {
 const AddressForm = () => {
   const [showForm, setShowForm] = useState(false);
   const [listAddress, setListAddress] = useState<AddressProps[]>([]);
-  const { data, error, isLoading } = useGetAllAddressQuery("address");
-
-  // const [listAddressDTO, setListAddressDTO] = useState<AddressDTO[]>(
-  //   data.addressDTOs ? data.addressDTOs : []
-  // );
+  const { data, error, isLoading, refetch } = useGetAllAddressQuery();
 
   const [listAddressDTO, setListAddressDTO] = useState<AddressDTO[]>(
     data && data.addressDTOs ? data.addressDTOs : []
   );
+
+  useEffect(() => {
+    refetch();
+    console.log("data", data);
+    if (data && data.addressDTOs) {
+      setListAddressDTO(data.addressDTOs);
+    }
+  }, [data, showForm]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -125,6 +129,14 @@ const AddressForm = () => {
   const handleCloseForm = () => {
     setShowForm(false);
   };
+
+  // useEffect(() => {
+  //   refetch();
+  //   console.log("data", data);
+  //   if (data && data.addressDTOs) {
+  //     setListAddressDTO(data.addressDTOs);
+  //   }
+  // }, [data, showForm]);
 
   return (
     <div className="relative h-300">

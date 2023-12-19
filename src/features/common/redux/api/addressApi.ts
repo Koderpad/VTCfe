@@ -1,15 +1,27 @@
+import { EndpointBuilder } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "../../../../app/api/apiSlice.js";
+// import { EndpointBuilder } from "@reduxjs/toolkit/query";
+
+interface AddressRequestBody {
+  province: string;
+  district: string;
+  ward: string;
+  fullAddress: string;
+  fullName: string;
+  phone: string;
+  status: string;
+}
 
 export const addressApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder: EndpointBuilder) => ({
     getAllAddress: builder.query({
       query: () => `/customer/address/all`,
     }),
     addAddress: builder.mutation({
-      query: (body) => ({
+      query: (data: AddressRequestBody) => ({
         url: `/customer/address/add`,
         method: "POST",
-        body: body,
+        body: data,
       }),
     }),
   }),

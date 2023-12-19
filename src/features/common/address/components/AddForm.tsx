@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAddAddressMutation } from "../../redux/api/addressApi";
 
 interface AddressDTO {
-  addressId: number;
+  addressId?: number;
   province: string;
   district: string;
   ward: string;
@@ -25,17 +25,6 @@ const AddForm = (props: {
   listAddress: AddressProps[];
   setListAddress: (value: AddressProps[]) => void;
 }): React.ReactElement => {
-  const [newAddress, setNewAddress] = useState<AddressDTO>({
-    addressId: 0,
-    province: "",
-    district: "",
-    ward: "",
-    fullAddress: "",
-    fullName: "",
-    phone: "",
-    status: "ACTIVE",
-  });
-
   const [addAddress, { data }] = useAddAddressMutation();
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -107,6 +96,9 @@ const AddForm = (props: {
 
       // Display success toast
       toast.success("Thêm địa chỉ thành công!");
+
+      // close form
+      handleCloseForm();
 
       // TODO: You may want to update the list of addresses or perform other actions on success
     } catch (error) {

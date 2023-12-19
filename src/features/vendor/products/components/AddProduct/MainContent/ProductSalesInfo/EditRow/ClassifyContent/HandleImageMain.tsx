@@ -75,40 +75,6 @@ export const HandleImageMain = ({
     uploadImageToFirebase();
   }, [imageData]);
 
-  // Inside HandleImageMain component
-  // useEffect(() => {
-  //   console.log("imageData vo day");
-  //   const uploadImageToFirebase = async () => {
-  //     if (imageData) {
-  //       const storageRef = ref(storage, `images/${Date.now()}-${imageData}`);
-  //       const uploadTask = uploadBytesResumable(
-  //         storageRef,
-  //         imageData,
-  //         metadata
-  //       );
-
-  //       uploadTask.on(
-  //         "state_changed",
-  //         (snapshot) => {
-  //           // Your existing code to track upload progress
-  //         },
-  //         (error) => {
-  //           console.error("Error uploading image:", error);
-  //         },
-  //         async () => {
-  //           // Image uploaded successfully
-  //           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-  //           console.log("Uploaded image URL:", downloadURL);
-  //           // await setImageData(downloadURL);
-  //           handleData(downloadURL);
-  //         }
-  //       );
-  //     }
-  //   };
-
-  //   uploadImageToFirebase();
-  // }, [imageData]);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];

@@ -63,32 +63,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-// export default store;
-
-// const persistConfig = {
-//     key:"root",
-//     version:1,
-//     storage,
-// }
-//
-// const rootReducer = combineReducers({
-//     auth: authReducer,
-//     [apiSlice.reducerPath]: apiSlice.reducer
-// })
-//
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
-//
-// export const store = configureStore(
-//     {
-//         reducer: persistedReducer,
-//         middleware: getDefaultMiddleware =>
-//             getDefaultMiddleware().concat(apiSlice.middleware),
-//         devTools:true
-//     }
-// )
-//
-// export const AppDispatch = store.dispatch;
-// export const RootState = store.getState();
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

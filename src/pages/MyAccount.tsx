@@ -63,6 +63,14 @@ function MyAccount() {
                     Kho voucher
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="history-purchase"
+                    className=" hover:text-green-600 "
+                  >
+                    Đơn mua
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

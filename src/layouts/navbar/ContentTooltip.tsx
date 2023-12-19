@@ -30,7 +30,7 @@ function ContentTooltip() {
         {/* Dropdown content */}
         <ul className="list-none m-0 p-0 w-full h-full ">
           <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
-            <a href="#">Tài khoản của tôi</a>
+            <Link to="/user/account">Tài khoản của tôi</Link>
           </li>
           <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
             <a href="#">Đơn mua</a>

@@ -41,12 +41,17 @@ interface ProductDTO {
 
 // Props cho component ProductCard
 interface ProductCardProps {
-  id: number;
+  // id: number;
+  id: string | undefined;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
   const [product, setProduct] = useState<ProductDTO | null>(null);
-  const { data: response, isFetching, isLoading } = useGetProductByIdQuery(id);
+  const {
+    data: response,
+    isFetching,
+    isLoading,
+  } = useGetProductByIdQuery(parseInt(id!));
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -61,6 +66,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
     fetchProduct();
   }, [id, response]); // Include response as a dependency
 
+  useEffect(() => {
+    if (product === null) {
+      return;
+    }
+
+    const images: { original: string; thumbnail: string }[] =
+      product?.productVariantDTOs
+        .filter((item) => item.image !== "")
+        .map((item) => {
+          return {
+            original: item.image,
+            thumbnail: item.image,
+          };
+        });
+
+    //get image for product
+    // const image = product?.productVariantDTOs[0].image;
+    const image = product?.image;
+
+    //add image into images
+    images?.unshift({
+      original: image!,
+      thumbnail: image!,
+    });
+    console.log("images list: ", images);
+
+    //set imageThumbnail
+    setImageThumbnail(images!);
+  }, [product]);
+
   console.log("product", product);
 
   if (isLoading) {
@@ -71,25 +106,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
     return <div>Fetching...</div>;
   }
 
-  //get all image in product
-  const images: { original: string; thumbnail: string }[] | undefined =
-    product?.productVariantDTOs.map((item) => {
-      return {
-        original: item.image,
-        thumbnail: item.image,
-      };
-    });
-
-  //get image for product
-  const image = product?.productVariantDTOs[0].image;
-
-  //add image into images
-  images?.unshift({
-    original: image!,
-    thumbnail: image!,
-  });
-
-  console.log("images list: ", images);
+  const [imageThumbnail, setImageThumbnail] = useState<
+    {
+      original: string;
+      thumbnail: string;
+    }[]
+  >([]);
 
   return (
     <section className="overflow-hidden bg-white py-11 font-poppins">
@@ -97,7 +119,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
         <div className="flex flex-wrap w-full">
           {/* image */}
           <div className="w-full px-4 md:w-2/5 ">
-            <ImageSliderComponent imagesz={images} />
+            <ImageSliderComponent imagesz={imageThumbnail} />
           </div>
           {/* product info */}
           <div className="w-full px-4 md:w-3/5">

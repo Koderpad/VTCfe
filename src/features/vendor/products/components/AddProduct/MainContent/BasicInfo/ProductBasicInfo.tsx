@@ -1,6 +1,7 @@
 import { CategoryProduct } from "./EditRow/CategoryProduct";
 import { DescripProduct } from "./EditRow/DescripProduct";
 import { ImageProduct } from "./EditRow/ImageProduct";
+import { InfoProduct } from "./EditRow/InfoProduct";
 import { NameProduct } from "./EditRow/NameProduct";
 import { PanelHeader } from "./PanelHeader";
 
@@ -21,6 +22,8 @@ export const ProductBasicInfo = () => {
               <CategoryProduct />
               {/* row */}
               <DescripProduct />
+              {/* row */}
+              <InfoProduct />
             </div>
           </div>
         </div>
