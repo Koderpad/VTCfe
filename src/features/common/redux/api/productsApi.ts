@@ -3,7 +3,7 @@ import { apiSlice } from "../../../../app/api/apiSlice.js";
 export const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProductsByCategory: builder.query({
-      query: (id) => `/product/category/${id}?isParent=false`,
+      query: (id) => `/product/category/${id}`,
     }),
     // login: builder.mutation({
     //   query: (data) => ({
@@ -30,6 +30,4 @@ export const productsApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useGetProductsByCategoryQuery,
-} = productsApi;
+export const { useGetProductsByCategoryQuery } = productsApi;
