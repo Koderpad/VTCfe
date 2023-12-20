@@ -161,8 +161,8 @@ export const AdminReal = () => {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="categories"
                 className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
               >
                 <svg
@@ -185,7 +185,7 @@ export const AdminReal = () => {
                   />
                 </svg>
                 Quản lý category
-              </a>
+              </Link>
             </li>
           </ul>
 

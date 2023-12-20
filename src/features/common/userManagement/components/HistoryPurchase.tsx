@@ -1,7 +1,11 @@
 import classNames from "classnames";
 import { NavLink, Link, createSearchParams } from "react-router-dom";
 import useQueryParams from "../hooks/useQueryParams";
-import { useGetOrderByStatusMuMutation } from "../../redux/api/orderApi";
+import {
+  useGetOrderByStatusMuMutation,
+  useCancelOrderMutation,
+  useGetOrdersByStatusVer2Query,
+} from "../../redux/api/orderApi";
 import {
   GetOrderByStatusApiResponse,
   OrderDTO,
@@ -10,7 +14,7 @@ import {
 import { useEffect, useState } from "react";
 
 const purchasesStatus = {
-  inCart: -1,
+  // inCart: -1,
   ALL: 0,
   PENDING: 1,
   PROCESSING: 2,
@@ -39,29 +43,55 @@ const purchaseTabs = [
 
 export const HistoryPurchase = () => {
   const queryParams: { status?: string } = useQueryParams();
-  const status: number = Number(queryParams.status) || purchasesStatus.PENDING;
+  const status: number = Number(queryParams.status) || purchasesStatus.ALL;
 
+  const [isUpdate, setIsUpdate] = useState(false);
   const statusString = purchaseStatusString[status];
-  const [orderDTOs, setOrderDTOs] = useState<OrderDTO[]>([]);
+  // const [orderDTOs, setOrderDTOs] = useState<OrderDTO[]>([]);
   //   console.log("statusString", statusString);
   //   const statusString = "PENDING";
   const [getOrderByStatusMu] = useGetOrderByStatusMuMutation();
-  //   const response = await callStatisticsByDate(statisticsRequest).unwrap();
 
-  //   const orderDTOs: OrderDTO[] = getOrderByStatusMu(statusString).unwrap();
-  //   console.log("orderDTOs", orderDTOs);
-  const fetchData = async () => {
-    const data: GetOrderByStatusApiResponse = await getOrderByStatusMu(
-      statusString
-    ).unwrap();
-    console.log("data", data);
-    setOrderDTOs(data.orderDTOs);
+  const {
+    data: otherData,
+    isLoading: isLoadingOther,
+    isError: isErrorOther,
+    refetch: refetchOther,
+  } = useGetOrdersByStatusVer2Query(statusString);
+
+  const [cancelOrder, { isLoading, isError }] = useCancelOrderMutation();
+
+  const refetchData = async () => {
+    await refetchOther();
   };
 
   useEffect(() => {
-    // const statusString = purch
-    fetchData();
-  }, [statusString]);
+    refetchData();
+    // const data: GetOrderByStatusApiResponse = otherData;
+    // setOrderDTOs(data.orderDTOs);
+  }, [isUpdate, status]);
+
+  if (isLoadingOther) {
+    return <div>Loading...</div>;
+  }
+
+  if (isErrorOther) {
+    return <div>Error loading data</div>;
+  }
+
+  const data = otherData;
+
+  const orderDTOs: OrderDTO[] = data?.orderDTOs || [];
+
+  const handleCancelOrder = async (orderId: number) => {
+    try {
+      await cancelOrder(orderId);
+      alert("Hủy đơn hàng thành công");
+      setIsUpdate(!isUpdate);
+    } catch (error) {
+      alert("Hủy đơn hàng thất bại");
+    }
+  };
 
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
@@ -127,6 +157,17 @@ export const HistoryPurchase = () => {
                 </NavLink>
               ))}
               <div className="flex justify-end">
+                {status === purchasesStatus.PENDING && (
+                  <>
+                    <button
+                      onClick={() => handleCancelOrder(purchase.orderId)}
+                      type="button"
+                      className="py-3 px-4 inline-flex items-center gap-x-2 text-xl font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
                 <div className="mr-4">
                   <span>Tổng khuyến mãi</span>
                   <span className="ml-4 text-xl text-orange">

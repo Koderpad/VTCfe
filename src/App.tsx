@@ -46,6 +46,12 @@ import UpdateCategory from "./pages/vendors/UpdateCategory";
 import ManagerProduct from "./pages/admins/ManagerProduct";
 
 import ManagerProductLocked from "./pages/admins/ManagerCustomer";
+import AddParentCategory from "./pages/admins/AddParentCategory";
+import ParentCategories from "./pages/admins/ParentCategories";
+import UpdateParentCategory from "./pages/admins/UpdateParentCategory";
+import ShopProfile from "./pages/vendors/ShopProfile";
+import UpdateShop from "./pages/vendors/UpdateShop";
+import Products from "./pages/vendors/Products";
 function App() {
   return (
     <BrowserRouter>
@@ -97,6 +103,12 @@ function App() {
                 path="manager/products/locked"
                 element={<ManagerProductLocked />}
               />
+              <Route path="category/add" element={<AddParentCategory />} />
+              <Route path="categories" element={<ParentCategories />} />
+              <Route
+                path="category/edit/:id"
+                element={<UpdateParentCategory />}
+              />
               <Route path="manager/products" element={<ManagerProduct />} />
             </Route>
             <Route path="admin/profile" element={<ProfileAdmin />} />
@@ -115,10 +127,13 @@ function App() {
               <Route path="shop/category/add" element={<AddCategory />} />
               <Route path="shop/category/add" element={<AddCategory />} />
               <Route path="shop/categories" element={<Categories />} />
+              <Route path="shop/profile" element={<ShopProfile />} />
+              <Route path="shop/edit" element={<UpdateShop />} />
               <Route
                 path="shop/category/edit/:id"
                 element={<UpdateCategory />}
               />
+              <Route path="shop/products" element={<Products />} />
             </Route>
           </Route>
 

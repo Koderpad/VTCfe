@@ -57,8 +57,8 @@ export const VendorPage = () => {
           </div>
           <ul className="space-y-2">
             <li>
-              <a
-                href="#"
+              <Link
+                to="shop/profile"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg bg-gray-100 hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Shopprofile"
@@ -82,7 +82,7 @@ export const VendorPage = () => {
                   />
                 </svg>
                 Shop Profile
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -168,7 +168,7 @@ export const VendorPage = () => {
             </li>
             <li>
               <Link
-                to="product/new"
+                to="shop/products"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Quanlyproduct"
                     ? "bg-gray-100 hover:bg-green-100"
