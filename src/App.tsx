@@ -39,6 +39,7 @@ import { OrderDetailsForm } from "./features/common/payment/components/OrderDeta
 import { HistoryPurchase } from "./features/common/userManagement/components/HistoryPurchase";
 import { Abc } from "./features/vendor/managerShop/abcxyz";
 import { RegisterShop } from "./pages/vendors/RegisterShop";
+import AddCategory from "./pages/vendors/AddCategory";
 function App() {
   return (
     <BrowserRouter>
