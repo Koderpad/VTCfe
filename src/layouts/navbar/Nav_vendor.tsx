@@ -14,7 +14,7 @@ function Nav_vendor() {
 
   const handleClick = () => {
     if (user.roles.includes("VENDOR")) {
-      navigate("/vendor/shop");
+      navigate("/vendor");
     } else if (user.roles.includes("CUSTOMER")) {
       navigate("/vendor/register");
     } else {
@@ -27,15 +27,14 @@ function Nav_vendor() {
     <>
       <div className="flex items-center">
         {/* shopee */}
-        <Link
-          to={"/vendor/register"}
+        <a
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white no-underline text-xl font-medium p-1 outline-none"
+          className="text-white no-underline text-xl font-medium p-1 outline-none hover:cursor-pointer"
           onClick={handleClick}
         >
           Kênh Người Bán
-        </Link>
+        </a>
       </div>
     </>
   );

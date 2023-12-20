@@ -12,7 +12,7 @@ import { MyProfile, PasswordChanges } from "./features/common/userManagement";
 import { DetailProduct } from "./pages/DetailProduct";
 import RequireAuth from "./features/common/auth/RequireAuth";
 import AdminPage from "./pages/admins/AdminPage";
-import VendorPage from "./pages/vendors/VendorPage";
+import { VendorPage } from "./pages/vendors/VendorPage";
 import Unauthorized from "./pages/Unauthorized";
 import { ProductsByCategory } from "./pages/ProductsByCategory";
 import { AddProduct } from "./pages/vendors/AddProduct";
@@ -40,6 +40,7 @@ import { HistoryPurchase } from "./features/common/userManagement/components/His
 import { Abc } from "./features/vendor/managerShop/abcxyz";
 import { RegisterShop } from "./pages/vendors/RegisterShop";
 import AddCategory from "./pages/vendors/AddCategory";
+import { Orders } from "./pages/vendors/Orders";
 function App() {
   return (
     <BrowserRouter>
@@ -120,9 +121,11 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
-            <Route path="/vendor" element={<VendorPage />} />
-            <Route path="product/new" element={<AddProduct />} />
-            <Route path="shop/statistical" element={<Statistical />} />
+            <Route path="/vendor" element={<VendorPage />}>
+              <Route path="shop/statistical" element={<Statistical />} />
+              <Route path="shop/orders" element={<Orders />} />
+            </Route>
+            <Route path="vendor/product/new" element={<AddProduct />} />
             <Route path="/vendor/shop/category/add" element={<AddCategory />} />
           </Route>
 
