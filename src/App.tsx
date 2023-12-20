@@ -49,6 +49,8 @@ import ManagerProductLocked from "./pages/admins/ManagerCustomer";
 import AddParentCategory from "./pages/admins/AddParentCategory.tsx";
 import ParentCategories from "./pages/admins/ParentCategories.tsx";
 import UpdateParentCategory from "./pages/admins/UpdateParentCategory.tsx";
+import ShopProfile from "./pages/vendors/ShopProfile.tsx";
+import UpdateShop from "./pages/vendors/UpdateShop.tsx";
 
 function App() {
     return (
@@ -149,6 +151,8 @@ function App() {
                                 path="shop/category/edit/:id"
                                 element={<UpdateCategory/>}
                             />
+                            <Route path="shop/profile" element={<ShopProfile/>}/>
+                            <Route path="shop/edit" element={<UpdateShop/>}/>
                         </Route>
                     </Route>
 
