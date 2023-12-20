@@ -52,6 +52,12 @@ import UpdateParentCategory from "./pages/admins/UpdateParentCategory.tsx";
 import ShopProfile from "./pages/vendors/ShopProfile.tsx";
 import UpdateShop from "./pages/vendors/UpdateShop.tsx";
 import Products from "./pages/vendors/Products.tsx";
+import VouchersShop from "./pages/vendors/VouchersShop.tsx";
+import AddVoucherShop from "./pages/vendors/AddVoucherShop.tsx";
+import UpdateVoucherShop from "./pages/vendors/UpdateVoucherShop.tsx";
+import VouchersAdmin from "./pages/admins/VouchersAdmin.tsx";
+import AddVoucherAdmin from "./pages/admins/AddVoucherAdmin.tsx";
+import UpdateVoucherAdmin from "./pages/admins/UpdateVoucherAdmin.tsx";
 
 function App() {
     return (
@@ -122,6 +128,9 @@ function App() {
                     <Route element={<RequireAuth allowedRoles={["ADMIN"]}/>}>
                         {/* <Route path="/admin" element={<AdminPage />} /> */}
                         <Route path="admin" element={<AdminReal/>}>
+                            <Route path="vouchers" element={<VouchersAdmin/>}/>
+                            <Route path="voucher/add" element={<AddVoucherAdmin/>}/>
+                            <Route path="voucher/edit/:id" element={<UpdateVoucherAdmin/>}/>
                             <Route path="manager/customers" element={<ManagerCustomer/>}/>
                             <Route
                                 path="manager/products/locked"
@@ -155,6 +164,10 @@ function App() {
                             <Route path="shop/profile" element={<ShopProfile/>}/>
                             <Route path="shop/edit" element={<UpdateShop/>}/>
                             <Route path="shop/products" element={<Products/>}/>
+                            <Route path="shop/vouchers" element={<VouchersShop/>}/>
+                            <Route path="shop/voucher/add" element={<AddVoucherShop/>}/>
+                            <Route path="shop/voucher/edit/:id" element={<UpdateVoucherShop/>}/>
+
                         </Route>
                     </Route>
 
