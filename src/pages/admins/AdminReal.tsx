@@ -140,7 +140,7 @@ export const AdminReal = () => {
             </li>
             <li>
               <a
-                href="admin/manager/products"
+                href="/admin/manager/products"
                 className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
               >
                 <svg

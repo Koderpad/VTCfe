@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { persistor } from "../../app/store";
+import { logOut } from "../../features/common/auth/authSlice";
 
 export const VendorPage = () => {
+  const dispatch = useDispatch(); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const navigate = useNavigate();
+
   const [selectedTitle, setSelectedTitle] = useState<string>("");
   const location = useLocation();
 
@@ -224,6 +230,16 @@ export const VendorPage = () => {
 
           <a
             href="#"
+            onClick={async () => {
+              localStorage.removeItem("token");
+              window.location.reload();
+
+              dispatch(logOut());
+
+              navigate("/login");
+
+              await persistor.purge();
+            }}
             className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
           >
             <svg

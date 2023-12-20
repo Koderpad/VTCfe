@@ -8,11 +8,22 @@ export const ordersApi = apiSlice.injectEndpoints({
       }),
     }),
     getOrdersByStatus: builder.query({
-      query: (status: string) => ({
-        url: `/vendor/order/list/status/${status}`,
+      query: (status: string) => {
+        const base = "/vendor/order/list";
+        return status === "ALL" ? base : `${base}/status/${status}`;
+      },
+    }),
+    updateOrderStatus: builder.mutation({
+      query: ({ orderId, status }) => ({
+        url: `/vendor/order/update/status/${orderId}?status=${status}`,
+        method: "PATCH",
       }),
     }),
   }),
 });
 
-export const { useGetOrdersQuery, useGetOrdersByStatusQuery } = ordersApi;
+export const {
+  useGetOrdersQuery,
+  useGetOrdersByStatusQuery,
+  useUpdateOrderStatusMutation,
+} = ordersApi;

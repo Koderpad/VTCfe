@@ -63,29 +63,6 @@ function App() {
           <Route path="/upload" element={<Abc />} />
           <Route path="/vendor/register" element={<RegisterShop />} />
 
-          {/* <Route path="home" element={<Home />} />
-        <Route path="/" element={<Home />} /> */}
-          {/* <Route path="address" element={<Address />} /> */}
-
-          {/* LẤY LẠI MẬT KHẨU - DONE
-            QUẢN LÝ MÃ GIẢM GIÁ PRROFILE - DONE
-            CART - tạm DONE
-            THANH TOÁN - DONE với 1 voucher
-            ĐƠN HÀNG - chờ api của bé vượng
-            HOME PAGE - DONE
-            //!XEM CỬA HÀNG :>>> - CHƯA LUÔN VL THẬT :)))))))))))))))))))))))))))))
-            //!ĐÁNH GIÁ VÀ COMMENT
-            
-            YÊU THÍCH sản phẩm - UI - lỗi api
-            THEO DÕI CỬA HÀNG - UI
-            //!ĐƠN MUA
-            
-            ĐỊA CHỈ 
-
-
-            shop
-        */}
-
           {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
           {/* <Route path="product/:productId" element={<DetailProduct />} />
         <Route path="products" element={<ProductsByCategory />} /> */}
@@ -114,7 +91,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
             {/* <Route path="/admin" element={<AdminPage />} /> */}
-            <Route path="admin" element={<AdminReal />}>
+            <Route path="/admin" element={<AdminReal />}>
               <Route path="manager/customers" element={<ManagerCustomer />} />
               <Route
                 path="manager/products/locked"

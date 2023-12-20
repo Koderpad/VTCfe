@@ -74,10 +74,10 @@ export const ProductEdit = () => {
     useSelector((state: RootState) => state.productInAddProduct.attributeData);
 
   // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
-  useEffect(() => {
-    console.log("Updated product: ", productFinal);
-    // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
-  }, [productFinal]);
+  // useEffect(() => {
+  //   console.log("Updated product: ", productFinal);
+  //   // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
+  // }, [productFinal]);
 
   // const getVariantTableData = useSelector(
   //   (state) => state.productDataInAddProduct?.variantTableData
@@ -149,7 +149,7 @@ export const ProductEdit = () => {
       const newAttributeValues: AttributeValuesItem[] = [];
 
       for (const attributeValue of attributeValues) {
-        const response = addAttribute({
+        const response = await addAttribute({
           /* provide necessary data for addAttribute mutation */
           name: attributeName,
           value: attributeValue.value,
@@ -166,13 +166,20 @@ export const ProductEdit = () => {
 
         // Save the id of the added attribute
 
-        if (addedAttribute && addedAttribute.attributeId !== undefined) {
-          console.log(
-            "addedAttribute.attributeId: ",
-            addedAttribute.attributeId
-          );
-          console.log("addedAttribute.value: ", addedAttribute.value);
+        // if (addedAttribute && addedAttribute.attributeId !== undefined) {
+        //   console.log(
+        //     "addedAttribute.attributeId: ",
+        //     addedAttribute.attributeId
+        //   );
+        //   console.log("addedAttribute.value: ", addedAttribute.value);
 
+        //   newAttributeValues.push({
+        //     id: addedAttribute.attributeId,
+        //     value: addedAttribute.value,
+        //   });
+        // }
+
+        if (addedAttribute && addedAttribute.attributeId !== undefined) {
           newAttributeValues.push({
             id: addedAttribute.attributeId,
             value: addedAttribute.value,
@@ -182,7 +189,7 @@ export const ProductEdit = () => {
 
       updatedAttributeData[attributeName] = newAttributeValues;
     }
-
+    console.log("updatedAttributeData: ", updatedAttributeData);
     // Trong hàm handleSaveProduct, sau khi cập nhật updatedAttributeData
     const updatedVariantData: ProductVariantRequest[] =
       pairVariantDataWithAttributes(variantData.data, updatedAttributeData);

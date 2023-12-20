@@ -1,28 +1,22 @@
-import { useGetProductsByCategoryQuery } from "../../../../redux/api/productsApi";
-import axios from "axios";
 import { CategoryPart } from "./CategoryPart";
 import { Link } from "react-router-dom";
-
-type AttributeDTO = {
-  attributeId: number;
-  name: string;
-  value: string;
-  active: boolean;
-  shopId: number;
-};
-
-type ProductVariantDTO = {
-  productVariantId: number;
-  sku: string;
-  image: string;
-  price: number;
-  quantity: number;
+import { useEffect, useState } from "react";
+import { useGetListProductPageByCategoryIdMutation } from "../../../services/productPageApi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// ListManagerProductResponse.ts
+interface ListProductPageResponse {
   status: string;
-  productId: number;
-  attributeDTOs: AttributeDTO[];
-};
+  message: string;
+  code: number;
+  count: number;
+  size: number;
+  page: number;
+  totalPage: number;
+  productDTOs: ProductDTO[];
+}
 
-type Product = {
+interface ProductDTO {
   productId: number;
   name: string;
   image: string;
@@ -33,29 +27,125 @@ type Product = {
   categoryId: number;
   brandId: number | null;
   productVariantDTOs: ProductVariantDTO[];
-};
+}
 
-type ProductProps = {
-  product: Product;
-};
+interface ProductVariantDTO {
+  productVariantId: number;
+  sku: string;
+  image: string;
+  price: number;
+  quantity: number;
+  status: string;
+  productId: number;
+  attributeDTOs: AttributeDTO[];
+}
+
+interface AttributeDTO {
+  attributeId: number;
+  name: string;
+  value: string;
+  active: boolean;
+  shopId: number;
+}
 
 export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
-  const {
-    data: products,
-    error,
-    isLoading,
-  } = useGetProductsByCategoryQuery(categoryId);
+  const [page, setPage] = useState(1);
+  const size = 3;
+  const [products, setProducts] = useState<ProductDTO[]>([]);
+  const [productPageResponse, setProductPageResponse] =
+    useState<ListProductPageResponse | null>(null);
+  // const [selectedProductId, setSelectedProductId] = useState(null);
 
-  console.log("products", products);
+  const [getListProductPage, { isLoading }] =
+    useGetListProductPageByCategoryIdMutation();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getListProductPage({ page, size, categoryId });
+        const responseData = response?.data;
 
-  if (error) {
-    return <div>Error</div>;
-  }
+        if (responseData) {
+          console.log("responseData", responseData);
+          setProductPageResponse(responseData);
+          setProducts(responseData.productDTOs || []);
+          toast.success(responseData.message);
+        } else {
+          // alert("Invalid response data");
+          toast.error("Invalid response data");
+        }
+      } catch (error) {
+        console.error("Lỗi tìm nạp dữ liệu:", error);
+        toast.error(error.data?.message || "Error fetching data");
+      }
+    };
 
+    fetchData();
+  }, [getListProductPage, page, size]);
+
+  const handlePageClick = (pageNumber) => {
+    setPage(pageNumber);
+  };
+  const renderPageButtons = () => {
+    if (!productPageResponse) {
+      return null;
+    }
+
+    const totalPage = productPageResponse.totalPage;
+    const currentPage = page;
+
+    const visiblePages = 5; // Number of pages to display around the current page
+    const halfVisiblePages = Math.floor(visiblePages / 2);
+
+    let startPage = Math.max(1, currentPage - halfVisiblePages);
+    let endPage = Math.min(totalPage, startPage + visiblePages - 1);
+
+    // Adjust startPage and endPage to always display visiblePages number of buttons
+    if (endPage - startPage + 1 < visiblePages) {
+      startPage = Math.max(1, endPage - visiblePages + 1);
+    }
+
+    const pages = Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
+
+    return (
+      <div className="flex space-x-2 justify-center">
+        {startPage > 1 && (
+          <button
+            className={`px-3 py-2 bg-gray-200 rounded-md`}
+            onClick={() => handlePageClick(1)}
+          >
+            1
+          </button>
+        )}
+        {startPage > 2 && <span className="px-3 py-2">...</span>}
+        {pages.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            className={`px-3 py-2 ${
+              pageNumber === currentPage
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200"
+            } rounded-md`}
+            onClick={() => handlePageClick(pageNumber)}
+          >
+            {pageNumber}
+          </button>
+        ))}
+        {endPage < totalPage - 1 && <span className="px-3 py-2">...</span>}
+        {endPage < totalPage && (
+          <button
+            className={`px-3 py-2 bg-gray-200 rounded-md`}
+            onClick={() => handlePageClick(totalPage)}
+          >
+            {totalPage}
+          </button>
+        )}
+      </div>
+    );
+  };
   return (
     <>
       <section className="bg-gray-50 font-poppins  ">
@@ -64,66 +154,66 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
             {/* filter */}
             <div className="w-full pr-2 lg:w-1/6 lg:block">
               {/* <div className="p-4 mb-5 bg-white border border-gray-200 ">
-                <h2 className="text-2xl font-bold dark:text-gray-400">
-                  Categories
-                </h2>
-                <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                <ul>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-400 "
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg">Biscuits</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-400 "
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2 " />
-                      <span className="text-lg">Fruits</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-400"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg">Seafood</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-400"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg">Vegetables</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-400"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg">
-                        Frozen Foods &amp; Staples
-                      </span>
-                    </label>
-                  </li>
-                </ul>
-                <a
-                  href="#"
-                  className="text-base font-medium text-blue-500 hover:underline dark:text-blue-400"
-                >
-                  View More
-                </a>
-              </div> */}
+                  <h2 className="text-2xl font-bold dark:text-gray-400">
+                    Categories
+                  </h2>
+                  <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
+                  <ul>
+                    <li className="mb-4">
+                      <label
+                        htmlFor=""
+                        className="flex items-center dark:text-gray-400 "
+                      >
+                        <input type="checkbox" className="w-4 h-4 mr-2" />
+                        <span className="text-lg">Biscuits</span>
+                      </label>
+                    </li>
+                    <li className="mb-4">
+                      <label
+                        htmlFor=""
+                        className="flex items-center dark:text-gray-400 "
+                      >
+                        <input type="checkbox" className="w-4 h-4 mr-2 " />
+                        <span className="text-lg">Fruits</span>
+                      </label>
+                    </li>
+                    <li className="mb-4">
+                      <label
+                        htmlFor=""
+                        className="flex items-center dark:text-gray-400"
+                      >
+                        <input type="checkbox" className="w-4 h-4 mr-2" />
+                        <span className="text-lg">Seafood</span>
+                      </label>
+                    </li>
+                    <li className="mb-4">
+                      <label
+                        htmlFor=""
+                        className="flex items-center dark:text-gray-400"
+                      >
+                        <input type="checkbox" className="w-4 h-4 mr-2" />
+                        <span className="text-lg">Vegetables</span>
+                      </label>
+                    </li>
+                    <li className="mb-4">
+                      <label
+                        htmlFor=""
+                        className="flex items-center dark:text-gray-400"
+                      >
+                        <input type="checkbox" className="w-4 h-4 mr-2" />
+                        <span className="text-lg">
+                          Frozen Foods &amp; Staples
+                        </span>
+                      </label>
+                    </li>
+                  </ul>
+                  <a
+                    href="#"
+                    className="text-base font-medium text-blue-500 hover:underline dark:text-blue-400"
+                  >
+                    View More
+                  </a>
+                </div> */}
               <CategoryPart />
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">
@@ -156,7 +246,7 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                 </ul>
                 C
               </div>
-              <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
+              {/* <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">Brand</h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
                 <ul>
@@ -203,7 +293,7 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                 >
                   View More
                 </a>
-              </div>
+              </div> */}
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">Price</h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
@@ -247,8 +337,8 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                     </button>
                     <div
                       className="border border-[color:var(--components-button-white-border-color,#E5E7EB)]
-                     shadow-sm bg-white rounded-lg border-solid
-                    "
+                       shadow-sm bg-white rounded-lg border-solid
+                      "
                     >
                       <select
                         name=""
@@ -268,7 +358,7 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
 
               {/* grid */}
               <div className="grid grid-cols-4 gap-4">
-                {products.productDTOs.map((product: Product) => (
+                {products.map((product: ProductDTO) => (
                   <div
                     key={product.productId}
                     className="w-full px-3 mb-6 sm:w-1/2 md:w-full"
@@ -289,63 +379,63 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                             {product.name}
                           </h3>
                           {/* <ul className="flex">
-                            <li>
-                              <a href=" #">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star "
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                </svg>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                </svg>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                </svg>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="currentColor"
-                                  className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                </svg>
-                              </a>
-                            </li>
-                          </ul> */}
+                              <li>
+                                <a href=" #">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star "
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+                                  </svg>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+                                  </svg>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+                                  </svg>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
+                                  </svg>
+                                </a>
+                              </li>
+                            </ul> */}
                         </div>
                         <p className="text-lg ">
                           <span className="text-green-600 dark:text-green-600">
@@ -410,54 +500,91 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
               </div>
 
               {/* phan trang */}
-              <div className="flex justify-end mt-6">
-                <nav aria-label="page-navigation">
-                  <ul className="flex list-style-none">
-                    <li className="page-item disabled ">
-                      <a
-                        href="#"
-                        className="relative block pointer-events-none px-3 py-1.5 mr-3 text-base text-gray-700 transition-all duration-300  rounded-md dark:text-gray-400 hover:text-gray-100 hover:bg-blue-600"
-                      >
-                        Previous
-                      </a>
-                    </li>
-                    <li className="page-item ">
-                      <a
-                        href="#"
-                        className="relative block px-3 py-1.5 mr-3 text-base hover:text-blue-700 transition-all duration-300 hover:bg-blue-200 dark:hover:text-gray-400 dark:hover:bg-gray-700 rounded-md text-gray-100 bg-blue-400"
-                      >
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item ">
-                      <a
-                        href="#"
-                        className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3  "
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item ">
-                      <a
-                        href="#"
-                        className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3 "
-                      >
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item ">
-                      <a
-                        href="#"
-                        className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md "
-                      >
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
+              {/* <div className="flex justify-end mt-6">
+                  <nav aria-label="page-navigation">
+                    <ul className="flex list-style-none">
+                      <li className="page-item disabled ">
+                        <a
+                          href="#"
+                          className="relative block pointer-events-none px-3 py-1.5 mr-3 text-base text-gray-700 transition-all duration-300  rounded-md dark:text-gray-400 hover:text-gray-100 hover:bg-blue-600"
+                        >
+                          Previous
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a
+                          href="#"
+                          className="relative block px-3 py-1.5 mr-3 text-base hover:text-blue-700 transition-all duration-300 hover:bg-blue-200 dark:hover:text-gray-400 dark:hover:bg-gray-700 rounded-md text-gray-100 bg-blue-400"
+                        >
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a
+                          href="#"
+                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3  "
+                        >
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a
+                          href="#"
+                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3 "
+                        >
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a
+                          href="#"
+                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md "
+                        >
+                          Next
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div> */}
+              {/* <div className="flex space-x-2 justify-center">
+                {startPage > 1 && (
+                  <button
+                    className={`px-3 py-2 bg-gray-200 rounded-md`}
+                    onClick={() => handlePageClick(1)}
+                  >
+                    1
+                  </button>
+                )}
+                {startPage > 2 && <span className="px-3 py-2">...</span>}
+                {pages.map((pageNumber) => (
+                  <button
+                    key={pageNumber}
+                    className={`px-3 py-2 ${
+                      pageNumber === currentPage
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200"
+                    } rounded-md`}
+                    onClick={() => handlePageClick(pageNumber)}
+                  >
+                    {pageNumber}
+                  </button>
+                ))}
+                {endPage < totalPage - 1 && (
+                  <span className="px-3 py-2">...</span>
+                )}
+                {endPage < totalPage && (
+                  <button
+                    className={`px-3 py-2 bg-gray-200 rounded-md`}
+                    onClick={() => handlePageClick(totalPage)}
+                  >
+                    {totalPage}
+                  </button>
+                )}
+              </div> */}
+              <div className="text-center mt-4">{renderPageButtons()}</div>
             </div>
           </div>
+          <ToastContainer position="bottom-right" />
         </div>
       </section>
     </>

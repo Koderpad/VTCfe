@@ -50,7 +50,7 @@ export const CartForm = () => {
             "Thông báo: Khách hàng chưa có địa chỉ nào." &&
           res.error.status === 404
         ) {
-          alert("Địa chỉ của mày đâu mà đặt hàng, đặt thằng bố mày!!!");
+          alert("Địa chỉ của bạn chưa có, vui lòng thêm địa chỉ!");
           navigate("/user/account/address");
           return;
         }
