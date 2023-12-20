@@ -15,9 +15,11 @@ const override = css`
   border-color: red;
 `;
 export const CartForm = () => {
+  // const [totalAmount, setTotalAmount] = useState(0);
+
   const { data, error, isLoading, refetch } =
     useGetListCartByUsernameQuery("cus");
-  console.log(data);
+  // console.log(data);
 
   const [createOrder] = useCreateOrderMutation();
   const [loading, setLoading] = useState(false);
@@ -25,14 +27,31 @@ export const CartForm = () => {
   const [selectedProducts, setSelectedProducts] = useState<{
     [shopId: number]: number[];
   }>({});
+  const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
-    console.log("cart ID: ", cartIds);
-    setSelectedProducts((prevSelectedProducts) => ({
+  // const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
+  //   console.log("cart ID: ", cartIds);
+  //   setSelectedProducts((prevSelectedProducts) => ({
+  //     ...prevSelectedProducts,
+  //     [shopId]: cartIds,
+  //   }));
+  // };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const handleSelectedProductsChange = async (
+    shopId: number,
+    cartIds: number[],
+    totalPrice: number
+  ) => {
+    await setSelectedProducts((prevSelectedProducts) => ({
       ...prevSelectedProducts,
       [shopId]: cartIds,
     }));
+    await setTotalPrice(totalPrice);
   };
 
   const handleCreateOrder = async () => {
@@ -67,10 +86,6 @@ export const CartForm = () => {
     }
   };
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
-
   //!BEGIN RENDER------------------------------------------
   return (
     <>
@@ -88,8 +103,11 @@ export const CartForm = () => {
                     data={item}
                     onSelectedProductsChange={(
                       shopId: number,
-                      cartIds: number[]
-                    ) => handleSelectedProductsChange(shopId, cartIds)}
+                      cartIds: number[],
+                      totalPrice: number
+                    ) =>
+                      handleSelectedProductsChange(shopId, cartIds, totalPrice)
+                    }
                   />
                 ))
               : null}
@@ -98,19 +116,20 @@ export const CartForm = () => {
             id="footer-cart"
             className="sticky bottom-0 left-0 w-full bg-white rounded-lg shadow-md p-6 border-2 border-blue-500"
           >
-            <div className="flex justify-between mb-2">
+            {/* <div className="flex justify-between mb-2">
               <VoucherForm />
-            </div>
+            </div> */}
             <div className="flex gap-4 w-full justify-start">
               <div className="flex flex-col justify-start w-full">
                 <div className="flex justify-between mb-2">
                   <span>Tổng tiền hàng</span>
                   <span>$19.99</span>
+                  {/* <span>{totalAmount.toFixed(2)}đ</span> */}
                 </div>
-                <div className="flex justify-between mb-2">
+                {/* <div className="flex justify-between mb-2">
                   <span>Tiết kiệm</span>
                   <span>$19.99</span>
-                </div>
+                </div> */}
                 <hr className="my-2" />
                 <div className="flex justify-between mb-2">
                   <span>Tổng thanh toán (... sản phẩm):</span>

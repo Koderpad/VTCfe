@@ -12,6 +12,7 @@ import {
   OrderItemDTO,
 } from "./interface/GetOrderByStatusResponses";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 const purchasesStatus = {
   // inCart: -1,
@@ -114,6 +115,15 @@ export const HistoryPurchase = () => {
     </Link>
   ));
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div className="overflow-x-auto">
       <div className="min-w-[700px]">
@@ -157,6 +167,9 @@ export const HistoryPurchase = () => {
                 </NavLink>
               ))}
               <div className="flex justify-end">
+                <span className="mr-4">
+                  Ngày đặt hàng: {formatDate(purchase.orderDate)}
+                </span>
                 {status === purchasesStatus.PENDING && (
                   <>
                     <button

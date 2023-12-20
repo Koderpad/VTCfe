@@ -114,7 +114,8 @@ export const VendorPage = () => {
             </li>
             <li>
               <Link
-                to="manager/customers"
+                to="shop/vouchers"
+                // to="manager/customers"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Quanlyvoucher"

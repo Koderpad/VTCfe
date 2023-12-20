@@ -51,7 +51,13 @@ import ParentCategories from "./pages/admins/ParentCategories";
 import UpdateParentCategory from "./pages/admins/UpdateParentCategory";
 import ShopProfile from "./pages/vendors/ShopProfile";
 import UpdateShop from "./pages/vendors/UpdateShop";
+import VouchersAdmin from "./pages/admins/VouchersAdmin";
+import AddVoucherAdmin from "./pages/admins/AddVoucherAdmin";
+import UpdateVoucherAdmin from "./pages/admins/UpdateVoucherAdmin";
 import Products from "./pages/vendors/Products";
+import VouchersShop from "./pages/vendors/VouchersShop";
+import AddVoucherShop from "./pages/vendors/AddVoucherShop";
+import UpdateVoucherShop from "./pages/vendors/UpdateVoucherShop";
 function App() {
   return (
     <BrowserRouter>
@@ -110,6 +116,9 @@ function App() {
                 element={<UpdateParentCategory />}
               />
               <Route path="manager/products" element={<ManagerProduct />} />
+              <Route path="vouchers" element={<VouchersAdmin />} />
+              <Route path="voucher/add" element={<AddVoucherAdmin />} />
+              <Route path="voucher/edit/:id" element={<UpdateVoucherAdmin />} />
             </Route>
             <Route path="admin/profile" element={<ProfileAdmin />} />
             <Route path="admin/category" element={<CatagoryAdmin />} />
@@ -134,6 +143,12 @@ function App() {
                 element={<UpdateCategory />}
               />
               <Route path="shop/products" element={<Products />} />
+              <Route path="shop/vouchers" element={<VouchersShop />} />
+              <Route path="shop/voucher/add" element={<AddVoucherShop />} />
+              <Route
+                path="shop/voucher/edit/:id"
+                element={<UpdateVoucherShop />}
+              />
             </Route>
           </Route>
 

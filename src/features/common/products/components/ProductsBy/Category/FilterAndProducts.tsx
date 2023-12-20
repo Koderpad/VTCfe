@@ -2,6 +2,7 @@ import { CategoryPart } from "./CategoryPart";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetListProductPageByCategoryIdMutation } from "../../../services/productPageApi";
+import { useAddNewFavoriteProductMutation } from "../../../services/productsPageGetApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // ListManagerProductResponse.ts
@@ -50,7 +51,7 @@ interface AttributeDTO {
 
 export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
   const [page, setPage] = useState(1);
-  const size = 3;
+  const size = 10;
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [productPageResponse, setProductPageResponse] =
     useState<ListProductPageResponse | null>(null);
@@ -58,6 +59,8 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
 
   const [getListProductPage, { isLoading }] =
     useGetListProductPageByCategoryIdMutation();
+
+  const [addNewFavoriteProduct] = useAddNewFavoriteProductMutation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,6 +149,36 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
       </div>
     );
   };
+
+  const handleAddFavorite = async (productId: number) => {
+    try {
+      console.log("productId", productId);
+      const response = await addNewFavoriteProduct({ productId });
+
+      if (response.error) {
+        toast.error("Sản phẩm đã trong danh sách yêu thích");
+        return;
+      }
+
+      const responseData = response?.data;
+      console.log("responseData", response);
+
+      if (responseData) {
+        console.log("responseData", responseData);
+        // setProductPageResponse(responseData);
+        // setProducts(responseData.productDTOs || []);
+        toast.success(responseData);
+      } else {
+        // alert("Invalid response data");
+        console.log("responseData in error: ", responseData);
+        toast.error(responseData);
+      }
+    } catch (error) {
+      // console.error("Lỗi tìm nạp dữ liệu:", error);
+      toast.error("Error fetching data");
+    }
+  };
+
   return (
     <>
       <section className="bg-gray-50 font-poppins  ">
@@ -445,8 +478,8 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                       </div>
                       <div className="flex justify-between p-4 border-t border-gray-300 dark:border-gray-700">
                         {/* yêu thích */}
-                        <a
-                          href="#"
+                        <button
+                          onClick={() => handleAddFavorite(product.productId)}
                           className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300"
                         >
                           <svg
@@ -459,7 +492,7 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                           >
                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
                           </svg>
-                        </a>
+                        </button>
                         {/* cart */}
                         <a
                           href="#"

@@ -128,10 +128,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header_v1 from "../layouts/headers/Header_v1";
 import Banner from "../layouts/banner/Banner";
-import ProductList from "../features/common/products/components/ProductsList/ProductList";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ProductListFix } from "../features/common/products/components/ProductsList/ProductListFix";
 
 // interface Category {
 //   name: string;
@@ -246,7 +244,7 @@ export const Home = () => {
         </div>
         <div className="container-fluid mt-8 mx-8 sm:mx-4 md:mx-16 drop-shadow-md">
           <div className="bg-white  mt-4 border-double  drop-shadow-md">
-            <ProductList />
+            <ProductListFix />
           </div>
         </div>
       </div>

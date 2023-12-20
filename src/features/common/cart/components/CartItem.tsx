@@ -39,34 +39,30 @@ interface ShopDTO {
 
 interface VoucherComponentProps {
   data: ShopDTO;
-  onSelectedProductsChange: (shopId: number, cartIds: number[]) => void;
+  onSelectedProductsChange: (
+    shopId: number,
+    cartIds: number[],
+    totalPrice: number
+  ) => void;
 }
 
 const CartItem: React.FC<VoucherComponentProps> = ({
   data,
   onSelectedProductsChange,
 }) => {
+  const [totalPrice, setTotalPrice] = useState(0);
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [isShopCheckboxChecked, setShopCheckboxChecked] =
     useState<boolean>(false);
 
   const [deleteCart] = useDeleteCartMutation();
 
-  // const [productQuantities, setProductQuantities] = useState<{
-  //   [productId: number]: number;
-  // }>(
-  //   products.reduce((acc, product) => {
-  //     acc[product.id] = product.quantity;
-  //     return acc;
-  //   }, {} as { [productId: number]: number })
-  // );
-
   // Call the parent component's callback when selected products change
   React.useEffect(() => {
     console.log("selectedProducts: ", selectedProducts);
     // const productIDs = selectedProducts.map((item) => item.valueOf());
     // console.log("productIDs: ", productIDs);
-    onSelectedProductsChange(data.shopId, selectedProducts);
+    onSelectedProductsChange(data.shopId, selectedProducts, totalPrice);
   }, [selectedProducts]);
 
   const toggleShopCheckbox = () => {
@@ -79,18 +75,6 @@ const CartItem: React.FC<VoucherComponentProps> = ({
       setSelectedProducts([]);
     }
   };
-
-  // const toggleProductCheckbox = (cartId: number) => {
-  //   setSelectedProducts((prevSelectedProducts) => {
-  //     if (prevSelectedProducts.includes(cartId)) {
-  //       // Deselect the product
-  //       return prevSelectedProducts.filter((id) => id !== cartId);
-  //     } else {
-  //       // Select the product
-  //       return [...prevSelectedProducts, cartId];
-  //     }
-  //   });
-  // };
 
   const toggleProductCheckbox = (cartId: number) => {
     setSelectedProducts((prevSelectedProducts) => {

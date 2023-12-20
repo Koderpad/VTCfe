@@ -5,29 +5,11 @@ export const productsApi = apiSlice.injectEndpoints({
     getProductsByCategory: builder.query({
       query: (id) => `/product/category/${id}`,
     }),
-    // login: builder.mutation({
-    //   query: (data) => ({
-    //     url: "/auth/login",
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
-    // register: builder.mutation({
-    //   query: (data) => ({
-    //     url: `/auth/register`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
-    // }),
-    // getUser: builder.query({ query: () => "/customer/profile" }),
-    // login22: builder.mutation({
-    //   query: () => ({
-    //     url: "/customer/profile",
-    //     method: "GET",
-    //     // body: data
-    //   }),
-    // }),
+    getFavoriteProducts: builder.query({
+      query: () => `/customer/favorite-product/list`,
+    }),
   }),
 });
 
-export const { useGetProductsByCategoryQuery } = productsApi;
+export const { useGetProductsByCategoryQuery, useGetFavoriteProductsQuery } =
+  productsApi;

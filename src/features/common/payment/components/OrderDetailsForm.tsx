@@ -4,14 +4,9 @@ import Header_v1 from "../../../../layouts/headers/Header_v1";
 
 import { FaTruck } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  useGetOrderByOrderIdQuery,
-  useLazyGetOrderByOrderIdQuery,
-  useGetOrderByOrderIdMuMutation,
-} from "../../redux/api/orderApi";
+import { useGetOrderByOrderIdQuery } from "../../redux/api/orderApi";
 import { useEffect, useState } from "react";
-import { set } from "date-fns";
-import axios from "axios";
+
 interface AttributeDTO {
   attributeId: number;
   name: string;
@@ -54,11 +49,11 @@ interface OrderItemDTO {
 }
 
 interface VoucherOrderDTO {
-  voucherOrderId: number;
-  voucherId: number;
-  voucherName: string;
-  type: boolean;
-  orderId: number;
+  voucherOrderId?: number;
+  voucherId?: number;
+  voucherName?: string;
+  type?: boolean;
+  orderId?: number;
 }
 
 interface OrderDTO {
@@ -91,7 +86,7 @@ interface ApiResponse {
 export const OrderDetailsForm = () => {
   const { id } = useParams();
 
-  console.log("id", id);
+  // console.log("id", id);
 
   const {
     data: getOrderByOrderId,
@@ -100,7 +95,7 @@ export const OrderDetailsForm = () => {
     refetch,
   } = useGetOrderByOrderIdQuery(parseInt(id!));
 
-  console.log("getOrderByOrderId", getOrderByOrderId);
+  // console.log("getOrderByOrderId", getOrderByOrderId);
 
   // setData(getOrderByOrderId.data);
   // console.log("data", data);
@@ -162,14 +157,16 @@ export const OrderDetailsForm = () => {
 
   const orderItems: OrderItemDTO[] = orderDetails?.orderItemDTOs;
 
-  const products: ProductVariantDTO[] = orderItems.map(
-    (item) => item.productVariantDTO
-  );
+  // const products: ProductVariantDTO[] = orderItems.map(
+  //   (item) => item.productVariantDTO
+  // );
 
-  console.log("orderDetails", products);
+  // console.log("orderDetails", products);
 
   const voucher: VoucherOrderDTO[] | null | undefined =
     orderDetails?.voucherOrderDTOs;
+
+  console.log("voucher: ", voucher);
 
   const voucherOfShop: VoucherOrderDTO[] | undefined = voucher?.filter(
     (e) => e.type === false
@@ -179,7 +176,7 @@ export const OrderDetailsForm = () => {
     (e) => e.type !== false
   );
 
-  console.log("voucher", voucherOfSys);
+  console.log("voucher of sys: ", voucherOfSys);
 
   return (
     <div className="bg-gray">
@@ -288,7 +285,12 @@ export const OrderDetailsForm = () => {
             />
             <span className="text-red-500">Voucher của shop</span>
           </div>
-          <span>{voucherOfShop ? voucherOfShop[0].voucherName : ""}</span>
+          <span>
+            {voucherOfShop && voucherOfShop.length > 0
+              ? voucherOfShop[0].voucherName
+              : "Không có"}
+            {/* {voucherOfShop !== [] ? voucherOfShop[0].voucherName : ""} */}
+          </span>
         </div>
 
         <div className="flex justify-between px-4 items-center mb-4">

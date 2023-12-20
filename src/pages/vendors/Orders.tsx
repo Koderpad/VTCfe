@@ -114,6 +114,15 @@ export const Orders = () => {
     }
   };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  };
+
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
       key={tab.status}
@@ -178,6 +187,9 @@ export const Orders = () => {
                 </NavLink>
               ))}
               <div className="flex justify-end">
+                <span className="mr-4">
+                  Ngày đặt hàng: {formatDate(purchase.orderDate)}
+                </span>
                 {status === purchasesStatus.PENDING && (
                   <>
                     <button
