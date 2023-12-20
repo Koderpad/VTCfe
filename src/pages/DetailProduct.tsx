@@ -9,29 +9,6 @@ export const DetailProduct = () => {
   const { productId } = useParams();
   console.log("productId", productId);
 
-  // const [productData, setProductData] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // Fetch data using axios or your preferred method
-  //       const response = await fetch(
-  //         `http://localhost:8181/api/product/detail/${productId}`
-  //       );
-  //       const data = await response.json();
-
-  //       console.log("data", data);
-
-  //       // Set the fetched data to the state
-  //       setProductData(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [productId]);
-
   return (
     <>
       <div className="flex flex-col min-h-screen">

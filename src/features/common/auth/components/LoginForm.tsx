@@ -53,7 +53,7 @@ function LoginForm() {
       if (customerDTO.roles.includes("ADMIN")) {
         navigate("/admin", { replace: true });
       } else if (customerDTO.roles.includes("CUSTOMER")) {
-        navigate("/user/account", { replace: true });
+        navigate("/home", { replace: true });
       } else {
         navigate(from, { replace: true });
       }

@@ -35,10 +35,14 @@ const authReducer = createSlice({
       state.error = "";
       localStorage.removeItem("token");
     },
+    updateUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setCredentials, loginSuccess, logOut } = authReducer.actions;
+export const { setCredentials, loginSuccess, logOut, updateUser } =
+  authReducer.actions;
 
 export default authReducer.reducer;
 

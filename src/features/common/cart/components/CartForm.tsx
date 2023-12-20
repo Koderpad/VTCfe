@@ -44,9 +44,20 @@ export const CartForm = () => {
 
       const orderDetails = Object.values(selectedProducts).flat();
       const res = await createOrder(orderDetails);
+      if (res.error) {
+        if (
+          res.error.data.message ===
+            "Thông báo: Khách hàng chưa có địa chỉ nào." &&
+          res.error.status === 404
+        ) {
+          alert("Địa chỉ của mày đâu mà đặt hàng, đặt thằng bố mày!!!");
+          navigate("/user/account/address");
+          return;
+        }
+      }
       console.log("res", res);
       setSuccess(true); // Hiển thị thành công
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       navigate("/checkout", { state: { res: res } });
     } catch (error) {

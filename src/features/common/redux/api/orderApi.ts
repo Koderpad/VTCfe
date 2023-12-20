@@ -17,6 +17,25 @@ export const orderApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getOrderByOrderId: builder.query({
+      query: (orderId: number) => `customer/order/detail/${orderId}`,
+    }),
+    getOrderByOrderIdMu: builder.mutation({
+      query: (orderId: number) => ({
+        url: `customer/order/detail/${orderId}`,
+        method: "GET",
+      }),
+    }),
+
+    getOrderByStatus: builder.query({
+      query: (status: string) => `customer/order/list/status/${status}`,
+    }),
+    getOrderByStatusMu: builder.mutation({
+      query: (status: string) => ({
+        url: `customer/order/list/status/${status}`,
+        method: "GET",
+      }),
+    }),
 
     createUpdateOrder: builder.mutation({
       query: ({
@@ -51,4 +70,9 @@ export const {
   useCreateOrderMutation,
   useCreateUpdateOrderMutation,
   useSaveOrderMutation,
+  useGetOrderByOrderIdQuery,
+  useGetOrderByStatusQuery,
+  useGetOrderByStatusMuMutation,
+  useLazyGetOrderByOrderIdQuery,
+  useGetOrderByOrderIdMuMutation,
 } = orderApi;

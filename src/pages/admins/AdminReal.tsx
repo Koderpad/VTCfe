@@ -1,41 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-export const VendorPage = () => {
+export const AdminReal = () => {
   const [selectedTitle, setSelectedTitle] = useState<string>("");
   const location = useLocation();
 
   useEffect(() => {
+    // Lấy phần cuối cùng của đường dẫn làm title
     const currentPath = location.pathname.split("/").pop();
     if (currentPath === undefined) return;
 
-    if (currentPath === "statistical" && selectedTitle !== "Thongke") {
-      setSelectedTitle("Thongke");
-    }
-    if (currentPath === "orders" && selectedTitle !== "Quanlydonhang") {
-      setSelectedTitle("Quanlydonhang");
+    if (currentPath === "customers") {
+      setSelectedTitle("Quanlynguoidung");
     }
 
     console.log(currentPath);
-  }, [location.pathname, selectedTitle]);
 
-  // useEffect(() => {
-  //   // Lấy phần cuối cùng của đường dẫn làm title
-  //   const currentPath = location.pathname.split("/").pop();
-  //   if (currentPath === undefined) return;
-
-  //   if (currentPath === "statistical") {
-  //     setSelectedTitle("Thongke");
-  //   }
-  //   if (currentPath === "orders") {
-  //     setSelectedTitle("Quanlydonhang");
-  //   }
-
-  //   console.log(currentPath);
-
-  //   // Cập nhật trạng thái selectedTitle
-  //   // setSelectedTitle(currentPath);
-  // }, [location.pathname]);
+    // Cập nhật trạng thái selectedTitle
+    // setSelectedTitle(currentPath);
+  }, [location.pathname]);
 
   const handleTitleClick = (title: string) => {
     setSelectedTitle(title);
@@ -47,7 +30,7 @@ export const VendorPage = () => {
         <div className="w-auto m-4 col-start-1 col-end-2 flex h-full flex-col rounded-xl bg-white p-8">
           {/* title ADMIN */}
           <div className="flex flex-col items-center">
-            <h2 className="text-2xl font-semibold text-gray-700 mt-4">Shop</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 mt-4">Admin</h2>
           </div>
           <ul className="space-y-2">
             <li>
@@ -55,11 +38,11 @@ export const VendorPage = () => {
                 href="#"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg bg-gray-100 hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Shopprofile"
+                  selectedTitle === "Home"
                     ? "bg-gray-100 hover:bg-green-100"
                     : "hover:bg-green-100"
                 }`}
-                onClick={() => handleTitleClick("Shopprofile")}
+                onClick={() => handleTitleClick("Home")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,12 +58,12 @@ export const VendorPage = () => {
                     d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                   />
                 </svg>
-                Shop Profile
+                Home
               </a>
             </li>
             <li>
               <a
-                href="/vendor/shop/statistical"
+                href="#"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Thongke"
@@ -111,11 +94,11 @@ export const VendorPage = () => {
                 to="manager/customers"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Quanlyvoucher"
+                  selectedTitle === "Quanlynguoidung"
                     ? "bg-gray-100 hover:bg-green-100"
                     : "hover:bg-green-100"
                 }`}
-                onClick={() => handleTitleClick("Quanlyvoucher")}
+                onClick={() => handleTitleClick("Quanlynguoidung")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,18 +113,13 @@ export const VendorPage = () => {
                     d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                   />
                 </svg>
-                Quản lý voucher
+                Quản lý người dùng
               </Link>
             </li>
             <li>
-              <Link
-                to="/vendor/shop/categories"
-                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Quanlycategory"
-                    ? "bg-gray-100 hover:bg-green-100"
-                    : "hover:bg-green-100"
-                }`}
-                onClick={() => handleTitleClick("Quanlycategory")}
+              <a
+                href="#"
+                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -157,18 +135,35 @@ export const VendorPage = () => {
                     d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
                   />
                 </svg>
-                Quản lý category
-              </Link>
+                Quản lý voucher
+              </a>
             </li>
             <li>
-              <Link
-                to="product/new"
-                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Quanlyproduct"
-                    ? "bg-gray-100 hover:bg-green-100"
-                    : "hover:bg-green-100"
-                }`}
-                onClick={() => handleTitleClick("Quanlyproduct")}
+              <a
+                href="admin/manager/products"
+                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="mr-3 h-6 w-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                  />
+                </svg>
+                Quản lý sản phẩm
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -189,35 +184,7 @@ export const VendorPage = () => {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                Quản lý product
-              </Link>
-            </li>
-            <li>
-              <a
-                href="/vendor/shop/orders"
-                // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
-                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Quanlydonhang"
-                    ? "bg-gray-100 hover:bg-green-100"
-                    : "hover:bg-green-100"
-                }`}
-                onClick={() => handleTitleClick("Quanlydonhang")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="mr-3 h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-                  />
-                </svg>
-                Quản lý đơn hàng
+                Quản lý category
               </a>
             </li>
           </ul>

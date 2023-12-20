@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useManagerCustomersByStatusMutation,
-   useManagerCustomersSortAndSearchMutation } from '../../features/admin/redux/api/managerCustomerApi';
+import { useManagerCustomersByStatusMutation, useManagerCustomersSortAndSearchMutation } from '../../features/admin/redux/api/managerCustomerApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 

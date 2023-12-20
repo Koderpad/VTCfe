@@ -2,6 +2,7 @@ import { useGetProductsByCategoryQuery } from "../../../../redux/api/productsApi
 import axios from "axios";
 import { CategoryPart } from "./CategoryPart";
 import { Link } from "react-router-dom";
+
 type AttributeDTO = {
   attributeId: number;
   name: string;
@@ -38,14 +39,14 @@ type ProductProps = {
   product: Product;
 };
 
-export const FilterAndProducts = () => {
-  const categoryId = 3; // Đặt id của danh mục cần lấy sản phẩm ở đây
-
+export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
   const {
     data: products,
     error,
     isLoading,
   } = useGetProductsByCategoryQuery(categoryId);
+
+  console.log("products", products);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -212,6 +213,7 @@ export const FilterAndProducts = () => {
                     className="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
                     max="100"
                     value="50"
+                    onChange={() => {}}
                   />
                   <div className="flex justify-between ">
                     <span className="inline-block text-lg font-bold text-blue-400 ">

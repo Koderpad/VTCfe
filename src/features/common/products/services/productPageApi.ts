@@ -10,7 +10,7 @@ export const productPageApi = apiSlice.injectEndpoints({
       }),
     }),
 
-     getListProductPageByCategoryId: builder.mutation({
+    getListProductPageByCategoryId: builder.mutation({
       query: ({ page, size, categoryId }) => ({
         url: `/product/page/category/${categoryId}`,
         method: "GET",

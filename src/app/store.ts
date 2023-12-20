@@ -25,6 +25,7 @@ import { attributeVendorApi } from "../features/vendor/redux/api/attributeVendor
 import { addressApi } from "../features/common/redux/api/addressApi.ts";
 import { voucherAdminApi } from "../features/admin/redux/api/voucherAdminApi.ts";
 import { categoryAdminApi } from "../features/admin/redux/api/categoryAdminApi.ts";
+import { shopApi } from "../features/vendor/redux/api/shopApi.ts";
 
 const persistConfig = {
   key: "root",
@@ -36,16 +37,16 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   productInAddProduct: productDataInAddProductReducer,
-  [productsApi.reducerPath]: productsApi.reducer,
-  [cartApi.reducerPath]: cartApi.reducer,
-  [orderApi.reducerPath]: orderApi.reducer,
-  [voucherApi.reducerPath]: voucherApi.reducer,
-  [categoryApi.reducerPath]: categoryApi.reducer,
-  [addressApi.reducerPath]: addressApi.reducer,
+  // [productsApi.reducerPath]: productsApi.reducer,
+  // [cartApi.reducerPath]: cartApi.reducer,
+  // [orderApi.reducerPath]: orderApi.reducer,
+  // [voucherApi.reducerPath]: voucherApi.reducer,
+  // [categoryApi.reducerPath]: categoryApi.reducer,
+  // [addressApi.reducerPath]: addressApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
-  [voucherAdminApi.reducerPath]: voucherAdminApi.reducer,
-  [categoryAdminApi.reducerPath]: categoryAdminApi.reducer,
-  [attributeVendorApi.reducerPath]: attributeVendorApi.reducer,
+  // [voucherAdminApi.reducerPath]: voucherAdminApi.reducer,
+  // [categoryAdminApi.reducerPath]: categoryAdminApi.reducer,
+  // [attributeVendorApi.reducerPath]: attributeVendorApi.reducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -55,15 +56,16 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
     }).concat([apiSlice.middleware, productApi.middleware]),
-  devTools: true,
+  devTools: process.env.NODE_ENV !== "production",
+  // devTools: true,
 });
 
 export const persistor = persistStore(store);
-
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

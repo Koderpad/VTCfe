@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 import { RootState } from "../../../../../app/store";
 import { useAddAttributeMutation } from "../../../redux/api/attributeVendor";
 import { updateProduct } from "../../../redux/reducer/addProductSlice";
-
+import { useAddProductMutation } from "../../../redux/api/addProductApi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AddProductResponse } from "./AddProductResponsesBody";
 interface ProductVariantRequest {
   productVariantId?: number;
   sku: string;
@@ -53,10 +56,9 @@ interface VariantTableData {
 }
 
 export const ProductEdit = () => {
-  // const [addProduct, { isLoading, isError, isSuccess, data }] =
-  //   useAddProductMutation();
   const dispatch = useDispatch();
   const [addAttribute] = useAddAttributeMutation();
+  const [addProduct] = useAddProductMutation();
 
   const state = useSelector((state: RootState) => state.productInAddProduct);
 
@@ -70,6 +72,12 @@ export const ProductEdit = () => {
 
   const attributeDataNeedToSave: { [key: string]: AttributeValuesItem[] } =
     useSelector((state: RootState) => state.productInAddProduct.attributeData);
+
+  // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
+  useEffect(() => {
+    console.log("Updated product: ", productFinal);
+    // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
+  }, [productFinal]);
 
   // const getVariantTableData = useSelector(
   //   (state) => state.productDataInAddProduct?.variantTableData
@@ -94,8 +102,11 @@ export const ProductEdit = () => {
       // Kiểm tra và bắt cặp giá trị trong VariantDataItem với updatedAttributeData
       for (const attributeName in updatedAttributeData) {
         console.log("attributeName: ", attributeName);
+
         const attributeValues = updatedAttributeData[attributeName];
         console.log("attributeValues: ", attributeValues);
+
+        console.log("item.attributeValue1: ", item.attributeValue1);
 
         // Tìm giá trị trong updatedAttributeData tương ứng với giá trị trong VariantDataItem
         const matchedValue = attributeValues.find(
@@ -104,14 +115,11 @@ export const ProductEdit = () => {
         console.log("matchedValue: ", matchedValue);
 
         // Nếu có giá trị tương ứng, thêm id vào attributeIds của pairedItem
-        // if (matchedValue) {
-        //   pairedItem.attributeIds.push(matchedValue.id);
-        // }
         if (matchedValue && matchedValue.id !== undefined) {
           pairedItem.attributeIds.push(matchedValue.id);
         }
         //if item have attributevalue2
-        if (item.attributeValue2) {
+        if (item.attributeValue2 !== undefined) {
           const matchedValue2 = attributeValues.find(
             (value) => value.value === item.attributeValue2
           );
@@ -141,11 +149,16 @@ export const ProductEdit = () => {
       const newAttributeValues: AttributeValuesItem[] = [];
 
       for (const attributeValue of attributeValues) {
-        const response = await addAttribute({
+        const response = addAttribute({
           /* provide necessary data for addAttribute mutation */
           name: attributeName,
           value: attributeValue.value,
         });
+
+        console.log(
+          "response after add attribute: ",
+          response.data?.attributeDTO
+        );
 
         // Assuming response.data contains the added attribute with an id
         // const addedAttribute = response.data;
@@ -154,6 +167,12 @@ export const ProductEdit = () => {
         // Save the id of the added attribute
 
         if (addedAttribute && addedAttribute.attributeId !== undefined) {
+          console.log(
+            "addedAttribute.attributeId: ",
+            addedAttribute.attributeId
+          );
+          console.log("addedAttribute.value: ", addedAttribute.value);
+
           newAttributeValues.push({
             id: addedAttribute.attributeId,
             value: addedAttribute.value,
@@ -173,13 +192,29 @@ export const ProductEdit = () => {
     //bỏ updatedVariantData vào trong product
     const field: string = "productVariantRequests";
     await dispatch(updateProduct({ field, value: updatedVariantData }));
+
+    //handle ADD product
+    try {
+      const response: { data: AddProductResponse } = await addProduct(
+        productFinal
+      );
+
+      if (response.data.productDTO) {
+        toast.success("Thêm sản phẩm thành công");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Thêm sản phẩm thất bại");
+      // console.log("error: ", error);
+    }
   };
 
-  // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
-  useEffect(() => {
-    console.log("Updated product: ", productFinal);
-    // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
-  }, [productFinal]);
+  // // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
+  // useEffect(() => {
+  //   console.log("Updated product: ", productFinal);
+  //   // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
+  // }, [productFinal]);
 
   return (
     //   bg-[#FAFAF9]
@@ -209,6 +244,7 @@ export const ProductEdit = () => {
           </div>
         </div>
       </div>
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

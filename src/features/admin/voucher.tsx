@@ -25,7 +25,7 @@ const VoucherAdmin: React.FC = () => {
   const [voucherData, setVoucherData] = useState<Voucher[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, error, isLoading } = useGetAllVoucherQuery("voucher");
+  const { data, error, isLoading, refetch } = useGetAllVoucherQuery("voucher");
 
   const [addNewVoucher, { data: newVoucher, error: addNewVoucherError }] =
     useAddNewVoucherMutation();
@@ -84,6 +84,7 @@ const VoucherAdmin: React.FC = () => {
 
   React.useEffect(() => {
     if (!isLoading && data) {
+      refetch();
       console.log("data: ", data);
       setVoucherData(data.voucherDTOs);
     }

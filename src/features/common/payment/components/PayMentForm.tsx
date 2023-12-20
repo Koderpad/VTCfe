@@ -120,6 +120,8 @@ function PayMentForm() {
     systemVouchers?.voucherDTOs;
 
   const res: ApiResponse = location.state.res.data;
+  console.log("res of order: ", res);
+  if (!res) alert("Không ton tai thông tin cart!!!");
 
   // Sử dụng hook để lấy danh sách voucher của cửa hàng
   // const { data: shopVouchers } = useGetVoucherByShopIdQuery(
@@ -172,10 +174,10 @@ function PayMentForm() {
     }
   }, [res]);
 
-  const [updateOrderResponse, setUpdateOrderResponse] =
-    useState<ApiResponse>(null);
+  const [updateOrderResponse, setUpdateOrderResponse] = useState<ApiResponse>();
 
   useEffect(() => {
+    console.log("res in effect: ", res);
     if (res) {
       const fetchData = async () => {
         // Your async code here...

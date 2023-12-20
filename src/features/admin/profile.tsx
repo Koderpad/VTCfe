@@ -5,9 +5,8 @@ const ProfileAdmin: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-
     <div className="flex">
-              <Sidebar/>
+      <Sidebar />
       <div className="flex-grow">
         <div className="shadow-md sm:rounded-lg w-[1000px] m-auto mt-20">
           <div className="bg-white p-6">
@@ -26,7 +25,6 @@ const ProfileAdmin: React.FC = () => {
                     readOnly
                   />
                 </div>
-                
               </div>
               <div className="flex items-center space-x-2">
                 <label htmlFor="dob" className="w-32 font-bold">
@@ -34,14 +32,13 @@ const ProfileAdmin: React.FC = () => {
                 </label>
                 <div className="border border-black rounded-lg">
                   <input
-                      type="text"
-                      id="dob"
-                      className="rounded-lg border-gray-300 px-3 py-2"
-                      value="01/01/1990"
-                      readOnly
-                    />
+                    type="text"
+                    id="dob"
+                    className="rounded-lg border-gray-300 px-3 py-2"
+                    value="01/01/1990"
+                    readOnly
+                  />
                 </div>
-
               </div>
               <div className="flex items-center space-x-2">
                 <label htmlFor="email" className="w-32 font-bold">
@@ -56,9 +53,8 @@ const ProfileAdmin: React.FC = () => {
                     readOnly
                   />
                 </div>
-               
               </div>
- 
+
               <div className="flex justify-end">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Chỉnh sửa thông tin
@@ -84,14 +80,12 @@ const ProfileAdmin: React.FC = () => {
                     readOnly
                   />
                 </div>
-                
               </div>
               <div className="flex items-center space-x-2">
                 <label htmlFor="password" className="w-32 font-bold">
                   Mật khẩu:
                 </label>
                 <div className="relative border border-black rounded-lg">
-              
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
