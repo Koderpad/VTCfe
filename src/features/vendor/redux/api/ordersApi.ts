@@ -7,7 +7,12 @@ export const ordersApi = apiSlice.injectEndpoints({
         url: "/vendor/order/list",
       }),
     }),
+    getOrdersByStatus: builder.query({
+      query: (status: string) => ({
+        url: `/vendor/order/list/status/${status}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetOrdersQuery } = ordersApi;
+export const { useGetOrdersQuery, useGetOrdersByStatusQuery } = ordersApi;

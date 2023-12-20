@@ -189,6 +189,13 @@ export const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // Initialize Slick Carousel for category items
+    if (categorySlider) {
+      categorySlider.slickGoTo(0); // Go to the first slide initially
+    }
+  }, [categorySlider]);
+
   const handleNext = () => {
     if (categorySlider) {
       categorySlider.slickNext();
@@ -200,13 +207,6 @@ export const Home = () => {
       categorySlider.slickPrev();
     }
   };
-
-  useEffect(() => {
-    // Initialize Slick Carousel for category items
-    if (categorySlider) {
-      categorySlider.slickGoTo(0); // Go to the first slide initially
-    }
-  }, [categorySlider]);
 
   return (
     <div className="bg-gray-100">

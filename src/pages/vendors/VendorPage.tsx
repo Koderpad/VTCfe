@@ -134,8 +134,8 @@ export const VendorPage = () => {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/vendor/shop/categories"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Quanlycategory"
                     ? "bg-gray-100 hover:bg-green-100"
@@ -158,11 +158,11 @@ export const VendorPage = () => {
                   />
                 </svg>
                 Quản lý category
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="product/new"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Quanlyproduct"
                     ? "bg-gray-100 hover:bg-green-100"
@@ -190,7 +190,7 @@ export const VendorPage = () => {
                   />
                 </svg>
                 Quản lý product
-              </a>
+              </Link>
             </li>
             <li>
               <a

@@ -41,6 +41,11 @@ import { Abc } from "./features/vendor/managerShop/abcxyz";
 import { RegisterShop } from "./pages/vendors/RegisterShop";
 import AddCategory from "./pages/vendors/AddCategory";
 import { Orders } from "./pages/vendors/Orders";
+import Categories from "./pages/vendors/Categories";
+import UpdateCategory from "./pages/vendors/UpdateCategory";
+import ManagerProduct from "./pages/admins/ManagerProduct";
+
+import ManagerProductLocked from "./pages/admins/ManagerCustomer";
 function App() {
   return (
     <BrowserRouter>
@@ -111,6 +116,11 @@ function App() {
             {/* <Route path="/admin" element={<AdminPage />} /> */}
             <Route path="admin" element={<AdminReal />}>
               <Route path="manager/customers" element={<ManagerCustomer />} />
+              <Route
+                path="manager/products/locked"
+                element={<ManagerProductLocked />}
+              />
+              <Route path="manager/products" element={<ManagerProduct />} />
             </Route>
             <Route path="admin/profile" element={<ProfileAdmin />} />
             <Route path="admin/category" element={<CatagoryAdmin />} />
@@ -124,9 +134,15 @@ function App() {
             <Route path="/vendor" element={<VendorPage />}>
               <Route path="shop/statistical" element={<Statistical />} />
               <Route path="shop/orders" element={<Orders />} />
+              <Route path="product/new" element={<AddProduct />} />
+              <Route path="shop/category/add" element={<AddCategory />} />
+              <Route path="shop/category/add" element={<AddCategory />} />
+              <Route path="shop/categories" element={<Categories />} />
+              <Route
+                path="shop/category/edit/:id"
+                element={<UpdateCategory />}
+              />
             </Route>
-            <Route path="vendor/product/new" element={<AddProduct />} />
-            <Route path="/vendor/shop/category/add" element={<AddCategory />} />
           </Route>
 
           {/* <Route path="*" element={<PageNotFound />} /> */}

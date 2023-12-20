@@ -149,7 +149,7 @@ export const ProductEdit = () => {
       const newAttributeValues: AttributeValuesItem[] = [];
 
       for (const attributeValue of attributeValues) {
-        const response = await addAttribute({
+        const response = addAttribute({
           /* provide necessary data for addAttribute mutation */
           name: attributeName,
           value: attributeValue.value,

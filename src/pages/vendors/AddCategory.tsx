@@ -54,6 +54,13 @@ const AddCategory: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = useState<string | undefined>(undefined);
 
+  const navigate = useNavigate();
+
+  const handlecategories = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    navigate("/vendor/shop/categories");
+  };
+
   useEffect(() => {
     uploadImageToFirebase();
   }, [imageData]);
@@ -141,6 +148,7 @@ const AddCategory: React.FC = () => {
     try {
       const response = await addNewCategory(categoryShopRequest).unwrap();
       toast.success("Thêm danh mục thành công");
+      navigate("/vendor/shop/categories");
       // Additional logic or redirection on success
     } catch (error) {
       toast.error(error.data.message);
@@ -208,6 +216,7 @@ const AddCategory: React.FC = () => {
               />
             )}
             <button
+              type="button"
               onClick={() => fileInputRef.current?.click()}
               className="bg-blue-500 text-black py-2 px-3 rounded cursor-pointer text-sm self-end"
             >
@@ -248,6 +257,13 @@ const AddCategory: React.FC = () => {
           </button>
         </div>
       </form>
+      <br />
+
+      <div>
+        <button className={"justify-center"} onClick={handlecategories}>
+          Quay lại
+        </button>
+      </div>
 
       <ToastContainer position="bottom-right" />
     </div>

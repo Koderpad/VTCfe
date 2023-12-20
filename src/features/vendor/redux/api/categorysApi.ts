@@ -27,12 +27,22 @@ export const categorysApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    getCategories: builder.mutation({
-      query: ({ type }) => ({
-        url: `/vendor/shop/category/${type}`,
+    getShopCategoryById: builder.mutation({
+      query: ({id}) => ({
+        url: `/vendor/shop/category/get/${id}`,
         method: "GET",
       }),
     }),
+
+    updateCategoryShop: builder.mutation({
+      query: (data) => ({
+        url: `/vendor/shop/category/update`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+
 
     getAllCategories: builder.query({
       query: () => `/vendor/shop/category/all`,
@@ -42,11 +52,12 @@ export const categorysApi = apiSlice.injectEndpoints({
 
 export const {
   useAddCategoryMutation,
+  useUpdateCategoryShopMutation,
   useGetAllParentCategoriesQuery,
   useGetAllCategoriesQuery,
   useGetParentCategoriesMutation,
   useGetShopCategoriesMutation,
-  useGetCategoriesMutation,
+  useGetShopCategoryByIdMutation,
 } = categorysApi;
 
 // import { apiSlice } from "../../../../app/api/apiSlice.js";

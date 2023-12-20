@@ -2,7 +2,10 @@ import classNames from "classnames";
 import { NavLink, Link, createSearchParams } from "react-router-dom";
 import useQueryParams from "../../features/common/userManagement/hooks/useQueryParams";
 // import { useGetOrderByStatusMuMutation } from "../../redux/api/orderApi";
-import { useGetOrdersQuery } from "../../features/vendor/redux/api/ordersApi";
+import {
+  useGetOrdersQuery,
+  useGetOrdersByStatusQuery,
+} from "../../features/vendor/redux/api/ordersApi";
 import { useEffect, useState } from "react";
 import {
   OrderDTO,
@@ -40,29 +43,48 @@ const purchaseTabs = [
 export const Orders = () => {
   const queryParams: { status?: string } = useQueryParams();
   const status: number = Number(queryParams.status) || purchasesStatus.PENDING;
+  console.log("status", status);
 
   const statusString = purchaseStatusString[status];
-  const [orderDTOs, setOrderDTOs] = useState<OrderDTO[]>([]);
-  //   console.log("statusString", statusString);
-  //   const statusString = "PENDING";
-  const { data: orders, isLoading, isError, refetch } = useGetOrdersQuery();
+  //   const [orderDTOs, setOrderDTOs] = useState<OrderDTO[]>([]);
+  console.log("statusString", statusString);
+  console.log("queryParams", queryParams);
+
+  //   const { data: orders, isLoading, isError, refetch } = useGetOrdersQuery();
+  const {
+    data: orders,
+    isLoading: isLoadingOrders,
+    isError: isErrorOrders,
+    refetch: refetchOrders,
+  } = useGetOrdersQuery("ALL");
+
+  const {
+    data: otherData,
+    isLoading: isLoadingOther,
+    isError: isErrorOther,
+    refetch: refetchOther,
+  } = useGetOrdersByStatusQuery(statusString);
 
   useEffect(() => {
-    if (status !== undefined) {
-      refetch();
+    if (status === 0) {
+      refetchOrders();
+    } else {
+      refetchOther();
     }
   }, [status]);
 
-  if (orders) {
-    setOrderDTOs(orders.orderDTOs);
-  }
-  if (isLoading) {
+  if (isLoadingOrders || isLoadingOther) {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return <div>Error loading orders</div>;
+  if (isErrorOrders || isErrorOther) {
+    return <div>Error loading data</div>;
   }
+
+  const data = status === 0 ? orders : otherData;
+
+  const orderDTOs: OrderDTO[] = data?.orderDTOs || [];
+  console.log("orderDTOs", orderDTOs);
 
   //   const response = await callStatisticsByDate(statisticsRequest).unwrap();
 
@@ -85,7 +107,7 @@ export const Orders = () => {
     <Link
       key={tab.status}
       to={{
-        pathname: "/user/account/history-purchase",
+        pathname: "/vendor/shop/orders",
         search: createSearchParams({
           status: String(tab.status),
         }).toString(),

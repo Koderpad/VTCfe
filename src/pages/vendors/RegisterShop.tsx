@@ -309,7 +309,7 @@ export const RegisterShop = () => {
 
       await dispatch(updateUser(response.customerDTO));
 
-      navigate("/vendor/shop");
+      navigate("/vendor");
 
       //navigate("/vendor");
     } catch (error) {
