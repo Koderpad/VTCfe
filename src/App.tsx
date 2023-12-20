@@ -51,6 +51,7 @@ import ParentCategories from "./pages/admins/ParentCategories.tsx";
 import UpdateParentCategory from "./pages/admins/UpdateParentCategory.tsx";
 import ShopProfile from "./pages/vendors/ShopProfile.tsx";
 import UpdateShop from "./pages/vendors/UpdateShop.tsx";
+import Products from "./pages/vendors/Products.tsx";
 
 function App() {
     return (
@@ -153,6 +154,7 @@ function App() {
                             />
                             <Route path="shop/profile" element={<ShopProfile/>}/>
                             <Route path="shop/edit" element={<UpdateShop/>}/>
+                            <Route path="shop/products" element={<Products/>}/>
                         </Route>
                     </Route>
 
