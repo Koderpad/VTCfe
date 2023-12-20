@@ -47,6 +47,12 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
   const [product, setProduct] = useState<ProductDTO | null>(null);
+  const [imageThumbnail, setImageThumbnail] = useState<
+    {
+      original: string;
+      thumbnail: string;
+    }[]
+  >([]);
   const {
     data: response,
     isFetching,
@@ -106,12 +112,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
     return <div>Fetching...</div>;
   }
 
-  const [imageThumbnail, setImageThumbnail] = useState<
-    {
-      original: string;
-      thumbnail: string;
-    }[]
-  >([]);
+  // const [imageThumbnail, setImageThumbnail] = useState<
+  //   {
+  //     original: string;
+  //     thumbnail: string;
+  //   }[]
+  // >([]);
 
   return (
     <section className="overflow-hidden bg-white py-11 font-poppins">

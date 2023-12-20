@@ -1,10 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyled from "./styles/GlobalStyles";
+
+const MyAccount = lazy(() => import("./pages/MyAccount"));
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Register from "./pages/Register";
-import MyAccount from "./pages/MyAccount";
+// import MyAccount from "./pages/MyAccount";
 import { MyProfile, PasswordChanges } from "./features/common/userManagement";
 import { DetailProduct } from "./pages/DetailProduct";
 import RequireAuth from "./features/common/auth/RequireAuth";
@@ -36,28 +39,28 @@ import { OrderDetailsForm } from "./features/common/payment/components/OrderDeta
 import { HistoryPurchase } from "./features/common/userManagement/components/HistoryPurchase";
 import { Abc } from "./features/vendor/managerShop/abcxyz";
 import { RegisterShop } from "./pages/vendors/RegisterShop";
-
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* public routes */}
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route path="home" element={<Home />} index />
-        <Route path="/" element={<Home />} />
-        <Route path="/upload" element={<Abc />} />
-        <Route path="/vendor/register" element={<RegisterShop />} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {/* public routes */}
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<PageNotFound />} />
+          <Route path="home" element={<Home />} index />
+          <Route path="/" element={<Home />} />
+          <Route path="/upload" element={<Abc />} />
+          <Route path="/vendor/register" element={<RegisterShop />} />
 
-        {/* <Route path="home" element={<Home />} />
+          {/* <Route path="home" element={<Home />} />
         <Route path="/" element={<Home />} /> */}
-        {/* <Route path="address" element={<Address />} /> */}
+          {/* <Route path="address" element={<Address />} /> */}
 
-        {/* LẤY LẠI MẬT KHẨU - DONE
+          {/* LẤY LẠI MẬT KHẨU - DONE
             QUẢN LÝ MÃ GIẢM GIÁ PRROFILE - DONE
             CART - tạm DONE
             THANH TOÁN - DONE với 1 voucher
@@ -76,54 +79,55 @@ function App() {
             shop
         */}
 
-        {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
-        {/* <Route path="product/:productId" element={<DetailProduct />} />
+          {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
+          {/* <Route path="product/:productId" element={<DetailProduct />} />
         <Route path="products" element={<ProductsByCategory />} /> */}
-
-        {/* private routes */}
-        <Route element={<RequireAuth allowedRoles={["CUSTOMER"]} />}>
-          {/* user/account */}
-          {/* <Route path="home" element={<Home />} index />
+          {/* private routes */}
+          <Route element={<RequireAuth allowedRoles={["CUSTOMER"]} />}>
+            {/* user/account */}
+            {/* <Route path="home" element={<Home />} index />
           <Route path="/" element={<Home />} /> */}
-          <Route path="address" element={<Address />} />
-          {/* <Route path="-vtc.:id" element={<ProductsByCategory />} /> */}
-          <Route path="products/:id" element={<ProductsByCategory />} />
-          <Route path="product/:productId" element={<DetailProduct />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<PayMent />} />
-          <Route path="checkout/:id" element={<OrderDetailsForm />} />
-          <Route path="user/account" element={<MyAccount />}>
-            <Route path="profile" element={<MyProfile />} />
-            <Route path="pw_changes" element={<PasswordChanges />} />
-            <Route path="favorite-products" element={<FavoriteProducts />} />
-            <Route path="follow-shop" element={<FollowShopList />} />
-            <Route path="voucher-wallet" element={<VoucherList />} />
             <Route path="address" element={<Address />} />
-            <Route path="history-purchase" element={<HistoryPurchase />} />
+            {/* <Route path="-vtc.:id" element={<ProductsByCategory />} /> */}
+            <Route path="products/:id" element={<ProductsByCategory />} />
+            <Route path="product/:productId" element={<DetailProduct />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<PayMent />} />
+            <Route path="checkout/:id" element={<OrderDetailsForm />} />
+            <Route path="user/account" element={<MyAccount />}>
+              <Route path="profile" element={<MyProfile />} />
+              <Route path="pw_changes" element={<PasswordChanges />} />
+              <Route path="favorite-products" element={<FavoriteProducts />} />
+              <Route path="follow-shop" element={<FollowShopList />} />
+              <Route path="voucher-wallet" element={<VoucherList />} />
+              <Route path="address" element={<Address />} />
+              <Route path="history-purchase" element={<HistoryPurchase />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-          {/* <Route path="/admin" element={<AdminPage />} /> */}
-          <Route path="admin" element={<AdminReal />}>
-            <Route path="manager/customers" element={<ManagerCustomer />} />
+          <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
+            {/* <Route path="/admin" element={<AdminPage />} /> */}
+            <Route path="admin" element={<AdminReal />}>
+              <Route path="manager/customers" element={<ManagerCustomer />} />
+            </Route>
+            <Route path="admin/profile" element={<ProfileAdmin />} />
+            <Route path="admin/category" element={<CatagoryAdmin />} />
+            <Route path="admin/product" element={<ProductAdmin />} />
+            <Route path="admin/store" element={<StoreAdmin />} />
+            <Route path="admin/voucher" element={<VoucherAdmin />} />
+            <Route path="admin/user" element={<UserAdmin />} />
           </Route>
-          <Route path="admin/profile" element={<ProfileAdmin />} />
-          <Route path="admin/category" element={<CatagoryAdmin />} />
-          <Route path="admin/product" element={<ProductAdmin />} />
-          <Route path="admin/store" element={<StoreAdmin />} />
-          <Route path="admin/voucher" element={<VoucherAdmin />} />
-          <Route path="admin/user" element={<UserAdmin />} />
-        </Route>
 
-        <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
-          <Route path="/vendor" element={<VendorPage />} />
-          <Route path="product/new" element={<AddProduct />} />
-          <Route path="shop/statistical" element={<Statistical />} />
-        </Route>
+          <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
+            <Route path="/vendor" element={<VendorPage />} />
+            <Route path="product/new" element={<AddProduct />} />
+            <Route path="shop/statistical" element={<Statistical />} />
+          </Route>
 
-        {/* <Route path="*" element={<PageNotFound />} /> */}
-      </Routes>
+          {/* <Route path="*" element={<PageNotFound />} /> */}
+        </Routes>
+      </Suspense>
+
       <GlobalStyled />
     </BrowserRouter>
   );

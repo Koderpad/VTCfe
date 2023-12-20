@@ -73,6 +73,12 @@ export const ProductEdit = () => {
   const attributeDataNeedToSave: { [key: string]: AttributeValuesItem[] } =
     useSelector((state: RootState) => state.productInAddProduct.attributeData);
 
+  // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
+  useEffect(() => {
+    console.log("Updated product: ", productFinal);
+    // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
+  }, [productFinal]);
+
   // const getVariantTableData = useSelector(
   //   (state) => state.productDataInAddProduct?.variantTableData
   // );
@@ -204,11 +210,11 @@ export const ProductEdit = () => {
     }
   };
 
-  // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
-  useEffect(() => {
-    console.log("Updated product: ", productFinal);
-    // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
-  }, [productFinal]);
+  // // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
+  // useEffect(() => {
+  //   console.log("Updated product: ", productFinal);
+  //   // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
+  // }, [productFinal]);
 
   return (
     //   bg-[#FAFAF9]

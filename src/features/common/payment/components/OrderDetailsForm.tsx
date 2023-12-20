@@ -92,32 +92,57 @@ export const OrderDetailsForm = () => {
   const { id } = useParams();
   const [data, setData] = useState<ApiResponse>();
 
-  // Get the trigger
-  // const [getOrderByOrderId] = useGetOrderByOrderIdMuMutation();
+  const {
+    data: getOrderByOrderId,
+    isFetching,
+    isLoading,
+    refetch,
+  } = useGetOrderByOrderIdQuery(parseInt(id!));
 
-  const fetchDta = async () => {
-    const res = await axios.get<ApiResponse>(
-      `http://localhost:8181/api/vendor/shop/order/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    );
+  console.log("getOrderByOrderId", getOrderByOrderId.data);
 
-    if (res) {
-      setData(res.data);
-    }
-    console.log("data: ", res.data);
-  };
-
+  setData(getOrderByOrderId.data);
+  console.log("data", data);
   useEffect(() => {
-    fetchDta();
+    refetch();
   }, []);
 
+  // const response: ApiResponse = getOrderByOrderId.data;
+
+  // setData(response);
+
+  if (getOrderByOrderId.isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  // const [getOrderByOrderIdMu] = useGetOrderByOrderIdMuMutation();
+  // const response = getOrderByOrderIdMu(parseInt(id!)).unwrap();
+
+  // setData(response);
+
+  // console.log("response", response);
+  // Get the trigger
+  // const [getOrderByOrderId] = useGetOrderByOrderIdMuMutation();
+  // useEffect(() => {
+  //   fetchDta();
+  // }, []);
+
+  // const fetchDta = async () => {
+  //   console.log("id", id);
+
+  //   const response: ApiResponse = await getOrderByOrderIdMu(
+  //     parseInt(id!)
+  //   ).unwrap();
+
+  //   await setData(response);
+
+  //   console.log("response", response);
+  // };
+  // fetchDta();
+
+  console.log("data", data);
   const order: ApiResponse | undefined = data;
-  console.log("order:  ", order);
+  console.log("order:  ", order?.orderDTO);
 
   if (order?.code !== 200) {
     console.log("error", order?.message);

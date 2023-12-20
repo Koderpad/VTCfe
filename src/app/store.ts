@@ -25,6 +25,7 @@ import { attributeVendorApi } from "../features/vendor/redux/api/attributeVendor
 import { addressApi } from "../features/common/redux/api/addressApi.ts";
 import { voucherAdminApi } from "../features/admin/redux/api/voucherAdminApi.ts";
 import { categoryAdminApi } from "../features/admin/redux/api/categoryAdminApi.ts";
+import { shopApi } from "../features/vendor/redux/api/shopApi.ts";
 
 const persistConfig = {
   key: "root",
