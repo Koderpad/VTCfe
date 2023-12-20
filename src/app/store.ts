@@ -56,11 +56,13 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      // },
     }).concat([apiSlice.middleware, productApi.middleware]),
-  devTools: true,
+  devTools: process.env.NODE_ENV !== "production",
+  // devTools: true,
 });
 
 export const persistor = persistStore(store);

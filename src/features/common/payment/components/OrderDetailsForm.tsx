@@ -90,7 +90,8 @@ interface ApiResponse {
 
 export const OrderDetailsForm = () => {
   const { id } = useParams();
-  const [data, setData] = useState<ApiResponse>();
+
+  console.log("id", id);
 
   const {
     data: getOrderByOrderId,
@@ -99,21 +100,21 @@ export const OrderDetailsForm = () => {
     refetch,
   } = useGetOrderByOrderIdQuery(parseInt(id!));
 
-  console.log("getOrderByOrderId", getOrderByOrderId.data);
+  console.log("getOrderByOrderId", getOrderByOrderId);
 
-  setData(getOrderByOrderId.data);
-  console.log("data", data);
-  useEffect(() => {
-    refetch();
-  }, []);
+  // setData(getOrderByOrderId.data);
+  // console.log("data", data);
+  // useEffect(() => {
+  //   refetch();
+  // }, []);
 
   // const response: ApiResponse = getOrderByOrderId.data;
 
   // setData(response);
 
-  if (getOrderByOrderId.isFetching) {
-    return <div>Loading...</div>;
-  }
+  // if (getOrderByOrderId.isFetching) {
+  //   return <div>Loading...</div>;
+  // }
 
   // const [getOrderByOrderIdMu] = useGetOrderByOrderIdMuMutation();
   // const response = getOrderByOrderIdMu(parseInt(id!)).unwrap();
@@ -140,8 +141,7 @@ export const OrderDetailsForm = () => {
   // };
   // fetchDta();
 
-  console.log("data", data);
-  const order: ApiResponse | undefined = data;
+  const order: ApiResponse | undefined = getOrderByOrderId;
   console.log("order:  ", order?.orderDTO);
 
   if (order?.code !== 200) {
@@ -251,7 +251,7 @@ export const OrderDetailsForm = () => {
           </thead>
           <tbody>
             {orderDetails?.orderItemDTOs.map((item) => (
-              <tr key={item.orderId}>
+              <tr key={Math.random()}>
                 <td className="flex px-4 py-2 ml-[30px]">
                   <h1>{item.productVariantDTO.productName}</h1>
 
@@ -264,7 +264,7 @@ export const OrderDetailsForm = () => {
                 <td className="px-4 py-2">
                   {/* Hiển thị thông tin phân loại */}
                   {item.productVariantDTO.attributeDTOs.map((attribute) => (
-                    <div key={attribute.attributeId}>
+                    <div key={Math.random()}>
                       <strong>{attribute.name}:</strong> {attribute.value}
                     </div>
                   ))}
