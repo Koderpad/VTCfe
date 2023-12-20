@@ -122,6 +122,7 @@ function App() {
             <Route path="/vendor" element={<VendorPage />} />
             <Route path="product/new" element={<AddProduct />} />
             <Route path="shop/statistical" element={<Statistical />} />
+            <Route path="/vendor/shop/category/add" element={<AddCategory />} />
           </Route>
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
