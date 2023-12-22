@@ -27,6 +27,7 @@ interface StatisticsResponse {
   code: number;
   count: number;
   totalOrder: number;
+  totalMoney: number;
   username: string;
   dateStart: string;
   dateEnd: string;
@@ -94,6 +95,25 @@ const Statistical: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const findMaxTotalMoney = (statisticsResponse: StatisticsResponse): number | null => {
+    if (statisticsResponse && statisticsResponse.statisticsDTOs) {
+      const maxTotalMoney = statisticsResponse.statisticsDTOs.reduce(
+          (max, statisticsDTO) => {
+            const currentTotalMoney = statisticsDTO.totalMoney || 0;
+            return currentTotalMoney > max ? currentTotalMoney : max;
+          },
+          0
+      );
+
+      return maxTotalMoney;
+    }
+
+    return null;
+  };
+
+
+
 
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -169,16 +189,11 @@ const Statistical: React.FC = () => {
     if (!statisticsResponse?.statisticsDTOs) {
       return 0;
     }
-    const maxTotalMoney = Math.max(
-      ...statisticsResponse.statisticsDTOs.map(
-        (statistic) => statistic.totalMoney || 0
-      )
-    );
-    return maxTotalMoney > 0
-      ? statisticsResponse.statisticsDTOs.filter(
-          (statistic) => statistic.totalMoney === maxTotalMoney
-        ).length
-      : 0;
+    const maxTotalMoney = findMaxTotalMoney(statisticsResponse);
+
+    console.log("maxTotalMoney", maxTotalMoney);
+
+    return maxTotalMoney as number;
   };
 
   const chartData = statisticsResponse?.statisticsDTOs.map((data) => ({
@@ -279,8 +294,30 @@ const Statistical: React.FC = () => {
       </button>
       {loading && <p className="mt-4">Đang tải...</p>}
 
+
+
       {statisticsResponse?.statisticsDTOs && (
         <>
+
+          <div>
+
+            <h4>
+              Thời gian thống kê từ: {statisticsResponse?.dateStart &&
+                format(new Date(statisticsResponse.dateStart), "dd/MM/yyyy")} cho đến {statisticsResponse?.dateEnd &&
+                format(new Date(statisticsResponse.dateEnd), "dd/MM/yyyy")}
+            </h4>
+
+            <p>
+              Tổng số đơn hàng: {statisticsResponse?.totalOrder}
+            </p>
+
+            <p>
+              Tổng số tiền: {statisticsResponse?.totalMoney} VNĐ
+            </p>
+
+
+          </div>
+
           <div className="mt-8 flex flex-wrap space-x-4">
             {/* Biểu đồ Tổng Đơn Hàng */}
             <div className="flex-1">
@@ -412,7 +449,7 @@ const Statistical: React.FC = () => {
               </thead>
               <tbody>
                 {statisticsResponse.statisticsDTOs.map((statistic) => {
-                  const isMaxTotalOrder = statistic.totalOrder > 0;
+                  const isMaxTotalOrder = statistic.totalMoney === getMaxTotalMoneyOrder();
                   const hasOrders = statistic.totalOrder > 0;
                   const isZeroOrder = statistic.totalOrder === 0;
 
@@ -430,9 +467,7 @@ const Statistical: React.FC = () => {
                       }`}
                     >
                       <td
-                        className={`px-6 py-4 whitespace-nowrap ${
-                          isMaxTotalOrder ? "text-red-500 font-bold" : ""
-                        }`}
+                        className="px-6 py-4 whitespace-nowrap"
                       >
                         {format(new Date(statistic.date), "dd/MM/yyyy")}
                       </td>

@@ -62,7 +62,7 @@ const AddVoucherAdmin = () => {
   const handleChangeAndCheck = (e: any) => {
     setVoucherShopRequest({
       ...voucherShopRequest,
-      type: e.target.value,
+      [e.target.name]: e.target.value,
     });
 
     const maxDiscountInput = document.getElementById("maxDiscount")!;
