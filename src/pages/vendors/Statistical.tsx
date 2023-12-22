@@ -89,8 +89,8 @@ const Statistical: React.FC = () => {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-      console.error("Error fetching data:", error.data?.message);
-      toast.error(error.data?.message);
+      console.error("Error fetching data:", error?.data?.message);
+      toast.error(error?.data?.message);
     } finally {
       setLoading(false);
     }
