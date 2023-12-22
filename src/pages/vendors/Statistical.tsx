@@ -96,6 +96,17 @@ const Statistical: React.FC = () => {
     }
   };
 
+
+  const formatCurrency = (value) => {
+    // Convert the number to a string for easier manipulation
+    const stringValue = value.toString();
+
+    // Use regex to insert a dot after every 3 digits
+    const formattedValue = stringValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return `${formattedValue} VNĐ`;
+  };
+
   const findMaxTotalMoney = (statisticsResponse: StatisticsResponse): number | null => {
     if (statisticsResponse && statisticsResponse.statisticsDTOs) {
       const maxTotalMoney = statisticsResponse.statisticsDTOs.reduce(
@@ -299,23 +310,21 @@ const Statistical: React.FC = () => {
       {statisticsResponse?.statisticsDTOs && (
         <>
 
-          <div>
-
-            <h4>
+          <br/>
+          <div className="p-4 bg-gray-100">
+            <h4 className="text-xl font-semibold">
               Thời gian thống kê từ: {statisticsResponse?.dateStart &&
                 format(new Date(statisticsResponse.dateStart), "dd/MM/yyyy")} cho đến {statisticsResponse?.dateEnd &&
                 format(new Date(statisticsResponse.dateEnd), "dd/MM/yyyy")}
             </h4>
 
-            <p>
+            <p className="text-base">
               Tổng số đơn hàng: {statisticsResponse?.totalOrder}
             </p>
 
-            <p>
-              Tổng số tiền: {statisticsResponse?.totalMoney} VNĐ
+            <p className="text-base">
+              Tổng số tiền:  {formatCurrency(statisticsResponse?.totalMoney)}
             </p>
-
-
           </div>
 
           <div className="mt-8 flex flex-wrap space-x-4">
@@ -422,7 +431,7 @@ const Statistical: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <div className="w-4 h-4 bg-red-200 mr-2"></div>
-                <span>Tổng Tiền Cao Nhất: {getMaxTotalMoneyOrder()}</span>
+                <span>Tổng Tiền Cao Nhất: {formatCurrency(getMaxTotalMoneyOrder())}</span>
               </div>
             </div>
 
@@ -472,7 +481,7 @@ const Statistical: React.FC = () => {
                         {format(new Date(statistic.date), "dd/MM/yyyy")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {statistic.totalMoney}
+                        {formatCurrency(statistic.totalMoney)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {statistic.totalOrder}
