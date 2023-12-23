@@ -75,7 +75,7 @@ export const ProductListFix = () => {
           toast.success("Lấy dữ liệu thành công");
         } else {
           // alert("Invalid response data");
-          toast.error("Invalid response data");
+          toast.error("Invalid response data", data.message);
         }
       } catch (error) {
         // console.error("Lỗi tìm nạp dữ liệu:", error);
