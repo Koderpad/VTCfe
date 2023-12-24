@@ -59,13 +59,6 @@ export const Abc = () => {
     return new Blob([u8arr], { type: mime });
   };
 
-  //   const handleButtonClick = () => {
-  //     if (fileInputRef.current) {
-  //       console.log(fileInputRef.current.files);
-
-  //       uploadImageToFirebase();
-  //     }
-  //   };
 
   const handleFileChange = () => {
     if (fileInputRef.current && fileInputRef.current.files) {

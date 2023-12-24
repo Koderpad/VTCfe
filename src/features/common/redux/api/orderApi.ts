@@ -73,12 +73,27 @@ export const orderApi = apiSlice.injectEndpoints({
     getOrdersByCus: builder.query({
       query: () => `/customer/order/list`,
     }),
+
     getOrdersByStatusVer2: builder.query({
       query: (status: string) => {
         const base = "/customer/order/list";
         return status === "ALL" ? base : `${base}/status/${status}`;
       },
     }),
+
+    getOrderItemByOrderItemId: builder.mutation({
+        query: (orderItemId: number) => ({
+            url: `/customer/order/order-item/detail/${orderItemId}`,
+            method: "GET",
+        }),
+        }),
+
+
+
+
+
+
+
   }),
 });
 
@@ -93,5 +108,6 @@ export const {
   useGetOrderByOrderIdMuMutation,
   useCancelOrderMutation,
   useGetOrdersByCusQuery,
+    useGetOrderItemByOrderItemIdMutation,
   useGetOrdersByStatusVer2Query,
 } = orderApi;
