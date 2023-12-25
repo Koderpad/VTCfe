@@ -63,13 +63,17 @@ import Review from "./pages/users/Review.tsx";
 import SearchProducts from "./pages/vendors/SearchProducts.tsx";
 
 function App() {
-<<<<<<< HEAD
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           {/* public routes */}
           <Route path="login" element={<Login />} />
+          {/*<Route path="/search?keyword=:keyword" element={<SearchProducts/>}/>*/}
+          <Route
+            path="/search/:keyword/page/:page/size/:size"
+            element={<SearchProducts />}
+          />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
@@ -79,25 +83,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/upload" element={<Abc />} />
           <Route path="/vendor/register" element={<RegisterShop />} />
-=======
-    return (
-        <BrowserRouter>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Routes>
-                    {/* public routes */}
-                    <Route path="login" element={<Login/>}/>
-                    {/*<Route path="/search?keyword=:keyword" element={<SearchProducts/>}/>*/}
-                    <Route path="/search/:keyword/page/:page/size/:size" element={<SearchProducts/>}/>
-                    <Route path="register" element={<Register/>}/>
-                    <Route path="forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="reset-password" element={<ResetPassword/>}/>
-                    <Route path="unauthorized" element={<Unauthorized/>}/>
-                    <Route path="*" element={<PageNotFound/>}/>
-                    <Route path="home" element={<Home/>} index/>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/upload" element={<Abc/>}/>
-                    <Route path="/vendor/register" element={<RegisterShop/>}/>
->>>>>>> origin/dev-v1
 
           {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
           {/* <Route path="product/:productId" element={<DetailProduct />} />
