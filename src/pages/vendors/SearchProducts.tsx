@@ -1,8 +1,6 @@
-import Header_v1 from "../../layouts/headers/Header_v1.tsx";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-    useGetListProductsPageByShopSearchSortMutation,
-    ProductDTO,
+    useGetListProductsPageByShopSearchSortMutation
 } from "../../features/common/products/services/productPageApi.ts";
 import React, { useEffect, useState } from "react";
 
