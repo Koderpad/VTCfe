@@ -132,6 +132,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ id }) => {
             <ProductCardProductInfo
               product={product}
               rating={response?.rating}
+                sold={response?.productDTO?.sold}
             />
           </div>
         </div>

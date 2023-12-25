@@ -3,9 +3,9 @@ import { apiSlice } from "../../../../app/api/apiSlice.js";
 export const reviewApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getReviewsByProductId: builder.mutation({
-            query: (id) => ({
-                url: `/review/${id}`,
-                method: "POST",
+            query: (id ) => ({
+                url: `/review/product/${id}`,
+                method: "GET",
             }),
         }),
 
