@@ -112,7 +112,7 @@ const CartItem: React.FC<VoucherComponentProps> = ({
 
             console.log("rte", rte);
 
-            setReload(!reload);
+            window.location.reload();
 
             //navigate("/cart");
         } catch (e) {
@@ -159,6 +159,9 @@ const CartItem: React.FC<VoucherComponentProps> = ({
             // Call the mutate function with the cartId to delete
             await deleteCart(cartId);
 
+            window.location.reload();
+
+
             // Update the component state after successful deletio
 
             // Optionally, you may want to trigger a refetch of your cart data here
@@ -168,6 +171,10 @@ const CartItem: React.FC<VoucherComponentProps> = ({
             // Handle error if the deletion fails
             console.error("Error deleting cart item:", error);
         }
+    };
+
+    const formatPrice = (price: number) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
 
     return (
@@ -236,7 +243,7 @@ const CartItem: React.FC<VoucherComponentProps> = ({
                                 </div>
                             </td>
                             <td className="py-4">
-                                ${cart.productVariantDTO.price.toFixed(2)}
+                                {formatPrice(cart.productVariantDTO.price) } VNĐ
                             </td>
                             <td className="py-4">
                                 <div className="flex items-center w-1/2 rounded-full  border-gray-200 bg-white">
@@ -256,7 +263,7 @@ const CartItem: React.FC<VoucherComponentProps> = ({
                                 </div>
                             </td>
                             <td className="py-4">
-                                ${(cart.productVariantDTO.price * cart.quantity).toFixed(2)}
+                                {formatPrice(cart.productVariantDTO.price * cart.quantity)} VNĐ
                             </td>
                             <td className="py-4">
                                 <div className="w-full">

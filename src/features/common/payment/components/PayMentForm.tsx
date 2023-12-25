@@ -306,6 +306,10 @@ function PayMentForm() {
         setIsModalOpen(false);
     };
 
+    const formatPrice = (price: number) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
     return (
         <>
             <div className="bg-gray">
@@ -378,7 +382,7 @@ function PayMentForm() {
                             <th className="px-4">Sản phẩm</th>
                             <th className="px-4">Hình ảnh</th>
                             <th className="px-4">Phân loại</th>
-                            <th className="px-4">Gía</th>
+                            <th className="px-4">Giá</th>
                             <th className="px-4">Số lượng</th>
                             <th className="px-4">Tổng</th>
                         </tr>
@@ -408,9 +412,9 @@ function PayMentForm() {
                                         </div>
                                     ))}
                                 </td>
-                                <td className="px-4 py-2">{item.price}</td>
+                                <td className="px-4 py-2">{formatPrice(item.price)} VNĐ</td>
                                 <td className="px-4 py-2">{item.quantity}</td>
-                                <td className="px-4 py-2">{item.price * item.quantity}</td>
+                                <td className="px-4 py-2">{formatPrice(item.price * item.quantity)} VNĐ</td>
                             </tr>
                         ))}
                         </tbody>
@@ -563,7 +567,7 @@ function PayMentForm() {
                 </span>
                                 <span className="text-gray-700 text-2xl font-medium">
                   {updateOrderResponse &&
-                      updateOrderResponse.orderDTO.totalPrice}{" "}
+                     formatPrice( updateOrderResponse.orderDTO.totalPrice)}{" "}
                                     VNĐ
                 </span>
                             </div>
@@ -573,7 +577,7 @@ function PayMentForm() {
                   Tiền giảm voucher
                 </span>
                                 <span className="text-gray-700 text-2xl font-medium">
-                  {updateOrderResponse && updateOrderResponse.orderDTO.discount}{" "}
+                  {updateOrderResponse && formatPrice(updateOrderResponse.orderDTO.discount)}{" "}
                                     VNĐ
                 </span>
                             </div>
@@ -585,7 +589,7 @@ function PayMentForm() {
                 </span>
                                 <span className="text-gray-700 text-2xl font-medium">
                   {updateOrderResponse &&
-                      updateOrderResponse.orderDTO.shippingFee}{" "}
+                      formatPrice(updateOrderResponse.orderDTO.shippingFee)}{" "}
                                     VNĐ
                 </span>
                             </div>
@@ -597,7 +601,7 @@ function PayMentForm() {
                 </span>
                                 <span className="text-gray-700 text-2xl font-medium">
                   {updateOrderResponse &&
-                      updateOrderResponse.orderDTO.paymentTotal}{" "}
+                      formatPrice(updateOrderResponse.orderDTO.paymentTotal)}{" "}
                                     VNĐ
                 </span>
                             </div>
