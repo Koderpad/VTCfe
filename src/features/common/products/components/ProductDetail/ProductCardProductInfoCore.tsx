@@ -304,7 +304,7 @@ export const ProductCardProductInfoCore = ({
           htmlFor=""
           className="w-full pb-1 text-xl font-semibold text-gray-700 border-b border-blue-300 dark:border-gray-600 dark:text-gray-400"
         >
-          Quantity
+          Số lượng
         </label>
         <div className="relative flex flex-row w-full h-10 mt-6 bg-transparent rounded-lg">
           <button

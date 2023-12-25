@@ -94,6 +94,10 @@ export const HistoryPurchase = () => {
         }
     };
 
+    const formatPrice = (price: number) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
     const purchaseTabsLink = purchaseTabs.map((tab) => (
         <Link
             key={tab.status}
@@ -161,7 +165,7 @@ export const HistoryPurchase = () => {
                     </span> */}
                                         <span className="ml-2 truncate text-orange">
                       {/* ₫{formatCurrency(purchase.product.price)}₫ */}
-                                            {item.quantity * item.price}₫
+                                            {formatPrice(item.quantity * item.price)} VNĐ
                     </span>
                                     </div>
                                 </NavLink>
@@ -184,13 +188,13 @@ export const HistoryPurchase = () => {
                                 <div className="mr-4">
                                     <span>Tổng khuyến mãi</span>
                                     <span className="ml-4 text-xl text-orange">
-                    {purchase.discount}₫
+                    {formatPrice(purchase.discount)} VNĐ
                   </span>
                                 </div>
                                 <div>
                                     <span>Tổng giá tiền</span>
                                     <span className="ml-4 text-xl text-orange">
-                    {purchase.paymentTotal}₫
+                    {formatPrice(purchase.paymentTotal)} VNĐ
                   </span>
                                 </div>
 

@@ -33,7 +33,7 @@ function ContentTooltip() {
             <Link to="/user/account">Tài khoản của tôi</Link>
           </li>
           <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
-            <a href="#">Đơn mua</a>
+            <Link to="/user/account/history-purchase">Đơn mua</Link>
           </li>
           <li className="py-2 pl-4 text-2xl text-gray-800 hover:text-green-600 hover:bg-gray-200 cursor-pointer transition duration-300 ease-in-out">
             {/* <Link onClick={handleLogout}>Đăng xuất</Link> */}

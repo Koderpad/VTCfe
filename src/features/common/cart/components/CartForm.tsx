@@ -17,6 +17,15 @@ const override = css`
 export const CartForm = () => {
   // const [totalAmount, setTotalAmount] = useState(0);
 
+
+
+
+
+  // useEffect(() => {
+  //   setTotalPrice(calculateTotalPrice());
+  // }, [selectedProducts, data]);
+
+
   const { data, error, isLoading, refetch } =
     useGetListCartByUsernameQuery("cus");
   // console.log(data);
@@ -29,6 +38,27 @@ export const CartForm = () => {
   }>({});
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
+
+
+  const calculateTotalPrice = async () => {
+
+   // await console.log("selectedProductsselectedProducts", selectedProducts);
+
+
+    // let total = 0;
+    // Object.values(selectedProducts).forEach((cartIds) => {
+    //   cartIds.forEach((cartId) => {
+    //     // Tìm sản phẩm trong data và tính tổng giá tiền
+    //     const cartItem = data.listCartByShopDTOs
+    //         .find((item) => item.cartId === cartId)
+    //         .cartItems.find((item) => item.cartId === cartId);
+    //     total += cartItem.quantity * cartItem.price;
+    //   });
+    // });
+    // return total;
+
+    return 0;
+  };
 
   // const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
   //   console.log("cart ID: ", cartIds);
@@ -133,7 +163,7 @@ export const CartForm = () => {
                 <hr className="my-2" />
                 <div className="flex justify-between mb-2">
                   <span>Tổng thanh toán (... sản phẩm):</span>
-                  <span className="font-semibold">$0</span>
+                  <span className="font-semibold">${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
               <div className="flex w-full justify-end pt-14">

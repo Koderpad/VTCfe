@@ -202,6 +202,10 @@ export const OrderDetailsForm = () => {
     };
 
 
+    const formatPrice = (price: number) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
     return (
         <div className="bg-gray">
             <Header_v1/>
@@ -297,9 +301,9 @@ export const OrderDetailsForm = () => {
                                     </div>
                                 ))}
                             </td>
-                            <td className="px-4 py-2">{item.price}</td>
+                            <td className="px-4 py-2">{formatPrice(item.price)} VNĐ</td>
                             <td className="px-4 py-2">{item.quantity}</td>
-                            <td className="px-4 py-2">{item.price * item.quantity}</td>
+                            <td className="px-4 py-2">{formatPrice(item.price * item.quantity)} VNĐ</td>
 
 
                             {orderDetails?.status === "COMPLETED" ?
@@ -409,7 +413,7 @@ export const OrderDetailsForm = () => {
                 Tổng tiền hàng
               </span>
                             <span className="text-gray-700 text-2xl font-medium">
-                {orderDetails?.totalPrice} VNĐ
+                {formatPrice(orderDetails?.totalPrice)} VNĐ
               </span>
                         </div>
 
@@ -419,7 +423,7 @@ export const OrderDetailsForm = () => {
                 Tiền giảm voucher
               </span>
                             <span className="text-gray-700 text-2xl font-medium">
-                {orderDetails?.discount} VNĐ
+                {formatPrice(orderDetails?.discount)} VNĐ
               </span>
                         </div>
                         {/* <div className="border-t my-4 border-black-200"></div> */}
@@ -429,7 +433,7 @@ export const OrderDetailsForm = () => {
                 Phí vận chuyển
               </span>
                             <span className="text-gray-700 text-2xl font-medium">
-                {orderDetails?.shippingFee} VNĐ
+                {formatPrice(orderDetails?.shippingFee)} VNĐ
               </span>
                         </div>
                         <div className="border-t my-4 border-black-200"></div>
@@ -439,7 +443,7 @@ export const OrderDetailsForm = () => {
                 Tổng tiền
               </span>
                             <span className="text-gray-700 text-2xl font-medium">
-                {orderDetails?.paymentTotal} VNĐ
+                {formatPrice(orderDetails?.paymentTotal)} VNĐ
               </span>
                         </div>
 

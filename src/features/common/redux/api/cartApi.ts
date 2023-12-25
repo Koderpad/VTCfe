@@ -18,6 +18,16 @@ export const cartApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
+    updateCart: builder.mutation({
+      query: (data) => ({
+        url: `/customer/cart/update`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+
     // login: builder.mutation({
     //   query: (data) => ({
     //     url: "/auth/login",
@@ -47,4 +57,5 @@ export const {
   useGetListCartByUsernameQuery,
   useDeleteCartMutation,
   useAddNewCartMutation,
+    useUpdateCartMutation,
 } = cartApi;
