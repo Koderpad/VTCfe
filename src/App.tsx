@@ -60,6 +60,7 @@ import AddVoucherShop from "./pages/vendors/AddVoucherShop";
 import UpdateVoucherShop from "./pages/vendors/UpdateVoucherShop";
 import AddReview from "./pages/users/AddReview.tsx";
 import Review from "./pages/users/Review.tsx";
+import SearchProducts from "./pages/vendors/SearchProducts.tsx";
 
 function App() {
     return (
@@ -68,6 +69,8 @@ function App() {
                 <Routes>
                     {/* public routes */}
                     <Route path="login" element={<Login/>}/>
+                    {/*<Route path="/search?keyword=:keyword" element={<SearchProducts/>}/>*/}
+                    <Route path="/search/:keyword/page/:page/size/:size" element={<SearchProducts/>}/>
                     <Route path="register" element={<Register/>}/>
                     <Route path="forgot-password" element={<ForgotPassword/>}/>
                     <Route path="reset-password" element={<ResetPassword/>}/>
