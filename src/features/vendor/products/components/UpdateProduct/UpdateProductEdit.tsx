@@ -185,7 +185,10 @@ export const UpdateProductEdit = () => {
                                 id="container-right btn-group"
                                 className="flex justify-end p-4 w-full gap-10"
                             >
-                                <button>Hủy</button>
+                                <button onClick={
+                                    () => navigate("/vendor/shop/products")
+                                }>Hủy
+                                </button>
                                 <button type="submit" onClick={handleSaveProduct}>
                                     Lưu
                                 </button>

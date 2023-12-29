@@ -3,6 +3,8 @@ import {ImageModal} from "./ImageModal";
 import {ImageEditor} from "./ImageEditor";
 import {storage} from "../../../../../../constants/firebaseConfig";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
+import {ScaleLoader} from "react-spinners";
+import Modal from "react-modal";
 
 const metadata = {
     contentType: "image/jpeg",
@@ -17,6 +19,7 @@ export const Image = ({existsImage, setImageUrl}: Props) => {
     // const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [imageData, setImageData] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
 
     useEffect(() => {
         if (imageData != existsImage) {
@@ -26,6 +29,8 @@ export const Image = ({existsImage, setImageUrl}: Props) => {
 
     const uploadImageToFirebase = useCallback(async () => {
         if (imageData) {
+            setIsUploading(true);
+
             const storageRef = ref(
                 storage,
                 `images/${Date.now()}-${fileInputRef.current?.files?.[0]?.name}-test27`
@@ -49,6 +54,7 @@ export const Image = ({existsImage, setImageUrl}: Props) => {
                     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
                     console.log("Uploaded image URL:", downloadURL);
                     setImageUrl(downloadURL);
+                    setIsUploading(false);
                 }
             );
         }
@@ -306,7 +312,29 @@ export const Image = ({existsImage, setImageUrl}: Props) => {
                             </div>
                         )}
                     </div>
-
+                    <Modal
+                        isOpen={isUploading}
+                        style={{
+                            overlay: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            },
+                            content: {
+                                position: 'relative',
+                                border: 'none',
+                                background: 'none',
+                                overflow: 'auto',
+                                WebkitOverflowScrolling: 'touch',
+                                borderRadius: '4px',
+                                outline: 'none',
+                                padding: '20px',
+                            },
+                        }}
+                    >
+                        <ScaleLoader color="#36D7B7"/>
+                    </Modal>
                     {/* -modal image-cropper-modal */}
                     {/* <div id="image-cropper-modal"></div> */}
                     <ImageModal
