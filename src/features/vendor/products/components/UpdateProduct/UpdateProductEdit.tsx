@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {Image} from "./MainContent/Image";
@@ -38,6 +38,8 @@ export const UpdateProductEdit = () => {
     const [productVariantDTOs, setProductVariantDTOs]
         = useState<ProductVariantDTO[]>([]);
 
+    const navigate = useNavigate();
+
     const fetchData = async () => {
         await refetch();
         if (isLoading) {
@@ -58,8 +60,7 @@ export const UpdateProductEdit = () => {
 
     useEffect(() => {
         fetchData();
-    }, [isLoading]);
-
+    }, [isLoading, productDetail]);
 
     if (!id) {
         alert("ID is missing from the route parameters.")
@@ -84,6 +85,7 @@ export const UpdateProductEdit = () => {
             } = await updateProduct({id: parseInt(id), ...productUpdateRequest});
             if ('data' in response && response.data.status === "success") {
                 toast.success(response.data.message);
+                navigate("/vendor/shop/products");
                 return;
             } else {
                 // If the server responds with a message, display it
