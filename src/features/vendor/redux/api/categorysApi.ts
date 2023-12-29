@@ -28,7 +28,7 @@ export const categorysApi = apiSlice.injectEndpoints({
     }),
 
     getShopCategoryById: builder.mutation({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `/vendor/shop/category/get/${id}`,
         method: "GET",
       }),
@@ -42,10 +42,14 @@ export const categorysApi = apiSlice.injectEndpoints({
       }),
     }),
 
-
-
     getAllCategories: builder.query({
       query: () => `/vendor/shop/category/all`,
+    }),
+    getShopCategoriesQuery: builder.query({
+      query: () => ({
+        url: `/vendor/shop/category/all`,
+        method: "GET",
+      }),
     }),
   }),
 });
@@ -58,6 +62,7 @@ export const {
   useGetParentCategoriesMutation,
   useGetShopCategoriesMutation,
   useGetShopCategoryByIdMutation,
+  useGetShopCategoriesQueryQuery,
 } = categorysApi;
 
 // import { apiSlice } from "../../../../app/api/apiSlice.js";

@@ -1,5 +1,4 @@
 import { PanelHeader } from "./PanelHeader";
-import { NoVariations } from "./EditRow/NoVariations";
 import { ProductTierVariation } from "./EditRow/ProductTierVariation";
 
 export const ProductSalesInfo = () => {

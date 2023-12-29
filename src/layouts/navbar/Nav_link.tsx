@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import ContentTooltip from "./ContentTooltip";
 import styled from "styled-components";
 import { RootState } from "../../app/store";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface CustomerDTO {
   customerId: number;
@@ -15,7 +15,7 @@ interface CustomerDTO {
   roles: string[];
 }
 
-function Nav_link() {
+const Nav_link = React.memo(() => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState<CustomerDTO | null>(null);
 
@@ -85,7 +85,7 @@ function Nav_link() {
       </div>
     </>
   );
-}
+});
 
 const StyledToolTip = styled.div`
   display: block;

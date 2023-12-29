@@ -299,6 +299,12 @@ const Products = () => {
 
   return (
     <div className="container mx-auto mt-8">
+      <button
+        type="button"
+        className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+      >
+        Add new
+      </button>
       <table className="table-auto w-full border-collapse border border-green-800">
         <thead>
           <tr>
@@ -343,6 +349,15 @@ const Products = () => {
                   {selectedProductId === product.productId
                     ? "Ẩn chi tiết"
                     : "Xem chi tiết"}
+                </button>
+                <button
+                  onClick={() => {
+                    navigate(`/vendor/product/edit/${product.productId}`);
+                  }}
+                  type="button"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                >
+                  Chỉnh sửa
                 </button>
               </td>
             </tr>
