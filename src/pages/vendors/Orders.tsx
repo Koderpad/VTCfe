@@ -158,7 +158,7 @@ export const Orders = () => {
             >
               {purchase.orderItemDTOs.map((item: OrderItemDTO) => (
                 <NavLink
-                  to={`/checkout/${purchase.orderId}`}
+                  to={`/vendor/shop/checkout/${purchase.orderId}`}
                   className="flex"
                   key={item.cartId}
                 >

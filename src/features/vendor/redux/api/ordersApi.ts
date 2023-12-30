@@ -19,6 +19,15 @@ export const ordersApi = apiSlice.injectEndpoints({
         method: "PATCH",
       }),
     }),
+
+    getShopOrderById: builder.query({
+        query: (id) => `/vendor/order/detail/${id}`,
+        }),
+
+
+
+
+
   }),
 });
 
@@ -26,4 +35,5 @@ export const {
   useGetOrdersQuery,
   useGetOrdersByStatusQuery,
   useUpdateOrderStatusMutation,
+    useGetShopOrderByIdQuery,
 } = ordersApi;

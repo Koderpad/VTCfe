@@ -1,12 +1,11 @@
 import {useNavigate, useParams} from "react-router-dom";
-import Footer_v1 from "../../../../layouts/footers/Footer_v1";
-import Header_v1 from "../../../../layouts/headers/Header_v1";
+
 
 import {FaTruck} from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-import {useGetOrderByOrderIdQuery} from "../../redux/api/orderApi";
 import React, {useEffect, useState} from "react";
-import {useCheckReviewExistMutation} from "../../redux/api/reviewApi.ts";
+import {useCheckReviewExistMutation} from "../../../common/redux/api/reviewApi.ts";
+import {useGetShopOrderByIdQuery} from "../../redux/api/ordersApi.ts";
 
 interface AttributeDTO {
     attributeId: number;
@@ -84,7 +83,7 @@ interface ApiResponse {
     orderDTO?: OrderDTO;
 }
 
-export const OrderDetailsForm = () => {
+export const OrderDetailShopForm = () => {
     const {id} = useParams();
 
 
@@ -93,7 +92,7 @@ export const OrderDetailsForm = () => {
         isFetching,
         isLoading,
         refetch,
-    } = useGetOrderByOrderIdQuery(parseInt(id!));
+    } = useGetShopOrderByIdQuery(parseInt(id!));
 
 
     const order: ApiResponse | undefined = getOrderByOrderId;
@@ -101,14 +100,12 @@ export const OrderDetailsForm = () => {
 
     if (order?.code !== 200) {
         console.log("error", order?.message);
-        // alert("Order not found");
     }
 
     const orderDetails: OrderDTO | undefined = order?.orderDTO;
 
     if (!orderDetails) {
         console.log("error", order?.message);
-        // alert("Order not found");
     }
 
     console.log("order:  ", orderDetails);
@@ -117,11 +114,7 @@ export const OrderDetailsForm = () => {
 
     const orderItems: OrderItemDTO[] = orderDetails?.orderItemDTOs;
 
-    // const products: ProductVariantDTO[] = orderItems.map(
-    //   (item) => item.productVariantDTO
-    // );
 
-    // console.log("orderDetails", products);
 
     const voucher: VoucherOrderDTO[] | null | undefined =
         orderDetails?.voucherOrderDTOs;
@@ -178,7 +171,6 @@ export const OrderDetailsForm = () => {
 
     return (
         <div className="bg-gray">
-            <Header_v1/>
             <div className="flex bg-white h-full w-full py-8 mt-44 items-center">
                 {/* Image */}
                 <img
@@ -243,7 +235,6 @@ export const OrderDetailsForm = () => {
                         <th className="px-4">Gía</th>
                         <th className="px-4">Số lượng</th>
                         <th className="px-4">Tổng</th>
-                        {orderDetails?.status === "COMPLETED" ? <th className="px-4">Đánh giá</th> : ""}
 
                     </tr>
                     </thead>
@@ -276,26 +267,6 @@ export const OrderDetailsForm = () => {
                             <td className="px-4 py-2">{formatPrice(item.price * item.quantity)} VNĐ</td>
 
 
-                            {orderDetails?.status === "COMPLETED" ?
-                                <td className="px-4 py-2">
-                                    <button
-                                        className="flex items-center bg-red-500 hover:bg-red-800 focus:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                        onClick={(e) => handleReview(e, item.orderItemId)}
-
-                                    >
-                                        <div
-                                            className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center mr-2">
-                                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor"
-                                                 viewBox="0 0 24 24"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <polygon
-                                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </td>
-
-                                : ""}
 
 
                         </tr>
@@ -433,7 +404,6 @@ export const OrderDetailsForm = () => {
             </div> */}
                 </div>
             </div>
-            <Footer_v1/>
         </div>
     );
 };

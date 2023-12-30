@@ -62,6 +62,7 @@ import AddReview from "./pages/users/AddReview.tsx";
 import Review from "./pages/users/Review.tsx";
 import SearchProducts from "./pages/vendors/SearchProducts.tsx";
 import { UpdateProduct } from "./pages/vendors/UpdateProduct.tsx";
+import {OrderDetailShopForm} from "./features/vendor/payment/components/OrderDetailShopForm.tsx";
 
 function App() {
   return (
@@ -150,6 +151,7 @@ function App() {
             <Route path="/vendor" element={<VendorPage />}>
               <Route path="shop/statistical" element={<Statistical />} />
               <Route path="shop/orders" element={<Orders />} />
+              <Route path="shop/checkout/:id" element={<OrderDetailShopForm />} />
               <Route path="product/new" element={<AddProduct />} />
               <Route path="product/edit/:id" element={<UpdateProduct />} />
               <Route path="shop/category/add" element={<AddCategory />} />
