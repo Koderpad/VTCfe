@@ -202,9 +202,20 @@ export const OrderDetailsForm = () => {
     };
 
 
-    const formatPrice = (price: number) => {
-        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // const formatPrice = (price: number) => {
+    //     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // };
+
+
+    const formatPrice = (price?: number) => {
+        if (price !== undefined && price !== null) {
+            const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return formattedPrice;
+        } else {
+            return "N/A"; // or any other default value or behavior
+        }
     };
+
 
     return (
         <div className="bg-gray">

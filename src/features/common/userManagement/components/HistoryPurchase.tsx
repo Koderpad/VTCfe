@@ -98,6 +98,21 @@ export const HistoryPurchase = () => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
 
+    // const formatPrice = (price?: number) => {
+    //     if (price !== undefined && price !== null) {
+    //         console.log("Price:", price); // Log the value of price
+    //         const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    //         console.log("Formatted Price:", formattedPrice); // Log the formatted price
+    //         return formattedPrice;
+    //     } else {
+    //         // Handle the case where price is undefined or null
+    //         console.log("Price is undefined or null. Returning 'N/A'.");
+    //         return "N/A"; // or any other default value or behavior
+    //     }
+    // };
+
+
+
     const purchaseTabsLink = purchaseTabs.map((tab) => (
         <Link
             key={tab.status}
