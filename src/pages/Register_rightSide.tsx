@@ -3,7 +3,7 @@ import RegisForm_fix from "../features/common/auth/components/RegisForm_fix.js";
 function Register_rightSide() {
   return (
     // <section className="border bg-cyan-100 grow w-full mx-auto px-5 border-solid border-neutral-700 max-md:max-w-full">
-    <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+    <div className="flex max-md:flex-col max-md:items-stretch max-md:gap-0 h-screen">
       <div className="flex items-stretch w-[19%] max-md:w-full max-md:ml-0">
         <img
           loading="lazy"
@@ -12,7 +12,7 @@ function Register_rightSide() {
           alt="Image"
         />
       </div>
-      <div className="flex flex-col items-stretch w-[81%] ml-5 max-md:w-full max-md:ml-0">
+      <div className="flex flex-col items-stretch w-[81%] ml-5 max-md:w-full max-md:ml-0 h-full">
         <div className="flex flex-col max-md:max-w-full max-md:mt-5">
           {/* col 1 */}
           <div className="w-full h-[150px] max-w-full">

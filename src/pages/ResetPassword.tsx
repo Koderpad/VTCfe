@@ -235,7 +235,7 @@ export const ResetPassword = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <ToastContainer />
       <div className="flex flex-col items-center">
-        <label className="text-gray-600">Verification code</label>
+        <label className="text-gray-600">Mã xác nhận</label>
         <div ref={fieldsRef} className="mt-2 flex items-center gap-x-2">
           {/* Repeat the input fields for the desired number of OTP digits */}
           {[1, 2, 3, 4, 5, 6].map((index) => (
@@ -253,7 +253,7 @@ export const ResetPassword = () => {
         </div>
         <div className="flex flex-col items-center justify-center h-full">
           <div>
-            <label className="text-gray-600">New Password</label>
+            <label className="text-gray-600">Mật khẩu mới</label>
             <div className="relative max-w-xs mt-2">
               <button
                 className="text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-600 focus:outline-none"
@@ -299,7 +299,7 @@ export const ResetPassword = () => {
               <input
                 id="newPassword"
                 type={isPasswordHidden ? "password" : "text"}
-                placeholder="Enter your password"
+                placeholder="Nhập mật khẩu..."
                 className="w-full pr-12 pl-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
@@ -309,7 +309,7 @@ export const ResetPassword = () => {
           onClick={handleResetPassword}
           className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
         >
-          Reset Password
+          Làm mới mật khẩu
         </button>
         <div className="flex items-center mt-2 space-x-2">
           <p className="text-gray-600">
@@ -320,7 +320,7 @@ export const ResetPassword = () => {
             disabled={resendDisabled || loading}
             className={`text-blue-600 hover:underline focus:outline-none`}
           >
-            Resend OTP
+            Gửi lại OTP
           </button>
         </div>
         {loading && <LoaderOverlay />}

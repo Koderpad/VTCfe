@@ -11,7 +11,7 @@ const TextIcon: React.FC<TextIconProps> = ({ srcSet }) => {
       <img
         loading="lazy"
         srcSet={srcSet}
-        className="aspect-square  object-center w-[22px] overflow-hidden self-stretch max-w-full"
+        className="aspect-square text-2xl object-center w-[22px] overflow-hidden self-stretch max-w-full"
         alt="Image"
       />
     </>

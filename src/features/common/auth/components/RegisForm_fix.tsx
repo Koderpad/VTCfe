@@ -119,7 +119,7 @@ function RegisForm_fix() {
             </div>
             <div className="flex flex-col">
               <input
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5  sm:leading-6"
                 type="text"
                 id="username"
                 placeholder="Tên Tài Khoản"
@@ -140,7 +140,7 @@ function RegisForm_fix() {
             </div>
             <div className="flex flex-col">
               <input
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5  sm:leading-6"
                 type="password"
                 id="password"
                 placeholder="Mật khẩu"
@@ -161,7 +161,7 @@ function RegisForm_fix() {
             </div>
             <div className="flex flex-col">
               <input
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:leading-6"
                 type="email"
                 id="email"
                 placeholder="Địa chỉ email"
@@ -222,7 +222,7 @@ function RegisForm_fix() {
             </div>
             <div className="flex flex-col">
               <input
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:leading-6"
                 type="text"
                 id="fullname"
                 placeholder="Họ và tên"
@@ -244,7 +244,7 @@ function RegisForm_fix() {
             <span className="mt-5 mr-3">Ngày sinh: </span>
             <div className="flex flex-col mt-3">
               <input
-                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5 sm:text-sm sm:leading-6"
+                className="block w-full bg-transparent border-none focus:outline-none border-0 py-1.5  sm:leading-6"
                 type="date"
                 id="date"
                 placeholder="Ngày sinh"

@@ -19,7 +19,7 @@ function MyAccount() {
       <div className="flex justify-self-center w-[1200px] h-[568px] pt-[20px] pb-[50px] mb-14 min-h-[568px]">
         {/* left nav side */}
         <div className="flex flex-col w-[180px] h-[568px]">
-          <Breadcrumb />
+          {/* <Breadcrumb /> */}
 
           {/* navbar */}
           <div className="mt-11">
@@ -31,12 +31,12 @@ function MyAccount() {
               <ul className="pl-4 ">
                 <li>
                   <Link to="profile" className=" hover:text-green-600 ">
-                    My Profile
+                    Thông tin cá nhân
                   </Link>
                 </li>
                 <li>
                   <Link to="pw_changes" className=" hover:text-green-600 ">
-                    Password Changes
+                    Thay đổi mật khẩu
                   </Link>
                 </li>
                 <li>

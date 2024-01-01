@@ -302,9 +302,9 @@ const Products = () => {
           navigate("/vendor/product/new");
         }}
         type="button"
-        className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        className="mb-4 py-3 px-4 inline-flex items-center gap-x-2 text-xl font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       >
-        Add new product
+        Thêm sản phẩm mới
       </button>
       <table className="table-auto w-full border-collapse border border-green-800">
         <thead>
@@ -346,7 +346,7 @@ const Products = () => {
                     )
                   }
                   // className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
-                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-xl font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   {selectedProductId === product.productId
                     ? "Ẩn chi tiết"
@@ -357,7 +357,7 @@ const Products = () => {
                     navigate(`/vendor/product/edit/${product.productId}`);
                   }}
                   type="button"
-                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-xl font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   Chỉnh sửa
                 </button>

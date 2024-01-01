@@ -114,18 +114,18 @@ function LoginForm() {
       </p>
 
       <Label_forgot>
-        <Link to="/forgot-password">Forgot Your Password?</Link>
+        <Link to="/forgot-password">Quên mật khẩu?</Link>
       </Label_forgot>
 
       <ButtonContainer>
-        <Button_Login type="submit">Login</Button_Login>
+        <Button_Login type="submit">Đăng nhập</Button_Login>
       </ButtonContainer>
 
       <Label_Regis>
         <p className="don-t-have-account">
-          <span className="text-wrapper">Don’t have account? </span>
+          <span className="text-wrapper">Bạn chưa có tài khoản? </span>
           <Link to="/register" className="span">
-            Register Now
+            Đăng ký ngay!
           </Link>
         </p>
       </Label_Regis>
