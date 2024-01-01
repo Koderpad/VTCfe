@@ -38,13 +38,13 @@ const VoucherComponent: React.FC<VoucherProps> = ({ data }) => {
           <br />
           <span className="text-xl font-normal">{description}</span>
         </h3>
-        <div className="flex items-center space-x-2 mb-4">
+        <div className="flex items-center justify-center space-x-2 mb-4">
           <span className="border-dashed border text-white px-3 py-1 rounded-l">
             {code}
           </span>
-          <span className="border border-white bg-white text-purple-600 px-3 py-1 rounded-r cursor-pointer">
+          {/* <span className="border border-white bg-white text-purple-600 px-3 py-1 rounded-r cursor-pointer">
             Dùng ngay
-          </span>
+          </span> */}
         </div>
         <p className="text-xl">Hạn sử dụng: {formattedEndDate}</p>
 
