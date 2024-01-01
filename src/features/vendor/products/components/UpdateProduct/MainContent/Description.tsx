@@ -9,7 +9,7 @@ export const Description = ({ existsDescription, setDescription }: Props) => {
   };
   return (
     <>
-      <div id="edit-row description-wrap" className="flex">
+      <div id="edit-row description-wrap" className="flex mb-4">
         <div
           id="edit-label edit-title"
           className="flex w-[180px] h-[40px] justify-center items-center"
@@ -37,11 +37,11 @@ export const Description = ({ existsDescription, setDescription }: Props) => {
                 value={existsDescription}
               />
             </div>
-            <div id="edit-main-content-error">
+            {/* <div id="edit-main-content-error">
               <span style={{ color: "red", fontSize: "12px" }}>
                 Mô tả sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

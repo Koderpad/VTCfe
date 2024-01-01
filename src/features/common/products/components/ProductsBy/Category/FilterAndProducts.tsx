@@ -328,11 +328,11 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                       className="px-4 py-2 mt-4 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
                       onClick={handleApply}
                     >
-                      Apply
+                      Áp dụng
                     </button>
-                    <button className="px-4 py-2 mt-4 text-lg font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600">
+                    {/* <button className="px-4 py-2 mt-4 text-lg font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600">
                       Reset
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

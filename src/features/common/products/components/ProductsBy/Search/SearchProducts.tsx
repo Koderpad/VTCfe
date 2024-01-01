@@ -260,36 +260,43 @@ const SearchProducts: React.FC<Props> = ({ keyword }) => {
               <CategoryPart />
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">
-                  Product Status
+                  Price Range
                 </h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                <ul>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
+                <div>
+                  <div className="flex gap-4">
+                    <input
+                      id="minPrice"
+                      type="number"
+                      className="w-[75px] h-[35px] bg-blue-100 text-xl "
+                      max="100"
+                      // onChange={handleMinPriceChange}
+                    />
+                    <span>
+                      <i className="text-lg text-gray-400">to</i>
+                    </span>
+                    <input
+                      id="maxPrice"
+                      type="number"
+                      className="w-[75px] h-[35px] bg-blue-100 text-xl "
+                      max="100"
+                      // onChange={handleMaxPriceChange}
+                    />
+                  </div>
+                  <div className="flex justify-between ">
+                    <button
+                      className="px-4 py-2 mt-4 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                      // onClick={handleApply}
                     >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">
-                        In Stock
-                      </span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">
-                        On Sale
-                      </span>
-                    </label>
-                  </li>
-                </ul>
-                C
+                      Áp dụng
+                    </button>
+                    {/* <button className="px-4 py-2 mt-4 text-lg font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600">
+                      Reset
+                    </button> */}
+                  </div>
+                </div>
               </div>
-              <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
+              {/* <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">Price</h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
                 <div>
@@ -309,7 +316,7 @@ const SearchProducts: React.FC<Props> = ({ keyword }) => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* products */}
             <div className="w-full px-3 lg:w-5/6">

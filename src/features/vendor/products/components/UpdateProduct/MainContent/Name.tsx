@@ -10,7 +10,7 @@ export const Name = ({ existsName, setName }: Props) => {
   return (
     <>
       <div id="edit-row">
-        <div id="wrap" className="flex ">
+        <div id="wrap" className="flex mb-4">
           <div
             id="edit-label edit-title"
             className="flex pl-5
@@ -51,7 +51,7 @@ export const Name = ({ existsName, setName }: Props) => {
                 {/* create input__suffix */}
               </div>
 
-              <div id="edit-main-content-error">
+              {/* <div id="edit-main-content-error">
                 <span
                   style={{
                     color: "red",
@@ -60,7 +60,7 @@ export const Name = ({ existsName, setName }: Props) => {
                 >
                   Tên sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
                 </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

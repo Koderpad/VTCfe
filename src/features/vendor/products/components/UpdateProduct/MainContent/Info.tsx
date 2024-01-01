@@ -36,11 +36,11 @@ export const Info = ({ existsInfo, setInfo }: Props) => {
                 value={existsInfo}
               />
             </div>
-            <div id="edit-main-content-error">
+            {/* <div id="edit-main-content-error">
               <span style={{ color: "red", fontSize: "12px" }}>
                 Mô tả sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

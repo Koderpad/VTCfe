@@ -26,6 +26,16 @@ export const CategoryProduct = () => {
   } = useGetAllCategoriesQuery("cate");
 
   useEffect(() => {
+    if (categoriesShop) {
+      const data: ApiResponseOfGetAllCategoryByShopId = categoriesShop;
+      const categoriesShopName = data.categoryDTOs.map((category) => {
+        return category.name;
+      });
+      setCategories(categoriesShopName);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
     refetch();
     if (categoriesShop) {
       const data: ApiResponseOfGetAllCategoryByShopId = categoriesShop;
