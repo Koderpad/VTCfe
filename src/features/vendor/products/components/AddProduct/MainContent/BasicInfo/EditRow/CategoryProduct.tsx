@@ -18,16 +18,12 @@ export const CategoryProduct = () => {
 
   const dispatch = useDispatch();
 
-  const handleInputChange = (field: string, value: any) => {
-    dispatch(updateProduct({ field, value }));
-  };
-
   const {
     data: categoriesShop,
     error,
     isLoading,
     refetch,
-  } = useGetAllCategoriesQuery();
+  } = useGetAllCategoriesQuery("cate");
 
   useEffect(() => {
     refetch();
@@ -38,7 +34,7 @@ export const CategoryProduct = () => {
       });
       setCategories(categoriesShopName);
     }
-  }, [isModalOpen]);
+  }, []);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedIndex = e.target.selectedIndex;
@@ -52,18 +48,6 @@ export const CategoryProduct = () => {
     console.log("seelct id: ", selectedId);
     dispatch(updateProduct({ field: "categoryId", value: selectedId }));
     setSelectedCategoryId(selectedId);
-  };
-
-  const addCategory = (newCategory: string) => {
-    setCategories([...categories, newCategory]);
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -129,36 +113,26 @@ export const CategoryProduct = () => {
                           </svg>
                         </div>
                       </div>
-                      <p className="text-sm text-red-600 mt-2">
+                      {/* <p className="text-sm text-red-600 mt-2">
                         Please select a valid state.
-                      </p>
-                      {/* <div id="product-category-text">
-                        <span>`Thời trang nữ {"->"} Quần`</span>
-                      </div>
-                      <i id="product-category-icon shopee-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            fill="#ee4d2d"
-                            fillRule="evenodd"
-                            d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14.667A6.667 6.667 0 118 1.333a6.667 6.667 0 010 13.334zM8 4a4 4 0 100 8 4 4 0 000-8zm0 6a2 2 0 100-4 2 2 0 000 4z"
-                          ></path>
-                        </svg>
-                      </i> */}
+                      </p> */}
+                      {/* <p
+                        className={`text-sm text-red-600 mt-2 ${
+                          isValid ? "hidden" : ""
+                        }`}
+                      >
+                        Please select a valid state.
+                      </p> */}
                     </div>
                     {/* Button để mở modal */}
-                    <button onClick={openModal}>Thêm Category</button>
+                    {/* <button onClick={openModal}>Thêm Category</button> */}
 
                     {/* Modal */}
-                    <CategoryModal
+                    {/* <CategoryModal
                       isOpen={isModalOpen}
                       onRequestClose={closeModal}
                       addCategory={addCategory}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>

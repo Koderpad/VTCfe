@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { logOut } from "../../features/common/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { persistor } from "../../app/store";
 
 export const AdminReal = () => {
   const [selectedTitle, setSelectedTitle] = useState<string>("");
   const location = useLocation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Lấy phần cuối cùng của đường dẫn làm title
@@ -12,6 +18,15 @@ export const AdminReal = () => {
 
     if (currentPath === "customers") {
       setSelectedTitle("Quanlynguoidung");
+    }
+    if (currentPath === "vouchers") {
+      setSelectedTitle("Quanlyvouchers");
+    }
+    if (currentPath === "products") {
+      setSelectedTitle("Quanlysanpham");
+    }
+    if (currentPath === "categories") {
+      setSelectedTitle("Quanlycate");
     }
 
     console.log(currentPath);
@@ -35,14 +50,14 @@ export const AdminReal = () => {
           <ul className="space-y-2">
             <li>
               <a
-                href="#"
+                href="/"
                 // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg bg-gray-100 hover:bg-green-100"
                 className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
                   selectedTitle === "Home"
                     ? "bg-gray-100 hover:bg-green-100"
                     : "hover:bg-green-100"
                 }`}
-                onClick={() => handleTitleClick("Home")}
+                // onClick={() => handleTitleClick("Home")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,34 +74,6 @@ export const AdminReal = () => {
                   />
                 </svg>
                 Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
-                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
-                  selectedTitle === "Thongke"
-                    ? "bg-gray-100 hover:bg-green-100"
-                    : "hover:bg-green-100"
-                }`}
-                onClick={() => handleTitleClick("Thongke")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="mr-3 h-6 w-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-                  />
-                </svg>
-                Thống kê
               </a>
             </li>
             <li>
@@ -119,7 +106,13 @@ export const AdminReal = () => {
             <li>
               <Link
                 to="vouchers"
-                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
+                  selectedTitle === "Quanlyvouchers"
+                    ? "bg-gray-100 hover:bg-green-100"
+                    : "hover:bg-green-100"
+                }`}
+                onClick={() => handleTitleClick("Quanlyvouchers")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +134,13 @@ export const AdminReal = () => {
             <li>
               <a
                 href="/admin/manager/products"
-                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
+                  selectedTitle === "Quanlysanpham"
+                    ? "bg-gray-100 hover:bg-green-100"
+                    : "hover:bg-green-100"
+                }`}
+                onClick={() => handleTitleClick("Quanlysanpham")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +162,13 @@ export const AdminReal = () => {
             <li>
               <Link
                 to="categories"
-                className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                // className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
+                className={`flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg ${
+                  selectedTitle === "Quanlycate"
+                    ? "bg-gray-100 hover:bg-green-100"
+                    : "hover:bg-green-100"
+                }`}
+                onClick={() => handleTitleClick("Quanlycate")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,6 +196,16 @@ export const AdminReal = () => {
 
           <a
             href="#"
+            onClick={async () => {
+              localStorage.removeItem("token");
+              window.location.reload();
+
+              dispatch(logOut());
+
+              navigate("/login");
+
+              await persistor.purge();
+            }}
             className="flex font-medium text-gray-600 hover:text-green-400 p-2 rounded-lg hover:bg-green-100"
           >
             <svg

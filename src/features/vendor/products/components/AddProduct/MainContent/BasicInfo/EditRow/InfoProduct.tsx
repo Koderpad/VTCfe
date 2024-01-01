@@ -1,16 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
 import { RootState } from "../../../../../../../../app/store";
+import { useState } from "react";
 
 export const InfoProduct = () => {
+  // const dispatch = useDispatch();
+  // // const product = useSelector(
+  // //   (state: RootState) => state.productInAddProduct.product
+  // // );
+
+  // const handleInputChange = (field: string, value: any) => {
+  //   dispatch(updateProduct({ field, value }));
+  // };
+
   const dispatch = useDispatch();
-  // const product = useSelector(
-  //   (state: RootState) => state.productInAddProduct.product
-  // );
+  const [descriptionLength, setDescriptionLength] = useState(100);
 
   const handleInputChange = (field: string, value: any) => {
     dispatch(updateProduct({ field, value }));
+    setDescriptionLength(value.length);
   };
+
   return (
     <>
       <div id="edit-row description-wrap" className="flex">
@@ -40,11 +50,19 @@ export const InfoProduct = () => {
                 }
               />
             </div>
-            <div id="edit-main-content-error">
+            {/* <div id="edit-main-content-error">
               <span style={{ color: "red", fontSize: "12px" }}>
                 Mô tả sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
               </span>
-            </div>
+            </div> */}
+            {descriptionLength < 10 && (
+              <div id="edit-main-content-error">
+                <span style={{ color: "red", fontSize: "12px" }}>
+                  Mô tả sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí
+                  tự.
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

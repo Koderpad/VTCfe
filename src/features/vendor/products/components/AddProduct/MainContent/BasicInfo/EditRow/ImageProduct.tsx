@@ -21,50 +21,6 @@ export const ImageProduct = () => {
     dispatch(updateProduct({ field, value }));
   };
 
-  // console.log(imageData);
-
-  // const uploadImageToFirebase = async (
-  //   image: File,
-  //   oldDownloadURL?: string
-  // ) => {
-  //   const storageRef = ref(storage, `images/${image.name}`);
-  //   const uploadTask = uploadBytesResumable(storageRef, image, metadata);
-
-  //   return new Promise<string>((resolve, reject) => {
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         // Your existing code to track upload progress
-  //       },
-  //       (error) => {
-  //         reject(error);
-  //       },
-  //       async () => {
-  //         // Image uploaded successfully
-  //         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-
-  //         // Delete old image if exists
-  //         if (oldDownloadURL) {
-  //           const oldImageRef = ref(
-  //             storage,
-  //             `images/${getFileNameFromURL(oldDownloadURL)}`
-  //           );
-  //           // Delete the file
-  //           // Note: This is asynchronous, you may want to handle it accordingly
-  //           deleteObject(oldImageRef);
-  //         }
-
-  //         resolve(downloadURL);
-  //       }
-  //     );
-  //   });
-  // };
-
-  // const getFileNameFromURL = (url: string) => {
-  //   const parts = url.split("/");
-  //   return parts[parts.length - 1];
-  // };
-
   useEffect(() => {
     const uploadImageToFirebase = async () => {
       if (imageData && fileInputRef.current && fileInputRef.current.files) {
