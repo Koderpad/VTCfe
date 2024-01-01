@@ -272,8 +272,23 @@ export const ProductCardProductInfo = ({
             $1800.99
           </span> */}
         </p>
-        <p className=" text-gray-700 dark:text-gray-400">
+        {/* description */}
+        {/* <div className="flex">
+          <h3 className="text-2xl font-bold text-gray-700 dark:text-gray-400">
+            Mô tả sản phẩm:
+          </h3>
+        </div> */}
+        <p className="pb-10 text-gray-700 dark:text-gray-400">
+          <p className="text-2xl font-bold text-gray-700 dark:text-gray-400">
+            Mô tả sản phẩm:
+          </p>
           {product ? product.description : "description"}
+        </p>
+        <p className="pb-10 text-gray-700 dark:text-gray-400">
+          <p className="text-2xl font-bold text-gray-700 dark:text-gray-400">
+            Thông tin sản phẩm:
+          </p>
+          {product ? product.information : "information"}
         </p>
       </div>
       {/* attribute of product */}
