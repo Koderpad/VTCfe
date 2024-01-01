@@ -1,8 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { userApi } from "../services/userApi";
 
 function PasswordChanges() {
+  // const [oldpw, setOldpw] = useState("");
+  // const [newpw, setNewpw] = useState("");
+
+  // const handleOldpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setOldpw(event.target.value);
+  // };
+
+  // const handleNewpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewpw(event.target.value);
+  // };
+
   const [oldpw, setOldpw] = useState("");
   const [newpw, setNewpw] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [changePassword, { isLoading }] = userApi.useChangePasswordMutation();
+
+  useEffect(() => {
+    if (showModal) {
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+      setOldpw("");
+      setNewpw("");
+      setErrorMessage("");
+    }
+
+    return () => {
+      clearTimeout;
+    };
+  }, [showModal]);
 
   const handleOldpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOldpw(event.target.value);
@@ -10,6 +40,17 @@ function PasswordChanges() {
 
   const handleNewpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewpw(event.target.value);
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      await changePassword({ oldPassword: oldpw, newPassword: newpw }).unwrap();
+      setShowModal(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Đổi mật khẩu thất bại. Vui lòng thử lại.");
+    }
   };
 
   return (
@@ -21,7 +62,7 @@ function PasswordChanges() {
             Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
           </h2>
           <div>
-            <form className="w-full flex" action="#">
+            <form className="w-full flex" action="#" onSubmit={handleSubmit}>
               <div className="flex justify-between items-center w-full gap-5 relative">
                 <div className="flex flex-col w-1/2 gap-4 absolute left-1/2 top-40 transform -translate-x-1/2 -translate-y-1/2">
                   <div className={`flex flex-col w-full mb-4`}>
@@ -50,12 +91,36 @@ function PasswordChanges() {
                       onChange={handleNewpwChange}
                     />
                   </div>
-                  <button
+                  {/* <button
                     type="reset"
                     className="w-1/4 py-3 px-4 inline-flex items-center justify-center gap-x-2 text-xl font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
                   >
                     Lưu
+                  </button> */}
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-1/4 py-3 px-4 inline-flex items-center justify-center gap-x-2 text-xl font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
+                  >
+                    Lưu
                   </button>
+                  {showModal && (
+                    <div>
+                      <p
+                        className="
+                      text-red-600
+                      "
+                      >
+                        Đổi mật khẩu thành công!
+                      </p>
+                      <button onClick={() => setShowModal(false)}></button>
+                    </div>
+                  )}
+                  {errorMessage && (
+                    <div>
+                      <p>{errorMessage}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </form>

@@ -19,11 +19,22 @@ export const userApi = apiSlice.injectEndpoints({
         body: userProfile,
       }),
     }),
+    changePassword: builder.mutation({
+      query: (passwords) => ({
+        url: "/customer/change-password",
+        method: "PATCH",
+        body: passwords,
+      }),
+    }),
     getVouchers: builder.query({
       query: () => "/customer/voucher/list",
     }),
   }),
 });
 
-export const { useGetUserQuery, useUpdateUserMutation, useGetVouchersQuery } =
-  userApi;
+export const {
+  useGetUserQuery,
+  useUpdateUserMutation,
+  useChangePasswordMutation,
+  useGetVouchersQuery,
+} = userApi;

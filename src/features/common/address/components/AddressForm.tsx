@@ -1,13 +1,18 @@
 // export default AddressForm;
 import React, { useEffect, useState } from "react";
 import AddForm from "./AddForm";
-import { useGetAllAddressQuery } from "../../redux/api/addressApi";
+import {
+  useGetAllAddressQuery,
+  useUpdateStatusAddressMutation,
+} from "../../redux/api/addressApi";
 import { set } from "date-fns";
+import UpdateForm from "./UpdateForm";
 
 export interface AddressProps {
   name: string;
   phoneNumber: string;
   address: string;
+  status: string;
 }
 
 interface AddressDTO {
@@ -40,64 +45,78 @@ interface AddressDTO {
 //   customerDTO: CustomerDTO;
 // }
 
-const Address: React.FC<AddressProps> = ({ name, phoneNumber, address }) => {
-  return (
-    <div className="max-w-full mx-auto">
-      <div className="bg-white flex flex-col shadow-md rounded px-8 py-6 mb-4">
-        <div className="bg-white flex flex-row ">
-          <div className="mb-4 flex items-center">
-            <span className="text-gray-700 text-2xl font-medium mr-2">
-              {name}
-            </span>
-            <span className="text-gray-700 text-2xl font-medium "> | </span>
-            <span className="text-gray-700 text-2xl font-medium ml-2">
-              {phoneNumber}
-            </span>
-          </div>
-          <div className="flex items-center justify-end flex-grow ">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Cập nhật
-            </button>
-            <div className="w-4"></div>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Xóa
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-row mt-4   ">
-          <div className="text-gray-700 text-lg mb-4 items-center justify-end flex-grow ">
-            {address}
-          </div>
-          <div className="flex items-center justify-end">
-            <button
-              className="text-blue-500 hover:text-blue-700 font-medium mr-4"
-              type="button"
-            >
-              Thiết lập mặc định
-            </button>
-          </div>
-        </div>
-        <div className="inline-block border-2 border-red-300 rounded p-1 max-w-max">
-          <span className="inline-block text-red-500">Mặc định</span>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const Address: React.FC<AddressProps> = ({
+//   name,
+//   phoneNumber,
+//   address,
+//   status,
+// }) => {
+//   return (
+//     <div className="max-w-full mx-auto">
+//       <div className="bg-white flex flex-col shadow-md rounded px-8 py-6 mb-4">
+//         <div className="bg-white flex flex-row ">
+//           <div className="mb-4 flex items-center">
+//             <span className="text-gray-700 text-2xl font-medium mr-2">
+//               {name}
+//             </span>
+//             <span className="text-gray-700 text-2xl font-medium "> | </span>
+//             <span className="text-gray-700 text-2xl font-medium ml-2">
+//               {phoneNumber}
+//             </span>
+//           </div>
+//           <div className="flex items-center justify-end flex-grow ">
+//             <button
+//               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//               type="button"
+//             >
+//               Cập nhật
+//             </button>
+//             <div className="w-4"></div>
+//             <button
+//               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//               type="button"
+//             >
+//               Xóa
+//             </button>
+//           </div>
+//         </div>
+//         <div className="flex flex-row mt-4   ">
+//           <div className="text-gray-700 text-lg mb-4 items-center justify-end flex-grow ">
+//             {address}
+//           </div>
+//           <div className="flex items-center justify-end">
+//             <button
+//               className="text-blue-500 hover:text-blue-700 font-medium mr-4"
+//               type="button"
+//             >
+//               Thiết lập mặc định
+//             </button>
+//           </div>
+//         </div>
+//         {status === "ACTIVE" ? (
+//           <div className="inline-block border-2 border-red-300 rounded p-1 max-w-max">
+//             <span className="inline-block text-red-500">Mặc định</span>
+//           </div>
+//         ) : null}
+//       </div>
+//     </div>
+//   );
+// };
 const AddressForm = () => {
   const [showForm, setShowForm] = useState(false);
   const [listAddress, setListAddress] = useState<AddressProps[]>([]);
   const { data, error, isLoading, refetch } = useGetAllAddressQuery();
 
+  const [updateStatusAddress, { isLoading: updateStatusAddressLoading }] =
+    useUpdateStatusAddressMutation();
+
   const [listAddressDTO, setListAddressDTO] = useState<AddressDTO[]>(
     data && data.addressDTOs ? data.addressDTOs : []
   );
+
+  //update address
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [currentAddress, setCurrentAddress] = useState(null);
 
   useEffect(() => {
     refetch();
@@ -105,7 +124,7 @@ const AddressForm = () => {
     if (data && data.addressDTOs) {
       setListAddressDTO(data.addressDTOs);
     }
-  }, [data, showForm]);
+  }, [data, showForm, updateStatusAddressLoading, showUpdateForm]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -119,9 +138,6 @@ const AddressForm = () => {
     return null;
   }
 
-  console.log(data.addressDTOs);
-  console.log("í", listAddressDTO);
-
   const handleShowForm = () => {
     setShowForm(true);
   };
@@ -130,13 +146,33 @@ const AddressForm = () => {
     setShowForm(false);
   };
 
-  // useEffect(() => {
-  //   refetch();
-  //   console.log("data", data);
-  //   if (data && data.addressDTOs) {
-  //     setListAddressDTO(data.addressDTOs);
-  //   }
-  // }, [data, showForm]);
+  const handleUpdateStatus = async ({ addressId }: { addressId: number }) => {
+    try {
+      const addressIdString = addressId.toString();
+      const res = await updateStatusAddress({
+        addressId: addressIdString,
+        status: "ACTIVE",
+      });
+      console.log(res.data.message);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleDeleteAddress = (addressId: number) => {
+    const newListAddressDTO = listAddressDTO.filter(
+      (address) => address.addressId !== addressId
+    );
+    setListAddressDTO(newListAddressDTO);
+  };
+
+  const handleUpdateAddress = (addressId: number) => {
+    const addressToUpdate: AddressDTO | undefined = listAddressDTO.find(
+      (address) => address.addressId === addressId
+    );
+    setCurrentAddress(addressToUpdate);
+    setShowUpdateForm(true);
+  };
 
   return (
     <div className="relative h-300">
@@ -166,44 +202,103 @@ const AddressForm = () => {
       <div className="mt-4">
         {/* Map through listAddressDTO and render Address component for each item */}
         {listAddressDTO.map((addressDTO) => (
-          <Address
-            key={addressDTO.addressId} // Ensure a unique key for each address
-            name={addressDTO.fullName}
-            phoneNumber={addressDTO.phone}
-            address={
-              addressDTO.fullAddress +
-              ", " +
-              addressDTO.ward +
-              ", " +
-              addressDTO.district +
-              ", " +
-              addressDTO.province
-            }
-          />
+          // <Address
+          //   key={addressDTO.addressId} // Ensure a unique key for each address
+          //   name={addressDTO.fullName}
+          //   phoneNumber={addressDTO.phone}
+          //   address={
+          //     addressDTO.fullAddress +
+          //     ", " +
+          //     addressDTO.ward +
+          //     ", " +
+          //     addressDTO.district +
+          //     ", " +
+          //     addressDTO.province
+          //   }
+          //   status={addressDTO.status}
+          // />
+          <div className="max-w-full mx-auto">
+            <div className="bg-white flex flex-col shadow-md rounded px-8 py-6 mb-4">
+              <div className="bg-white flex flex-row ">
+                <div className="mb-4 flex items-center">
+                  <span className="text-gray-700 text-2xl font-medium mr-2">
+                    {addressDTO.fullName}
+                  </span>
+                  <span className="text-gray-700 text-2xl font-medium ">
+                    {" "}
+                    |{" "}
+                  </span>
+                  <span className="text-gray-700 text-2xl font-medium ml-2">
+                    {addressDTO.phone}
+                  </span>
+                </div>
+                <div className="flex items-center justify-end flex-grow ">
+                  {/* <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                  >
+                    Cập nhật
+                  </button> */}
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={() => handleUpdateAddress(addressDTO.addressId)}
+                  >
+                    Cập nhật
+                  </button>
+                  <div className="w-4"></div>
+                  {/* <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                  >
+                    Xóa
+                  </button> */}
+                  <button
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={() => handleDeleteAddress(addressDTO.addressId)}
+                  >
+                    Xóa
+                  </button>
+                </div>
+                {showUpdateForm && (
+                  <UpdateForm
+                    address={currentAddress}
+                    onClose={() => setShowUpdateForm(false)}
+                  />
+                )}
+              </div>
+              <div className="flex flex-row mt-4   ">
+                <div className="text-gray-700 text-lg mb-4 items-center justify-end flex-grow ">
+                  {addressDTO.fullAddress +
+                    ", " +
+                    addressDTO.ward +
+                    ", " +
+                    addressDTO.district +
+                    ", " +
+                    addressDTO.province}
+                </div>
+                <div className="flex items-center justify-end">
+                  <button
+                    className="text-blue-500 hover:text-blue-700 font-medium mr-4"
+                    type="button"
+                    onClick={() =>
+                      handleUpdateStatus({ addressId: addressDTO.addressId })
+                    }
+                  >
+                    Thiết lập mặc định
+                  </button>
+                </div>
+              </div>
+              {addressDTO.status === "ACTIVE" ? (
+                <div className="inline-block border-2 border-red-300 rounded p-1 max-w-max">
+                  <span className="inline-block text-red-500">Mặc định</span>
+                </div>
+              ) : null}
+            </div>
+          </div>
         ))}
       </div>
-      {/* <div className="mt-4">
-        <Address
-          name="Nguyễn Văn A"
-          phoneNumber="0987374523"
-          address="Phường Linh Chiều, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
-        />
-        <Address
-          name="Nguyễn Văn A"
-          phoneNumber="0987374523"
-          address="Phường Linh Chiều, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
-        />
-        <Address
-          name="Nguyễn Văn A"
-          phoneNumber="0987374523"
-          address="Phường Linh Chiều, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
-        />
-        <Address
-          name="Nguyễn Văn A"
-          phoneNumber="0987374523"
-          address="Phường Linh Chiều, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
-        />
-      </div> */}
     </div>
   );
 };

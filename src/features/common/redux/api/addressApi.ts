@@ -12,6 +12,22 @@ interface AddressRequestBody {
   status: string;
 }
 
+interface UpdateAddressRequestBody {
+  addressId: number;
+  province: string;
+  district: string;
+  ward: string;
+  fullAddress: string;
+  fullName: string;
+  phone: string;
+  status: string;
+}
+
+interface UpdateStatusAddressRequestBody {
+  addressId: string;
+  status: string;
+}
+
 export const addressApi = apiSlice.injectEndpoints({
   endpoints: (builder: EndpointBuilder) => ({
     getAllAddress: builder.query({
@@ -24,7 +40,26 @@ export const addressApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateStatusAddress: builder.mutation({
+      query: (data: UpdateStatusAddressRequestBody) => ({
+        url: `/customer/address/update/status`,
+        method: "PATCH",
+        body: data,
+      }),
+    }),
+    updateAddress: builder.mutation({
+      query: (data: UpdateAddressRequestBody) => ({
+        url: `/customer/address/update`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllAddressQuery, useAddAddressMutation } = addressApi;
+export const {
+  useGetAllAddressQuery,
+  useAddAddressMutation,
+  useUpdateStatusAddressMutation,
+  useUpdateAddressMutation,
+} = addressApi;

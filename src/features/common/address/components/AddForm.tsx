@@ -174,13 +174,13 @@ const AddForm = (props: {
           ></textarea>
         </div>
         <div className="flex items-center mb-4">
-          <button
+          {/* <button
             type="button"
             onClick={handleSubmit}
             className="bg-indigo-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-indigo-600 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 focus:ring-2"
           >
             Thêm địa chỉ mới
-          </button>
+          </button> */}
           <div className="flex items-center">
             <input
               onChange={(e) => setType(e.target.value)}
@@ -228,7 +228,7 @@ const AddForm = (props: {
             onClick={handleSubmit}
             className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-indigo-500 focus:ring-offset-2 focus:ring-2"
           >
-            Tiếp tục
+            Thêm địa chỉ mới
           </button>
         </div>
         {/* </form> */}
