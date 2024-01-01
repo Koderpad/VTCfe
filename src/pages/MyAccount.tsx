@@ -53,11 +53,11 @@ function MyAccount() {
                     Sản phẩm yêu thích
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="follow-shop" className=" hover:text-green-600 ">
                     Cửa hàng theo dõi
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="voucher-wallet" className=" hover:text-green-600 ">
                     Kho voucher
