@@ -1,57 +1,35 @@
 import { CategoryPart } from "./CategoryPart";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetListProductPageByCategoryIdMutation } from "../../../services/productPageApi";
-import { useAddNewFavoriteProductMutation } from "../../../services/productsPageGetApi";
+import {
+  useAddNewFavoriteProductMutation,
+  useDeleteFavoriteProductMutation,
+} from "../../../services/productsPageGetApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// ListManagerProductResponse.ts
-interface ListProductPageResponse {
-  status: string;
-  message: string;
-  code: number;
-  count: number;
-  size: number;
-  page: number;
-  totalPage: number;
-  productDTOs: ProductDTO[];
-}
-
-interface ProductDTO {
-  productId: number;
-  name: string;
-  image: string;
-  description: string;
-  information: string;
-  sold: number;
-  status: string;
-  categoryId: number;
-  brandId: number | null;
-  productVariantDTOs: ProductVariantDTO[];
-}
-
-interface ProductVariantDTO {
-  productVariantId: number;
-  sku: string;
-  image: string;
-  price: number;
-  quantity: number;
-  status: string;
-  productId: number;
-  attributeDTOs: AttributeDTO[];
-}
-
-interface AttributeDTO {
-  attributeId: number;
-  name: string;
-  value: string;
-  active: boolean;
-  shopId: number;
-}
+import {
+  ListProductPageResponse,
+  ProductDTO,
+} from "../interfaces/ListProductPageResponse";
+import { useGetFavoriteProductsQuery } from "../../../../redux/api/productsApi";
+import {
+  FavoriteProductDTO,
+  GetFavoriteProductsApiResponse,
+} from "../interfaces/GetFavoriteProductsResponsesBody";
+import axios from "axios";
+import ProductList from "../common/ProductList";
 
 export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
   const [page, setPage] = useState(1);
-  const size = 10;
+  const size = 8;
+  // Define new state variables
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(100);
+
+  // Define a new state variable to track if the price filter is being applied
+  const [isPriceFilterApplied, setIsPriceFilterApplied] = useState(false);
+
   const [products, setProducts] = useState<ProductDTO[]>([]);
   const [productPageResponse, setProductPageResponse] =
     useState<ListProductPageResponse | null>(null);
@@ -60,31 +38,87 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
   const [getListProductPage, { isLoading }] =
     useGetListProductPageByCategoryIdMutation();
 
+  const {
+    data: favoriteProducts,
+    error: favoriteProductsError,
+    isLoading: favoriteProductsLoading,
+    refetch: refetchFavoriteProducts,
+  } = useGetFavoriteProductsQuery("arg");
+
+  const [favoriteProductIds, setFavoriteProductIds] = useState<number[]>([]);
+
   const [addNewFavoriteProduct] = useAddNewFavoriteProductMutation();
 
+  const [deleteFavoriteProduct] = useDeleteFavoriteProductMutation();
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getListProductPage({ page, size, categoryId });
-        const responseData = response?.data;
-
-        if (responseData) {
-          console.log("responseData", responseData);
-          setProductPageResponse(responseData);
-          setProducts(responseData.productDTOs || []);
-          toast.success(responseData.message);
-        } else {
-          // alert("Invalid response data");
-          toast.error("Invalid response data");
-        }
-      } catch (error) {
-        console.error("Lỗi tìm nạp dữ liệu:", error);
-        toast.error(error.data?.message || "Error fetching data");
-      }
-    };
-
     fetchData();
+    refetchFavoriteProducts();
+    setFavoriteProductIds(getFavoriteProductIds(favoriteProducts));
   }, [getListProductPage, page, size]);
+
+  // const fetchData = async () => {
+  //     try {
+  //         const response = await getListProductPage({page, size, categoryId});
+  //         const responseData = response?.data;
+  //
+  //         if (responseData) {
+  //             console.log("responseData", responseData);
+  //             setProductPageResponse(responseData);
+  //             setProducts(responseData.productDTOs || []);
+  //             // toast.success(responseData.message);
+  //         } else {
+  //             // alert("Invalid response data");
+  //             toast.error("Invalid response data");
+  //         }
+  //     } catch (error) {
+  //         console.error("Lỗi tìm nạp dữ liệu:", error);
+  //         toast.error(error.data?.message || "Error fetching data");
+  //     }
+  // };
+
+  const fetchData = async () => {
+    try {
+      let response;
+      if (isPriceFilterApplied) {
+        response = await axios.get(
+          `http://localhost:8181/api/product/page/price-range?page=${page}&size=${size}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+        );
+      } else {
+        response = await getListProductPage({ page, size, categoryId });
+      }
+      const responseData = response?.data;
+
+      if (responseData) {
+        console.log("responseData", responseData);
+        setProductPageResponse(responseData);
+        setProducts(responseData.productDTOs || []);
+      } else {
+        toast.error("Invalid response data");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error(error.data?.message || "Error fetching data");
+    }
+  };
+
+  function getFavoriteProductIds(
+    response: GetFavoriteProductsApiResponse
+  ): number[] {
+    if (response && response.favoriteProductDTOs) {
+      return response.favoriteProductDTOs.map(
+        (product) => product.productDTO.productId
+      );
+    }
+    return [];
+  }
+
+  function isProductFavorited(
+    productId: number,
+    favoriteProductIds: number[]
+  ): boolean {
+    return favoriteProductIds.includes(productId);
+  }
 
   const handlePageClick = (pageNumber) => {
     setPage(pageNumber);
@@ -165,17 +199,94 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
 
       if (responseData) {
         console.log("responseData", responseData);
-        // setProductPageResponse(responseData);
-        // setProducts(responseData.productDTOs || []);
         toast.success(responseData);
+        // Update favoriteProductIds state
+        setFavoriteProductIds((prevIds) => [...prevIds, productId]);
+        refetchFavoriteProducts();
       } else {
-        // alert("Invalid response data");
         console.log("responseData in error: ", responseData);
         toast.error(responseData);
       }
     } catch (error) {
-      // console.error("Lỗi tìm nạp dữ liệu:", error);
-      toast.error("Error fetching data");
+      toast.error("Lỗi tìm nạp dữ liệu");
+    }
+  };
+
+  const handleRemoveFavorite = async (productId: number) => {
+    try {
+      console.log("productId", productId);
+      console.log("favoriteProducts", favoriteProducts);
+      // Find the favoriteProductId corresponding to the productId
+      const favoriteProduct: FavoriteProductDTO =
+        favoriteProducts.favoriteProductDTOs.find(
+          (favoriteProductDTO: FavoriteProductDTO) =>
+            favoriteProductDTO.productDTO.productId === productId
+        );
+
+      if (!favoriteProduct) {
+        toast.error("Sản phẩm không tồn tại trong danh sách yêu thích");
+        return;
+      }
+
+      console.log(
+        "favoriteProduct cua san pham xoa",
+        favoriteProduct.favoriteProductId
+      );
+
+      const response = await deleteFavoriteProduct({
+        favoriteProductId: favoriteProduct.favoriteProductId,
+      });
+
+      if (response.error) {
+        toast.error("Lỗi khi xóa sản phẩm khỏi danh sách yêu thích");
+        return;
+      }
+
+      const responseData = response?.data;
+
+      if (responseData) {
+        toast.success(responseData);
+        // Update favoriteProductIds state
+        setFavoriteProductIds((prevIds) =>
+          prevIds.filter((id) => id !== productId)
+        );
+        refetchFavoriteProducts();
+      } else {
+        toast.error(responseData);
+      }
+    } catch (error) {
+      toast.error("Lỗi khi xóa sản phẩm khỏi danh sách yêu thích");
+    }
+  };
+
+  // Update state variables when input fields change
+  const handleMinPriceChange = (event) => {
+    setMinPrice(event.target.value);
+  };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(event.target.value);
+  };
+
+  const handleApply = async () => {
+    setPage(1); // Reset page to 1 when applying new filters
+    setIsPriceFilterApplied(true); // Set isPriceFilterApplied to true
+    try {
+      const response = await axios.get(
+        `http://localhost:8181/api/product/page/price-range?page=1&size=${size}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      );
+      const responseData = response?.data;
+
+      if (responseData) {
+        console.log("responseData", responseData);
+        setProductPageResponse(responseData);
+        setProducts(responseData.productDTOs || []);
+      } else {
+        toast.error("Invalid response data");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error(error.data?.message || "Error fetching data");
     }
   };
 
@@ -186,165 +297,42 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
           <div className="flex flex-wrap mb-24 -mx-3">
             {/* filter */}
             <div className="w-full pr-2 lg:w-1/6 lg:block">
-              {/* <div className="p-4 mb-5 bg-white border border-gray-200 ">
-                  <h2 className="text-2xl font-bold dark:text-gray-400">
-                    Categories
-                  </h2>
-                  <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                  <ul>
-                    <li className="mb-4">
-                      <label
-                        htmlFor=""
-                        className="flex items-center dark:text-gray-400 "
-                      >
-                        <input type="checkbox" className="w-4 h-4 mr-2" />
-                        <span className="text-lg">Biscuits</span>
-                      </label>
-                    </li>
-                    <li className="mb-4">
-                      <label
-                        htmlFor=""
-                        className="flex items-center dark:text-gray-400 "
-                      >
-                        <input type="checkbox" className="w-4 h-4 mr-2 " />
-                        <span className="text-lg">Fruits</span>
-                      </label>
-                    </li>
-                    <li className="mb-4">
-                      <label
-                        htmlFor=""
-                        className="flex items-center dark:text-gray-400"
-                      >
-                        <input type="checkbox" className="w-4 h-4 mr-2" />
-                        <span className="text-lg">Seafood</span>
-                      </label>
-                    </li>
-                    <li className="mb-4">
-                      <label
-                        htmlFor=""
-                        className="flex items-center dark:text-gray-400"
-                      >
-                        <input type="checkbox" className="w-4 h-4 mr-2" />
-                        <span className="text-lg">Vegetables</span>
-                      </label>
-                    </li>
-                    <li className="mb-4">
-                      <label
-                        htmlFor=""
-                        className="flex items-center dark:text-gray-400"
-                      >
-                        <input type="checkbox" className="w-4 h-4 mr-2" />
-                        <span className="text-lg">
-                          Frozen Foods &amp; Staples
-                        </span>
-                      </label>
-                    </li>
-                  </ul>
-                  <a
-                    href="#"
-                    className="text-base font-medium text-blue-500 hover:underline dark:text-blue-400"
-                  >
-                    View More
-                  </a>
-                </div> */}
               <CategoryPart />
               <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                 <h2 className="text-2xl font-bold dark:text-gray-400">
-                  Product Status
+                  Price Range
                 </h2>
                 <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                <ul>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">
-                        In Stock
-                      </span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">
-                        On Sale
-                      </span>
-                    </label>
-                  </li>
-                </ul>
-                C
-              </div>
-              {/* <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                <h2 className="text-2xl font-bold dark:text-gray-400">Brand</h2>
-                <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                <ul>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">Apple</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">Oreo</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">Mango</span>
-                    </label>
-                  </li>
-                  <li className="mb-4">
-                    <label
-                      htmlFor=""
-                      className="flex items-center dark:text-gray-300"
-                    >
-                      <input type="checkbox" className="w-4 h-4 mr-2" />
-                      <span className="text-lg dark:text-gray-400">Nebico</span>
-                    </label>
-                  </li>
-                </ul>
-                <a
-                  href="#"
-                  className="text-base font-medium text-blue-500 hover:underline dark:text-blue-400"
-                >
-                  View More
-                </a>
-              </div> */}
-              <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                <h2 className="text-2xl font-bold dark:text-gray-400">Price</h2>
-                <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
                 <div>
-                  <input
-                    type="range"
-                    className="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
-                    max="100"
-                    value="50"
-                    onChange={() => {}}
-                  />
+                  <div className="flex gap-4">
+                    <input
+                      id="minPrice"
+                      type="number"
+                      className="w-[75px] h-[35px] bg-blue-100 text-xl "
+                      max="100"
+                      onChange={handleMinPriceChange}
+                    />
+                    <span>
+                      <i className="text-lg text-gray-400">to</i>
+                    </span>
+                    <input
+                      id="maxPrice"
+                      type="number"
+                      className="w-[75px] h-[35px] bg-blue-100 text-xl "
+                      max="100"
+                      onChange={handleMaxPriceChange}
+                    />
+                  </div>
                   <div className="flex justify-between ">
-                    <span className="inline-block text-lg font-bold text-blue-400 ">
-                      $1
-                    </span>
-                    <span className="inline-block text-lg font-bold text-blue-400 ">
-                      $500
-                    </span>
+                    <button
+                      className="px-4 py-2 mt-4 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                      onClick={handleApply}
+                    >
+                      Apply
+                    </button>
+                    <button className="px-4 py-2 mt-4 text-lg font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600">
+                      Reset
+                    </button>
                   </div>
                 </div>
               </div>
@@ -390,7 +378,7 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
               </div>
 
               {/* grid */}
-              <div className="grid grid-cols-4 gap-4">
+              {/* <div className="grid grid-cols-4 gap-4">
                 {products.map((product: ProductDTO) => (
                   <div
                     key={product.productId}
@@ -411,64 +399,6 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                           <h3 className="text-xl font-medium dark:text-gray-400">
                             {product.name}
                           </h3>
-                          {/* <ul className="flex">
-                              <li>
-                                <a href=" #">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star "
-                                    viewBox="0 0 16 16"
-                                  >
-                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                  </svg>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                    viewBox="0 0 16 16"
-                                  >
-                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                  </svg>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                    viewBox="0 0 16 16"
-                                  >
-                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                  </svg>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="#">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    className="w-4 mr-1 text-gray-700 dark:text-gray-400 bi bi-star"
-                                    viewBox="0 0 16 16"
-                                  >
-                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"></path>
-                                  </svg>
-                                </a>
-                              </li>
-                            </ul> */}
                         </div>
                         <p className="text-lg ">
                           <span className="text-green-600 dark:text-green-600">
@@ -477,23 +407,58 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                         </p>
                       </div>
                       <div className="flex justify-between p-4 border-t border-gray-300 dark:border-gray-700">
-                        {/* yêu thích */}
                         <button
-                          onClick={() => handleAddFavorite(product.productId)}
-                          className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300"
+                          onClick={() => {
+                            if (
+                              isProductFavorited(
+                                product.productId,
+                                favoriteProductIds
+                              )
+                            ) {
+                              handleRemoveFavorite(product.productId);
+                            } else {
+                              handleAddFavorite(product.productId);
+                            }
+                          }}
+                          className={`text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300 ${
+                            isProductFavorited(
+                              product.productId,
+                              favoriteProductIds
+                            )
+                              ? "text-red-500"
+                              : ""
+                          }`}
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-heart"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
-                          </svg>
+                          {isProductFavorited(
+                            product.productId,
+                            favoriteProductIds
+                          ) ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              className="bi bi-heart-fill"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              className="bi bi-heart"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                            </svg>
+                          )}
                         </button>
-                        {/* cart */}
                         <a
                           href="#"
                           className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300"
@@ -509,7 +474,6 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
                           </svg>
                         </a>
-                        {/* mắt */}
                         <a
                           href="#"
                           className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-300"
@@ -530,90 +494,16 @@ export const FilterAndProducts = ({ categoryId }: { categoryId: number }) => {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
+
+              <ProductList
+                products={products}
+                favoriteProductIds={favoriteProductIds}
+                handleAddFavorite={handleAddFavorite}
+                handleRemoveFavorite={handleRemoveFavorite}
+              />
 
               {/* phan trang */}
-              {/* <div className="flex justify-end mt-6">
-                  <nav aria-label="page-navigation">
-                    <ul className="flex list-style-none">
-                      <li className="page-item disabled ">
-                        <a
-                          href="#"
-                          className="relative block pointer-events-none px-3 py-1.5 mr-3 text-base text-gray-700 transition-all duration-300  rounded-md dark:text-gray-400 hover:text-gray-100 hover:bg-blue-600"
-                        >
-                          Previous
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a
-                          href="#"
-                          className="relative block px-3 py-1.5 mr-3 text-base hover:text-blue-700 transition-all duration-300 hover:bg-blue-200 dark:hover:text-gray-400 dark:hover:bg-gray-700 rounded-md text-gray-100 bg-blue-400"
-                        >
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a
-                          href="#"
-                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3  "
-                        >
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a
-                          href="#"
-                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md mr-3 "
-                        >
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a
-                          href="#"
-                          className="relative block px-3 py-1.5 text-base text-gray-700 transition-all duration-300 dark:text-gray-400 dark:hover:bg-gray-700 hover:bg-blue-100 rounded-md "
-                        >
-                          Next
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div> */}
-              {/* <div className="flex space-x-2 justify-center">
-                {startPage > 1 && (
-                  <button
-                    className={`px-3 py-2 bg-gray-200 rounded-md`}
-                    onClick={() => handlePageClick(1)}
-                  >
-                    1
-                  </button>
-                )}
-                {startPage > 2 && <span className="px-3 py-2">...</span>}
-                {pages.map((pageNumber) => (
-                  <button
-                    key={pageNumber}
-                    className={`px-3 py-2 ${
-                      pageNumber === currentPage
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200"
-                    } rounded-md`}
-                    onClick={() => handlePageClick(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                ))}
-                {endPage < totalPage - 1 && (
-                  <span className="px-3 py-2">...</span>
-                )}
-                {endPage < totalPage && (
-                  <button
-                    className={`px-3 py-2 bg-gray-200 rounded-md`}
-                    onClick={() => handlePageClick(totalPage)}
-                  >
-                    {totalPage}
-                  </button>
-                )}
-              </div> */}
               <div className="text-center mt-4">{renderPageButtons()}</div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store.ts";
+import Cookies from "js-cookie";
 
 const initialState = {
   user: null,
@@ -34,6 +35,9 @@ const authReducer = createSlice({
       state.user = null;
       state.error = "";
       localStorage.removeItem("token");
+
+      // Delete refreshToken cookie
+      Cookies.remove("refreshToken");
     },
     updateUser: (state, action) => {
       state.user = action.payload;

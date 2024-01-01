@@ -60,9 +60,10 @@ import AddVoucherShop from "./pages/vendors/AddVoucherShop";
 import UpdateVoucherShop from "./pages/vendors/UpdateVoucherShop";
 import AddReview from "./pages/users/AddReview.tsx";
 import Review from "./pages/users/Review.tsx";
-import SearchProducts from "./pages/vendors/SearchProducts.tsx";
+import SearchProducts from "./features/common/products/components/ProductsBy/Search/SearchProducts.tsx";
 import { UpdateProduct } from "./pages/vendors/UpdateProduct.tsx";
-import {OrderDetailShopForm} from "./features/vendor/payment/components/OrderDetailShopForm.tsx";
+import { OrderDetailShopForm } from "./features/vendor/payment/components/OrderDetailShopForm.tsx";
+import { ProductsBySearch } from "./pages/ProductsBySearch.tsx";
 
 function App() {
   return (
@@ -74,7 +75,7 @@ function App() {
           {/*<Route path="/search?keyword=:keyword" element={<SearchProducts/>}/>*/}
           <Route
             path="/search/:keyword/page/:page/size/:size"
-            element={<SearchProducts />}
+            element={<ProductsBySearch />}
           />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
@@ -85,6 +86,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/upload" element={<Abc />} />
           <Route path="/vendor/register" element={<RegisterShop />} />
+          <Route path="product/:productId" element={<DetailProduct />} />
 
           {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
           {/* <Route path="product/:productId" element={<DetailProduct />} />
@@ -97,7 +99,7 @@ function App() {
             <Route path="address" element={<Address />} />
             {/* <Route path="-vtc.:id" element={<ProductsByCategory />} /> */}
             <Route path="products/:id" element={<ProductsByCategory />} />
-            <Route path="product/:productId" element={<DetailProduct />} />
+            {/* <Route path="product/:productId" element={<DetailProduct />} /> */}
             <Route path="cart" element={<Cart />} />
             <Route path="checkout" element={<PayMent />} />
             <Route path="checkout/:id" element={<OrderDetailsForm />} />
@@ -151,7 +153,10 @@ function App() {
             <Route path="/vendor" element={<VendorPage />}>
               <Route path="shop/statistical" element={<Statistical />} />
               <Route path="shop/orders" element={<Orders />} />
-              <Route path="shop/checkout/:id" element={<OrderDetailShopForm />} />
+              <Route
+                path="shop/checkout/:id"
+                element={<OrderDetailShopForm />}
+              />
               <Route path="product/new" element={<AddProduct />} />
               <Route path="product/edit/:id" element={<UpdateProduct />} />
               <Route path="shop/category/add" element={<AddCategory />} />
