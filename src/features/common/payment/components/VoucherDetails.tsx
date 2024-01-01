@@ -13,7 +13,8 @@ const VoucherDetails: React.FC<VoucherDetailsProps> = ({ voucher }) => {
         <strong>Name:</strong> {voucher.name}
       </div>
       <div>
-        <strong>Discount:</strong> {voucher.discount}%
+        <strong>Discount:</strong> {voucher.discount}
+        {voucher.type !== "Giảm theo tiền" ? "%" : "VNĐ"}
       </div>
       <div>
         <strong>Type:</strong> {voucher.type}
