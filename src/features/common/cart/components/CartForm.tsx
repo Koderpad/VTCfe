@@ -15,20 +15,8 @@ const override = css`
   border-color: red;
 `;
 export const CartForm = () => {
-  // const [totalAmount, setTotalAmount] = useState(0);
-
-
-
-
-
-  // useEffect(() => {
-  //   setTotalPrice(calculateTotalPrice());
-  // }, [selectedProducts, data]);
-
-
   const { data, error, isLoading, refetch } =
     useGetListCartByUsernameQuery("cus");
-  // console.log(data);
 
   const [createOrder] = useCreateOrderMutation();
   const [loading, setLoading] = useState(false);
@@ -38,35 +26,6 @@ export const CartForm = () => {
   }>({});
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
-
-
-  const calculateTotalPrice = async () => {
-
-   // await console.log("selectedProductsselectedProducts", selectedProducts);
-
-
-    // let total = 0;
-    // Object.values(selectedProducts).forEach((cartIds) => {
-    //   cartIds.forEach((cartId) => {
-    //     // Tìm sản phẩm trong data và tính tổng giá tiền
-    //     const cartItem = data.listCartByShopDTOs
-    //         .find((item) => item.cartId === cartId)
-    //         .cartItems.find((item) => item.cartId === cartId);
-    //     total += cartItem.quantity * cartItem.price;
-    //   });
-    // });
-    // return total;
-
-    return 0;
-  };
-
-  // const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
-  //   console.log("cart ID: ", cartIds);
-  //   setSelectedProducts((prevSelectedProducts) => ({
-  //     ...prevSelectedProducts,
-  //     [shopId]: cartIds,
-  //   }));
-  // };
 
   useEffect(() => {
     refetch();
@@ -81,6 +40,8 @@ export const CartForm = () => {
       ...prevSelectedProducts,
       [shopId]: cartIds,
     }));
+    // await setTotalPrice((prevTotalPrice) => prevTotalPrice + totalPrice);
+    console.log("totalPrice: ", totalPrice);
     await setTotalPrice(totalPrice);
   };
 
@@ -116,6 +77,11 @@ export const CartForm = () => {
     }
   };
 
+  const totalSelectedProducts = Object.values(selectedProducts).reduce(
+    (total, current) => total + current.length,
+    0
+  );
+
   //!BEGIN RENDER------------------------------------------
   return (
     <>
@@ -146,24 +112,22 @@ export const CartForm = () => {
             id="footer-cart"
             className="sticky bottom-0 left-0 w-full bg-white rounded-lg shadow-md p-6 border-2 border-blue-500"
           >
-            {/* <div className="flex justify-between mb-2">
-              <VoucherForm />
-            </div> */}
             <div className="flex gap-4 w-full justify-start">
               <div className="flex flex-col justify-start w-full">
                 <div className="flex justify-between mb-2">
                   <span>Tổng tiền hàng</span>
-                  <span>$19.99</span>
-                  {/* <span>{totalAmount.toFixed(2)}đ</span> */}
+                  <span>{totalPrice} VNĐ</span>
                 </div>
-                {/* <div className="flex justify-between mb-2">
-                  <span>Tiết kiệm</span>
-                  <span>$19.99</span>
-                </div> */}
+
                 <hr className="my-2" />
                 <div className="flex justify-between mb-2">
-                  <span>Tổng thanh toán (... sản phẩm):</span>
-                  <span className="font-semibold">${totalPrice.toFixed(2)}</span>
+                  {/* <span>Tổng thanh toán (... sản phẩm):</span> */}
+                  <span>
+                    Tổng thanh toán ({totalSelectedProducts} sản phẩm):
+                  </span>
+                  <span className="font-semibold">
+                    {totalPrice.toFixed(2)} VNĐ
+                  </span>
                 </div>
               </div>
               <div className="flex w-full justify-end pt-14">
