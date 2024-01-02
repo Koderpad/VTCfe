@@ -5,7 +5,7 @@ import Header_search_wrapper from "./Header_search_wrapper";
 function Header_v1() {
   return (
     <>
-      <StyledTransform className="block fixed h-[119px] top-0 left-0 right-0 z-[100] bg-[linear-gradient(-180deg,#f53d2d,#f63)]">
+      <StyledTransform className="sticky top-0 bg-orange-600 z-50">
         {/* navbar */}
         <Navbar />
 

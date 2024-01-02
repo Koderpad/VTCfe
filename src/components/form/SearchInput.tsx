@@ -84,12 +84,7 @@ function Search() {
 
   return (
     <>
-      <form onSubmit={handleFormSubmit}>
-        <div className="flex h-[40px] justify-between rounded-md bg-white shadow shadow-black/20">
-          <input
-            type="text"
-            className="flex text-3xl flex-1 py-2 px-3
-             focus:outline-black focus:outline-offset-4 "
+
             placeholder="Tìm kiếm..."
             onClick={() => setShowResults(true)}
             onChange={handleInputChange}

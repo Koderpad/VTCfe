@@ -13,26 +13,22 @@ const slickSettings = {
 const banners = [
   {
     id: 1,
-    image:
-      "https://cf.shopee.vn/file/vn-50009109-f769ccc8ceda8758604df5ec1dff2c46_xxhdpi",
+
     content: "Banner 1",
   },
   {
     id: 2,
-    image:
-      "https://cf.shopee.vn/file/vn-50009109-f769ccc8ceda8758604df5ec1dff2c46_xxhdpi",
+
     content: "Banner 2",
   },
   {
     id: 2,
-    image:
-      "https://cf.shopee.vn/file/vn-50009109-f769ccc8ceda8758604df5ec1dff2c46_xxhdpi",
+
     content: "Banner 2",
   },
   {
     id: 2,
-    image:
-      "https://cf.shopee.vn/file/vn-50009109-f769ccc8ceda8758604df5ec1dff2c46_xxhdpi",
+
     content: "Banner 2",
   },
   // Thêm các mục banner khác vào đây
@@ -44,7 +40,7 @@ const Banner: React.FC = () => {
       <div className="col-span-3 h-full w-full overflow-hidden">
         <Slider {...slickSettings} className="w-full h-full">
           {banners.map((banner) => (
-            <div key={banner.id} className="h-[300px] w-full overflow-hidden">
+
               <img
                 src={banner.image}
                 alt={banner.content}
