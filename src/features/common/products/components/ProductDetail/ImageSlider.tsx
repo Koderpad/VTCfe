@@ -1,46 +1,6 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReactImageGallery from "react-image-gallery";
 
-const images = [
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-  {
-    original: "/public/images/giay01.jpg",
-    thumbnail: "/public/images/giay01.jpg",
-  },
-];
-
-interface Image {
-  original: string;
-  thumbnail: string;
-}
-
 const onEventTrigger = (eventName: string) => {
   console.log(`Event triggered: ${eventName}`);
 };

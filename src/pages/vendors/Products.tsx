@@ -65,7 +65,6 @@ const Products = () => {
   const [productPageResponse, setProductPageResponse] =
     useState<ListProductPageResponse | null>(null);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [getListProductPage, { isLoading }] =
     useGetPageProductByUsernameMutation();

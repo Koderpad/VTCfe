@@ -29,12 +29,6 @@ export const StockInputOfVariation = () => {
           </svg>
         </div>
       </div>
-      {/* <p
-        className="text-sm text-red-600 mt-2"
-        id="hs-validation-name-error-helper"
-      >
-        Please enter a valid email address.
-      </p> */}
     </div>
   );
 };

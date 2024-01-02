@@ -1,283 +1,279 @@
-import {useAddNewVoucherShopMutation} from "../../features/vendor/redux/api/voucherShopApi.ts";
-import {useNavigate} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
-import React, {useState} from "react";
+import { useAddNewVoucherShopMutation } from "../../features/vendor/redux/api/voucherShopApi.ts";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import React, { useState } from "react";
 
 interface VoucherShopRequest {
-    voucherId: number;
-    code: string;
-    name: string;
-    description: string;
-    discount: number;
-    minPrice: number;
-    maxPrice: number;
-    maxDiscount: number;
-    quantity: number;
-    startDate: string;
-    endDate: string;
-    type: string;
-    username: string;
+  voucherId: number;
+  code: string;
+  name: string;
+  description: string;
+  discount: number;
+  minPrice: number;
+  maxPrice: number;
+  maxDiscount: number;
+  quantity: number;
+  startDate: string;
+  endDate: string;
+  type: string;
+  username: string;
 }
 
 const AddVoucherShop = () => {
-    const [callApiAddNewVoucherShop] = useAddNewVoucherShopMutation();
-    const navigate = useNavigate();
-    const [voucherShopRequest, setVoucherShopRequest] =
-        useState<VoucherShopRequest>({
-            voucherId: 0,
-            code: "",
-            name: "",
-            description: "",
-            discount: 0,
-            minPrice: 0,
-            maxPrice: 0,
-            maxDiscount: 0,
-            quantity: 0,
-            startDate: "",
-            endDate: "",
-            type: "money",
-            username: "",
-        });
+  const [callApiAddNewVoucherShop] = useAddNewVoucherShopMutation();
+  const navigate = useNavigate();
+  const [voucherShopRequest, setVoucherShopRequest] =
+    useState<VoucherShopRequest>({
+      voucherId: 0,
+      code: "",
+      name: "",
+      description: "",
+      discount: 0,
+      minPrice: 0,
+      maxPrice: 0,
+      maxDiscount: 0,
+      quantity: 0,
+      startDate: "",
+      endDate: "",
+      type: "money",
+      username: "",
+    });
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-        setVoucherShopRequest({
-            ...voucherShopRequest,
-            [name]: value,
-        });
-    };
+    setVoucherShopRequest({
+      ...voucherShopRequest,
+      [name]: value,
+    });
+  };
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
+    setVoucherShopRequest({
+      ...voucherShopRequest,
+      maxDiscount: voucherShopRequest.discount,
+    });
 
-        setVoucherShopRequest({
-            ...voucherShopRequest,
-            maxDiscount: voucherShopRequest.discount,
-        });
+    await callApiAddNewVoucherShop(voucherShopRequest)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        navigate("/vendor/shop/vouchers");
+      })
+      .catch((err) => toast.error(err.data.message));
+  };
 
-
-        await callApiAddNewVoucherShop(voucherShopRequest)
-            .unwrap()
-            .then((res) => {
-                console.log(res);
-                navigate("/vendor/shop/vouchers");
-            })
-            .catch((err) => toast.error(err.data.message));
-    };
-
-
-    return (
-        <div className="container mx-auto p-8">
-            <h1 className="text-3xl font-bold mb-4">Thêm Voucher Mới</h1>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-
-                <div className="mb-4">
-                    <label
-                        htmlFor="type"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Loại voucher:
-                    </label>
-                    <select
-                        name="type"
-                        id="type"
-                        onChange={handleChange}
-                        value={voucherShopRequest.type}
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    >
-                        <option value="money">Số tiền</option>
-                        <option value="percent">Phần trăm</option>
-                    </select>
-                </div>
-
-                <div className="mb-4">
-                    <label
-                        htmlFor="code"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Code:
-                    </label>
-                    <input
-                        type="text"
-                        name="code"
-                        id="code"
-                        value={voucherShopRequest.code}
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Tên voucher:
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        onChange={handleChange}
-                        value={voucherShopRequest.name}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="description"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Mô tả:
-                    </label>
-                    <input
-                        type="text"
-                        name="description"
-                        id="description"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="discount"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        {voucherShopRequest.type === "percent" ? "Phần trăm giảm giá" : "Số tiền giảm giá"}
-                    </label>
-                    <input
-                        type="number"
-                        name="discount"
-                        id="discount"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                {/*<div className="mb-4">*/}
-                {/*  <label*/}
-                {/*    htmlFor="minPrice"*/}
-                {/*    className="block text-sm font-medium text-gray-700"*/}
-                {/*  >*/}
-                {/*    Giá tối thiểu*/}
-                {/*  </label>*/}
-                {/*  <input*/}
-                {/*    type="number"*/}
-                {/*    name="minPrice"*/}
-                {/*    id="minPrice"*/}
-                {/*    onChange={handleChange}*/}
-                {/*    required*/}
-                {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
-                {/*  />*/}
-                {/*</div>*/}
-                {/*<div className="mb-4">*/}
-                {/*  <label*/}
-                {/*    htmlFor="maxPrice"*/}
-                {/*    className="block text-sm font-medium text-gray-700"*/}
-                {/*  >*/}
-                {/*    Giá tối đa*/}
-                {/*  </label>*/}
-                {/*  <input*/}
-                {/*    type="number"*/}
-                {/*    name="maxPrice"*/}
-                {/*    id="maxPrice"*/}
-                {/*    onChange={handleChange}*/}
-                {/*    required*/}
-                {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
-                {/*  />*/}
-                {/*</div>*/}
-                {/*<div className="mb-4">*/}
-                {/*  <label*/}
-                {/*    htmlFor="maxDiscount"*/}
-                {/*    className="block text-sm font-medium text-gray-700"*/}
-                {/*  >*/}
-                {/*    Giảm giá tối đa*/}
-                {/*  </label>*/}
-                {/*  <input*/}
-                {/*    type="number"*/}
-                {/*    name="maxDiscount"*/}
-                {/*    id="maxDiscount"*/}
-                {/*    onChange={handleChange}*/}
-                {/*    required={voucherShopRequest.type === "percent"}*/}
-                {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
-                {/*  />*/}
-                {/*</div>*/}
-
-
-                <div className="mb-4">
-                    <label
-                        htmlFor="quantity"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Số lượng voucher:
-                    </label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        id="quantity"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="startDate"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Ngày bắt đầu áp dụng:
-                    </label>
-                    <input
-                        type="date"
-                        name="startDate"
-                        id="startDate"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="endDate"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Ngày kết thúc áp dụng:
-                    </label>
-                    <input
-                        type="date"
-                        name="endDate"
-                        id="endDate"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Thêm
-                </button>
-            </form>
-
-            <div className="mt-4">
-                <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => navigate("/vendor/shop/vouchers")}
-                >
-                    Quay lại
-                </button>
-            </div>
-
-
-            <ToastContainer position="bottom-right"/>
+  return (
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-4">Thêm Voucher Mới</h1>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+        <div className="mb-4">
+          <label
+            htmlFor="type"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Loại voucher:
+          </label>
+          <select
+            name="type"
+            id="type"
+            onChange={handleChange}
+            value={voucherShopRequest.type}
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          >
+            <option value="money">Số tiền</option>
+            <option value="percent">Phần trăm</option>
+          </select>
         </div>
-    );
+
+        <div className="mb-4">
+          <label
+            htmlFor="code"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Code:
+          </label>
+          <input
+            type="text"
+            name="code"
+            id="code"
+            value={voucherShopRequest.code}
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Tên voucher:
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            onChange={handleChange}
+            value={voucherShopRequest.name}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Mô tả:
+          </label>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="discount"
+            className="block text-sm font-medium text-gray-700"
+          >
+            {voucherShopRequest.type === "percent"
+              ? "Phần trăm giảm giá"
+              : "Số tiền giảm giá"}
+          </label>
+          <input
+            type="number"
+            name="discount"
+            id="discount"
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        {/*<div className="mb-4">*/}
+        {/*  <label*/}
+        {/*    htmlFor="minPrice"*/}
+        {/*    className="block text-sm font-medium text-gray-700"*/}
+        {/*  >*/}
+        {/*    Giá tối thiểu*/}
+        {/*  </label>*/}
+        {/*  <input*/}
+        {/*    type="number"*/}
+        {/*    name="minPrice"*/}
+        {/*    id="minPrice"*/}
+        {/*    onChange={handleChange}*/}
+        {/*    required*/}
+        {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
+        {/*  />*/}
+        {/*</div>*/}
+        {/*<div className="mb-4">*/}
+        {/*  <label*/}
+        {/*    htmlFor="maxPrice"*/}
+        {/*    className="block text-sm font-medium text-gray-700"*/}
+        {/*  >*/}
+        {/*    Giá tối đa*/}
+        {/*  </label>*/}
+        {/*  <input*/}
+        {/*    type="number"*/}
+        {/*    name="maxPrice"*/}
+        {/*    id="maxPrice"*/}
+        {/*    onChange={handleChange}*/}
+        {/*    required*/}
+        {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
+        {/*  />*/}
+        {/*</div>*/}
+        {/*<div className="mb-4">*/}
+        {/*  <label*/}
+        {/*    htmlFor="maxDiscount"*/}
+        {/*    className="block text-sm font-medium text-gray-700"*/}
+        {/*  >*/}
+        {/*    Giảm giá tối đa*/}
+        {/*  </label>*/}
+        {/*  <input*/}
+        {/*    type="number"*/}
+        {/*    name="maxDiscount"*/}
+        {/*    id="maxDiscount"*/}
+        {/*    onChange={handleChange}*/}
+        {/*    required={voucherShopRequest.type === "percent"}*/}
+        {/*    className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"*/}
+        {/*  />*/}
+        {/*</div>*/}
+
+        <div className="mb-4">
+          <label
+            htmlFor="quantity"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Số lượng voucher:
+          </label>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="startDate"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Ngày bắt đầu áp dụng:
+          </label>
+          <input
+            type="date"
+            name="startDate"
+            id="startDate"
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="endDate"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Ngày kết thúc áp dụng:
+          </label>
+          <input
+            type="date"
+            name="endDate"
+            id="endDate"
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Thêm
+        </button>
+      </form>
+
+      <div className="mt-4">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => navigate("/vendor/shop/vouchers")}
+        >
+          Quay lại
+        </button>
+      </div>
+
+      <ToastContainer position="bottom-right" />
+    </div>
+  );
 };
 
 export default AddVoucherShop;

@@ -12,21 +12,7 @@ export const PriceInputOfVariation = () => {
         <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
           <span className="text-gray-500 font-mono">₫</span>
         </div>
-        <div className="absolute inset-y-0 end-0 flex items-center text-gray-500 pe-px">
-          {/* <label
-            htmlFor="hs-inline-leading-select-currency"
-            className="sr-only"
-          >
-            Currency
-          </label>
-          <select
-            id="hs-inline-leading-select-currency"
-            name="hs-inline-leading-select-currency"
-            className="block w-full border-transparent rounded-lg focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-800"
-          >
-            <option>VND</option>
-          </select> */}
-        </div>
+        <div className="absolute inset-y-0 end-0 flex items-center text-gray-500 pe-px"></div>
       </div>
     </div>
   );

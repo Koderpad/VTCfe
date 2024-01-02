@@ -1,4 +1,4 @@
-import RegisForm_fix from "../features/common/auth/components/RegisForm_fix.js";
+import RegisForm_fix from "../../features/common/auth/components/RegisForm_fix.tsx";
 
 function Register_rightSide() {
   return (
@@ -7,7 +7,7 @@ function Register_rightSide() {
       <div className="flex items-stretch w-[19%] max-md:w-full max-md:ml-0">
         <img
           loading="lazy"
-          srcSet="/public/Element_1_Regis.png"
+          srcSet="/Element_1_Regis.png"
           className="w-[131px] h-auto aspect-auto overflow-hidden grow self-end max-md:mt-10"
           alt="Image"
         />
@@ -26,7 +26,7 @@ function Register_rightSide() {
               <div className="flex flex-col items-stretch w-2/5 ml-5 max-md:w-full max-md:ml-0">
                 <img
                   loading="lazy"
-                  srcSet="/public/Element_1_Regis.png"
+                  srcSet="/Element_1_Regis.png"
                   className="ml-36 aspect-auto object-cover object-center w-[141px] overflow-hidden max-w-full max-md:mt-10"
                   alt="Image"
                 />

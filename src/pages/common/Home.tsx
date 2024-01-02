@@ -126,15 +126,10 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Header_v1 from "../layouts/headers/Header_v1";
-import Banner from "../layouts/banner/Banner";
+import Header_v1 from "../../layouts/headers/Header_v1.tsx";
+import Banner from "../../layouts/banner/Banner.tsx";
 import { useNavigate } from "react-router-dom";
-import { ProductListFix } from "../features/common/products/components/ProductsList/ProductListFix";
-
-// interface Category {
-//   name: string;
-//   icon: string;
-// }
+import { ProductListFix } from "../../features/common/products/components/ProductsList/ProductListFix.tsx";
 
 interface Category {
   categoryId: number;
@@ -222,23 +217,6 @@ export const Home = () => {
               {categoryItems.map((category, index) => (
                 <ItemCategory key={index} data={category} />
               ))}
-
-              {/* <div className="absolute left-0 top-1/2 transform -translate-y-1/2 mx-4 ">
-                <button
-                  className="prev-button text-white  w-12 h-14 rounded-md bg-black"
-                  onClick={handlePrev}
-                >
-                  {"<"}
-                </button>
-              </div>
-              <div className="absolute right-0 top-1/2 transform -translate-y-1/2 mx-4 ">
-                <button
-                  className="next-button text-white w-12 h-14 rounded-md bg-black"
-                  onClick={handleNext}
-                >
-                  {">"}
-                </button>
-              </div> */}
             </div>
           </div>
         </div>

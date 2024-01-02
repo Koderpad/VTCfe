@@ -26,82 +26,6 @@ interface AddressDTO {
   status: string; // You may want to define a more specific type for status
 }
 
-// interface CustomerDTO {
-//   customerId: number;
-//   username: string;
-//   email: string;
-//   gender: boolean;
-//   fullName: string;
-//   birthday: string; // You may want to use a Date type
-//   status: string; // You may want to define a more specific type for status
-//   roles: string[];
-// }
-
-// interface ApiResponse {
-//   status: string;
-//   message: string;
-//   code: number;
-//   addressDTOs: AddressDTO[];
-//   customerDTO: CustomerDTO;
-// }
-
-// const Address: React.FC<AddressProps> = ({
-//   name,
-//   phoneNumber,
-//   address,
-//   status,
-// }) => {
-//   return (
-//     <div className="max-w-full mx-auto">
-//       <div className="bg-white flex flex-col shadow-md rounded px-8 py-6 mb-4">
-//         <div className="bg-white flex flex-row ">
-//           <div className="mb-4 flex items-center">
-//             <span className="text-gray-700 text-2xl font-medium mr-2">
-//               {name}
-//             </span>
-//             <span className="text-gray-700 text-2xl font-medium "> | </span>
-//             <span className="text-gray-700 text-2xl font-medium ml-2">
-//               {phoneNumber}
-//             </span>
-//           </div>
-//           <div className="flex items-center justify-end flex-grow ">
-//             <button
-//               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//               type="button"
-//             >
-//               Cập nhật
-//             </button>
-//             <div className="w-4"></div>
-//             <button
-//               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//               type="button"
-//             >
-//               Xóa
-//             </button>
-//           </div>
-//         </div>
-//         <div className="flex flex-row mt-4   ">
-//           <div className="text-gray-700 text-lg mb-4 items-center justify-end flex-grow ">
-//             {address}
-//           </div>
-//           <div className="flex items-center justify-end">
-//             <button
-//               className="text-blue-500 hover:text-blue-700 font-medium mr-4"
-//               type="button"
-//             >
-//               Thiết lập mặc định
-//             </button>
-//           </div>
-//         </div>
-//         {status === "ACTIVE" ? (
-//           <div className="inline-block border-2 border-red-300 rounded p-1 max-w-max">
-//             <span className="inline-block text-red-500">Mặc định</span>
-//           </div>
-//         ) : null}
-//       </div>
-//     </div>
-//   );
-// };
 const AddressForm = () => {
   const [showForm, setShowForm] = useState(false);
   const [listAddress, setListAddress] = useState<AddressProps[]>([]);
@@ -202,21 +126,6 @@ const AddressForm = () => {
       <div className="mt-4">
         {/* Map through listAddressDTO and render Address component for each item */}
         {listAddressDTO.map((addressDTO) => (
-          // <Address
-          //   key={addressDTO.addressId} // Ensure a unique key for each address
-          //   name={addressDTO.fullName}
-          //   phoneNumber={addressDTO.phone}
-          //   address={
-          //     addressDTO.fullAddress +
-          //     ", " +
-          //     addressDTO.ward +
-          //     ", " +
-          //     addressDTO.district +
-          //     ", " +
-          //     addressDTO.province
-          //   }
-          //   status={addressDTO.status}
-          // />
           <div className="max-w-full mx-auto">
             <div className="bg-white flex flex-col shadow-md rounded px-8 py-6 mb-4">
               <div className="bg-white flex flex-row ">
@@ -233,12 +142,6 @@ const AddressForm = () => {
                   </span>
                 </div>
                 <div className="flex items-center justify-end flex-grow ">
-                  {/* <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="button"
-                  >
-                    Cập nhật
-                  </button> */}
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"

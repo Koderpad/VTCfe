@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import Logo from "../components/ui-styled/Logo";
-import LoginForm from "../features/common/auth/components/LoginForm.js";
+import Logo from "../../components/ui-styled/Logo.tsx";
+import LoginForm from "../../features/common/auth/components/LoginForm.tsx";
 
 function Login() {
   return (
@@ -27,7 +27,7 @@ const LoginPageContainer = styled.div`
 
 const LeftSection = styled.div`
   flex: 1;
-  background-image: url("/public/BiaPhai_Login.png");
+  background-image: url("/BiaPhai_Login.png");
   opacity: 0.9;
   background-size: cover;
   background-position: center;
@@ -82,7 +82,7 @@ export const Label_welcome = styled.div`
       padding-top: 20px;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.title === "forgot" &&
     css`
       height: 18px;

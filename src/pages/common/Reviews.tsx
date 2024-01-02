@@ -76,12 +76,12 @@ const Reviews: React.FC<ViewReviewProps> = ({reviewId}) => {
                         </div>
                     </div>
                 </div>
-            ): (
+            ) : (
 
-                    <div className="flex items-center mt-2">
-                        <p className="font-bold">Số lượng đánh giá:</p>
-                        <p className="ml-4">{listReviewResponse.count}</p>
-                    </div>
+                <div className="flex items-center mt-2">
+                    <p className="font-bold">Số lượng đánh giá:</p>
+                    <p className="ml-4">{listReviewResponse.count}</p>
+                </div>
 
             )}
 

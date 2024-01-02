@@ -4,14 +4,6 @@ import { RootState } from "../../../../../../../../app/store";
 import { useState } from "react";
 
 export const DescripProduct = () => {
-  // const dispatch = useDispatch();
-  // // const product = useSelector(
-  // //   (state: RootState) => state.productInAddProduct.product
-  // // );
-
-  // const handleInputChange = (field: string, value: any) => {
-  //   dispatch(updateProduct({ field, value }));
-  // };
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
   const [isDescriptionValid, setIsDescriptionValid] = useState(true);

@@ -45,9 +45,7 @@ const OptionsSuffixInput: React.FC<OptionsSuffixInputProps> = ({
           {inputValue.length}/20
         </div>
       </div>
-      {/* {isError && (
-        <p className="text-red-500 text-xl mt-1">Không được để trống ô</p>
-      )} */}
+
       {isError && (
         <p className="text-red-500 text-xl mt-1">Không được để trống ô</p>
       )}

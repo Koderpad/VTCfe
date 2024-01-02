@@ -96,25 +96,26 @@ const Statistical: React.FC = () => {
     }
   };
 
-
   const formatCurrency = (value) => {
     // Convert the number to a string for easier manipulation
     const stringValue = value.toString();
 
     // Use regex to insert a dot after every 3 digits
-    const formattedValue = stringValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const formattedValue = stringValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     return `${formattedValue} VNĐ`;
   };
 
-  const findMaxTotalMoney = (statisticsResponse: StatisticsResponse): number | null => {
+  const findMaxTotalMoney = (
+    statisticsResponse: StatisticsResponse
+  ): number | null => {
     if (statisticsResponse && statisticsResponse.statisticsDTOs) {
       const maxTotalMoney = statisticsResponse.statisticsDTOs.reduce(
-          (max, statisticsDTO) => {
-            const currentTotalMoney = statisticsDTO.totalMoney || 0;
-            return currentTotalMoney > max ? currentTotalMoney : max;
-          },
-          0
+        (max, statisticsDTO) => {
+          const currentTotalMoney = statisticsDTO.totalMoney || 0;
+          return currentTotalMoney > max ? currentTotalMoney : max;
+        },
+        0
       );
 
       return maxTotalMoney;
@@ -122,9 +123,6 @@ const Statistical: React.FC = () => {
 
     return null;
   };
-
-
-
 
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -305,16 +303,19 @@ const Statistical: React.FC = () => {
       </button>
       {loading && <p className="mt-4">Đang tải...</p>}
 
-
-
       {statisticsResponse?.statisticsDTOs && (
         <>
-
-          <br/>
+          <br />
           <div className="p-4 bg-gray-100">
             <h4 className="text-xl font-semibold">
-              Thời gian thống kê từ: {statisticsResponse?.dateStart &&
-                format(new Date(statisticsResponse.dateStart), "dd/MM/yyyy")} cho đến {statisticsResponse?.dateEnd &&
+              Thời gian thống kê từ:{" "}
+              {statisticsResponse?.dateStart &&
+                format(
+                  new Date(statisticsResponse.dateStart),
+                  "dd/MM/yyyy"
+                )}{" "}
+              cho đến{" "}
+              {statisticsResponse?.dateEnd &&
                 format(new Date(statisticsResponse.dateEnd), "dd/MM/yyyy")}
             </h4>
 
@@ -323,7 +324,7 @@ const Statistical: React.FC = () => {
             </p>
 
             <p className="text-base">
-              Tổng số tiền:  {formatCurrency(statisticsResponse?.totalMoney)}
+              Tổng số tiền: {formatCurrency(statisticsResponse?.totalMoney)}
             </p>
           </div>
 
@@ -431,7 +432,9 @@ const Statistical: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <div className="w-4 h-4 bg-red-200 mr-2"></div>
-                <span>Tổng Tiền Cao Nhất: {formatCurrency(getMaxTotalMoneyOrder())}</span>
+                <span>
+                  Tổng Tiền Cao Nhất: {formatCurrency(getMaxTotalMoneyOrder())}
+                </span>
               </div>
             </div>
 
@@ -458,7 +461,8 @@ const Statistical: React.FC = () => {
               </thead>
               <tbody>
                 {statisticsResponse.statisticsDTOs.map((statistic) => {
-                  const isMaxTotalOrder = statistic.totalMoney === getMaxTotalMoneyOrder();
+                  const isMaxTotalOrder =
+                    statistic.totalMoney === getMaxTotalMoneyOrder();
                   const hasOrders = statistic.totalOrder > 0;
                   const isZeroOrder = statistic.totalOrder === 0;
 
@@ -475,9 +479,7 @@ const Statistical: React.FC = () => {
                           : ""
                       }`}
                     >
-                      <td
-                        className="px-6 py-4 whitespace-nowrap"
-                      >
+                      <td className="px-6 py-4 whitespace-nowrap">
                         {format(new Date(statistic.date), "dd/MM/yyyy")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">

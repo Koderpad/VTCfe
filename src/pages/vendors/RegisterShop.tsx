@@ -125,15 +125,11 @@ export const RegisterShop = () => {
   const [callDistrict] = useGetAllDistrictByProvinceCodeMutation();
   const [callWard] = useGetAllWardByDistrictCodeMutation();
 
-  const [selectedProvinceName, setSelectedProvinceName] = useState<string>("");
-
   const [listProvinceResponse, setListProvinceResponse] =
     useState<ListProvinceResponse>();
-  const [listDistrictResponse, setListDistrictResponse] =
-    useState<ListProvinceResponse>();
-  const [listWardResponse, setListWardResponse] = useState<ListWardResponse>();
   const [listDistrict, setListDistrict] = useState<DistrictDTO[]>([]);
   const [listWard, setListWard] = useState<WardDTO[]>([]);
+
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
@@ -142,7 +138,7 @@ export const RegisterShop = () => {
     try {
       const response = await callDistrict(`${provinceCode}`).unwrap();
       setListDistrict(response.districtDTOs);
-      setListDistrictResponse(response);
+      // setListDistrictResponse(response);
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +168,6 @@ export const RegisterShop = () => {
     try {
       const response = await callWard(`${districtCode}`).unwrap();
       setListWard(response.wardDTOs);
-      setListWardResponse(response);
     } catch (error) {
       console.log(error);
     }
@@ -581,14 +576,14 @@ export const RegisterShop = () => {
 
       <div className="mt-4">
         <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => navigate("/")}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => navigate("/")}
         >
           Quay lại trang chủ
         </button>
       </div>
 
-      <br/>
+      <br />
 
       <ToastContainer position="bottom-right" />
     </div>

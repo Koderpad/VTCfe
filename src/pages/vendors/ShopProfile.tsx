@@ -31,6 +31,7 @@ const ShopProfile = () => {
 
   const [shopDTO, setShopDTO] = useState<ShopDTO>();
   const navigate = useNavigate();
+
   const handleGetShopProfile = async () => {
     try {
       const response = await callShopProfile("").unwrap();

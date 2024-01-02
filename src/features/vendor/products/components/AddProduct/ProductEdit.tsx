@@ -65,8 +65,6 @@ export const ProductEdit = () => {
 
   const navigate = useNavigate();
 
-  const state = useSelector((state: RootState) => state.productInAddProduct);
-
   const productFinal: AddProductRequest = useSelector(
     (state: RootState) => state.productInAddProduct.product
   );
@@ -78,16 +76,6 @@ export const ProductEdit = () => {
   const attributeDataNeedToSave: { [key: string]: AttributeValuesItem[] } =
     useSelector((state: RootState) => state.productInAddProduct.attributeData);
 
-  // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
-  // useEffect(() => {
-  //   console.log("Updated product: ", productFinal);
-  //   // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
-  // }, [productFinal]);
-
-  // const getVariantTableData = useSelector(
-  //   (state) => state.productDataInAddProduct?.variantTableData
-  // );
-
   const pairVariantDataWithAttributes = (
     variantData: VariantDataItem[],
     updatedAttributeData: { [key: string]: AttributeValuesItem[] }
@@ -96,7 +84,6 @@ export const ProductEdit = () => {
 
     for (const item of variantData) {
       const pairedItem: ProductVariantRequest = {
-        // productVariantId: 0, // Thay thế bằng giá trị thích hợp
         sku: item.sku,
         image: item.image || "",
         price: parseInt(item.price),
@@ -156,29 +143,8 @@ export const ProductEdit = () => {
           value: attributeValue.value,
         });
 
-        console.log(
-          "response after add attribute: ",
-          response.data?.attributeDTO
-        );
-
         // Assuming response.data contains the added attribute with an id
-        // const addedAttribute = response.data;
         const addedAttribute = response.data?.attributeDTO;
-
-        // Save the id of the added attribute
-
-        // if (addedAttribute && addedAttribute.attributeId !== undefined) {
-        //   console.log(
-        //     "addedAttribute.attributeId: ",
-        //     addedAttribute.attributeId
-        //   );
-        //   console.log("addedAttribute.value: ", addedAttribute.value);
-
-        //   newAttributeValues.push({
-        //     id: addedAttribute.attributeId,
-        //     value: addedAttribute.value,
-        //   });
-        // }
 
         if (addedAttribute && addedAttribute.attributeId !== undefined) {
           newAttributeValues.push({
@@ -190,6 +156,7 @@ export const ProductEdit = () => {
 
       updatedAttributeData[attributeName] = newAttributeValues;
     }
+
     console.log("updatedAttributeData: ", updatedAttributeData);
     // Trong hàm handleSaveProduct, sau khi cập nhật updatedAttributeData
     const updatedVariantData: ProductVariantRequest[] =
@@ -201,11 +168,7 @@ export const ProductEdit = () => {
     const field: string = "productVariantRequests";
     await dispatch(updateProduct({ field, value: updatedVariantData }));
 
-    //handle ADD product
     try {
-      //   const response: { data: AddProductResponse } = await addProduct(
-      //     productFinal
-      //   );
       const response:
         | {
             data: AddProductResponse;
@@ -214,12 +177,6 @@ export const ProductEdit = () => {
             error: FetchBaseQueryError | SerializedError;
           } = await addProduct(productFinal);
 
-      //   if (response.data.productDTO) {
-      //     toast.success("Thêm sản phẩm thành công");
-      //   } else {
-      //     toast.error(response.data.message);
-      //   }
-
       if ("data" in response && response.data.status === "success") {
         toast.success(response.data.message, {
           onClose: () => {
@@ -227,7 +184,6 @@ export const ProductEdit = () => {
           },
           autoClose: 1000,
         });
-        // navigate("/vendor/shop/products");
         return;
       } else {
         console.log("response.error: ", response);
@@ -240,15 +196,8 @@ export const ProductEdit = () => {
       }
     } catch (error) {
       toast.error("Thêm sản phẩm thất bại");
-      // console.log("error: ", error);
     }
   };
-
-  // // useEffect sẽ được kích hoạt mỗi khi updatedProduct thay đổi
-  // useEffect(() => {
-  //   console.log("Updated product: ", productFinal);
-  //   // Thực hiện bất kỳ hành động nào khác dựa trên updatedProduct
-  // }, [productFinal]);
 
   return (
     //   bg-[#FAFAF9]

@@ -54,8 +54,6 @@ const AddForm = (props: {
   const [detail, setDetail] = React.useState("");
   const [type, setType] = React.useState("");
 
-  React.useEffect(() => {}, []);
-
   // const handleSubmit = () => {
   //   const handleAddAddress = async () => {
   //     try {
@@ -112,6 +110,7 @@ const AddForm = (props: {
   };
 
   if (!props.showForm) return <></>;
+
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-500/25">
       <div

@@ -9,12 +9,7 @@ import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const CategoryProduct = () => {
-  const [categories, setCategories] = useState<string[]>([]); // ["Thời trang nữ", "Quần"
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null
-  );
+  const [categories, setCategories] = useState<string[]>([]);
 
   const dispatch = useDispatch();
 
@@ -57,7 +52,6 @@ export const CategoryProduct = () => {
     }
     console.log("seelct id: ", selectedId);
     dispatch(updateProduct({ field: "categoryId", value: selectedId }));
-    setSelectedCategoryId(selectedId);
   };
 
   return (
@@ -123,26 +117,7 @@ export const CategoryProduct = () => {
                           </svg>
                         </div>
                       </div>
-                      {/* <p className="text-sm text-red-600 mt-2">
-                        Please select a valid state.
-                      </p> */}
-                      {/* <p
-                        className={`text-sm text-red-600 mt-2 ${
-                          isValid ? "hidden" : ""
-                        }`}
-                      >
-                        Please select a valid state.
-                      </p> */}
                     </div>
-                    {/* Button để mở modal */}
-                    {/* <button onClick={openModal}>Thêm Category</button> */}
-
-                    {/* Modal */}
-                    {/* <CategoryModal
-                      isOpen={isModalOpen}
-                      onRequestClose={closeModal}
-                      addCategory={addCategory}
-                    /> */}
                   </div>
                 </div>
               </div>

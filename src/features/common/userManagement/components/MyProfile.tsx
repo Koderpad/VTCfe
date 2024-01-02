@@ -72,10 +72,6 @@ function MyProfile() {
     setEmail(event.target.value);
   };
 
-  // const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setPhone(event.target.value);
-  // };
-
   const handleDateChange = (date: Date) => {
     setBirthDay(date.toLocaleString());
   };

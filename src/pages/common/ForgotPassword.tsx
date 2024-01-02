@@ -55,15 +55,6 @@ export const ForgotPassword = () => {
               <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
                 Lấy lại mật khâủ
               </h1>
-              {/* <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Remember your password?
-                <a
-                  className="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  href="../examples/html/signin.html"
-                >
-                  Sign in here
-                </a>
-              </p> */}
             </div>
 
             <div className="mt-5">

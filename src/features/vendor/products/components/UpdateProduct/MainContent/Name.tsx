@@ -47,20 +47,7 @@ export const Name = ({ existsName, setName }: Props) => {
                   value={existsName}
                   className="w-[100%] h-[40px] border border-[#ebeaed] rounded-[4px] px-[16px]"
                 />
-
-                {/* create input__suffix */}
               </div>
-
-              {/* <div id="edit-main-content-error">
-                <span
-                  style={{
-                    color: "red",
-                    fontSize: "12px",
-                  }}
-                >
-                  Tên sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
-                </span>
-              </div> */}
             </div>
           </div>
         </div>

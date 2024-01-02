@@ -3,12 +3,6 @@ import { updateProduct } from "../../../../../../redux/reducer/addProductSlice";
 import { useState } from "react";
 
 export const NameProduct = () => {
-  // const dispatch = useDispatch();
-
-  // const handleInputChange = (field: string, value: any) => {
-  //   dispatch(updateProduct({ field, value }));
-  // };
-
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
@@ -58,33 +52,14 @@ export const NameProduct = () => {
               flex
               "
               >
-                {/* <input
-                  type="text"
-                  onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="Nhập vào"
-                  className="w-[100%] h-[40px] border border-[#ebeaed] rounded-[4px] px-[16px]"
-                /> */}
-
                 <input
                   type="text"
                   onChange={(e) => handleInputChange("name", e.target.value)}
                   placeholder="Nhập vào"
                   className="w-[100%] h-[40px] border border-[#ebeaed] rounded-[4px] px-[16px]"
                 />
-
-                {/* create input__suffix */}
               </div>
 
-              {/* <div id="edit-main-content-error">
-                <span
-                  style={{
-                    color: "red",
-                    fontSize: "12px",
-                  }}
-                >
-                  Tên sản phẩm của bạn quá ngắn. Vui lòng nhập ít nhất 10 kí tự.
-                </span>
-              </div> */}
               <div id="edit-main-content-error">
                 {error && (
                   <span

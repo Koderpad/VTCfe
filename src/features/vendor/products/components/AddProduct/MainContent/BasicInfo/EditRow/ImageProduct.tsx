@@ -13,7 +13,6 @@ export const ImageProduct = () => {
   // const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
-  const [imageURL, setImageURL] = useState<string | null>(null);
 
   const dispatch = useDispatch();
 

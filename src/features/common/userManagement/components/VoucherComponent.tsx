@@ -42,9 +42,6 @@ const VoucherComponent: React.FC<VoucherProps> = ({ data }) => {
           <span className="border-dashed border text-white px-3 py-1 rounded-l">
             {code}
           </span>
-          {/* <span className="border border-white bg-white text-purple-600 px-3 py-1 rounded-r cursor-pointer">
-            Dùng ngay
-          </span> */}
         </div>
         <p className="text-xl">Hạn sử dụng: {formattedEndDate}</p>
 

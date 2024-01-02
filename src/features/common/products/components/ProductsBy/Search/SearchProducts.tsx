@@ -45,12 +45,6 @@ const SearchProducts: React.FC<Props> = ({ keyword }) => {
 
   const [callApiSearch] = useGetListProductsPageByShopSearchSortMutation();
 
-  //   const {
-  //     data: favoriteProducts,
-  //     error: favoriteProductsError,
-  //     isLoading: favoriteProductsLoading,
-  //   } = useGetFavoriteProductsQuery();
-
   const {
     data: favoriteProducts,
     error: favoriteProductsError,
@@ -101,13 +95,6 @@ const SearchProducts: React.FC<Props> = ({ keyword }) => {
       );
     }
     return [];
-  }
-
-  function isProductFavorited(
-    productId: number,
-    favoriteProductIds: number[]
-  ): boolean {
-    return favoriteProductIds.includes(productId);
   }
 
   //new
@@ -296,27 +283,6 @@ const SearchProducts: React.FC<Props> = ({ keyword }) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                <h2 className="text-2xl font-bold dark:text-gray-400">Price</h2>
-                <div className="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-                <div>
-                  <input
-                    type="range"
-                    className="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer"
-                    max="100"
-                    value="50"
-                    onChange={() => {}}
-                  />
-                  <div className="flex justify-between ">
-                    <span className="inline-block text-lg font-bold text-blue-400 ">
-                      $1
-                    </span>
-                    <span className="inline-block text-lg font-bold text-blue-400 ">
-                      $500
-                    </span>
-                  </div>
-                </div>
-              </div> */}
             </div>
             {/* products */}
             <div className="w-full px-3 lg:w-5/6">

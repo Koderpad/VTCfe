@@ -45,8 +45,6 @@ export const TableData = ({ data }: TableProps) => {
     (state: RootState) => state.productInAddProduct.attributeData
   );
 
-  // dispatch(updateVariantTableData({ data: variantTableData.data }));
-
   useEffect(() => {
     if (!data) return;
     //if varianTableData is empty

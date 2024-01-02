@@ -124,10 +124,6 @@ function PayMentForm() {
   console.log("res of order: ", res);
   if (!res) alert("Không ton tai thông tin cart!!!");
 
-  // Sử dụng hook để lấy danh sách voucher của cửa hàng
-  // const { data: shopVouchers } = useGetVoucherByShopIdQuery(
-  //   res.orderDTO.shopId ? res.orderDTO.shopId : 0
-  // );
   const { data: shopVouchers } = useGetVoucherByShopIdQuery(
     res && res.orderDTO && res.orderDTO.shopId ? res.orderDTO.shopId : 0
   );
@@ -211,7 +207,6 @@ function PayMentForm() {
           setUpdateOrderResponse(response?.data);
         }
         // Lưu giữ dữ liệu từ API response trong state
-        // setUpdateOrderResponse(response?.data);
 
         // Handle the response as needed
         console.log("Update Order API Response:", response?.data);
@@ -588,7 +583,6 @@ function PayMentForm() {
                   VNĐ
                 </span>
               </div>
-              {/* <div className="border-t my-4 border-black-200"></div> */}
               {/* Tiền vận chuyển Section */}
               <div className="bg-white flex justify-between mb-4">
                 <span className="text-gray-700 text-2xl font-medium">

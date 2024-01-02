@@ -17,16 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   productInAddProduct: productDataInAddProductReducer,
-  // [productsApi.reducerPath]: productsApi.reducer,
-  // [cartApi.reducerPath]: cartApi.reducer,
-  // [orderApi.reducerPath]: orderApi.reducer,
-  // [voucherApi.reducerPath]: voucherApi.reducer,
-  // [categoryApi.reducerPath]: categoryApi.reducer,
-  // [addressApi.reducerPath]: addressApi.reducer,
   [productDetailApi.reducerPath]: productDetailApi.reducer,
-  // [voucherAdminApi.reducerPath]: voucherAdminApi.reducer,
-  // [categoryAdminApi.reducerPath]: categoryAdminApi.reducer,
-  // [attributeVendorApi.reducerPath]: attributeVendorApi.reducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -38,13 +29,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false, // Add this line to disable immutableCheck
-
-      // serializableCheck: {
-      //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      // },
     }).concat([apiSlice.middleware, productDetailApi.middleware]),
   devTools: process.env.NODE_ENV !== "production",
-  // devTools: true,
 });
 
 export const persistor = persistStore(store);

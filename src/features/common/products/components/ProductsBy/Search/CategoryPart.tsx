@@ -45,21 +45,6 @@ export const CategoryPart = () => {
     fetchData();
   }, []);
 
-  // const {
-  //   data: categories,
-  //   error_,
-  //   isLoading_,
-  // } = useGetAllCategoryFromAdminQuery("arg");
-
-  // useEffect(() => {
-  //   try {
-  //     if (categories) setData(categories);
-  //     console.log("categories", categories);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
   return (
     <div className="p-4 mb-5 bg-white border border-gray-200 ">
       <h2 className="text-2xl font-bold dark:text-gray-400">Danh mục cha</h2>
@@ -83,12 +68,6 @@ export const CategoryPart = () => {
           </div>
         )}
       </ul>
-      {/* <a
-        href="#"
-        className="text-base font-medium text-blue-500 hover:underline dark:text-blue-400"
-      >
-        View More
-      </a> */}
     </div>
   );
 };

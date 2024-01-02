@@ -2,18 +2,7 @@ import SuffixInput from "../InputContentVariation/SuffixInput";
 import { OptionsItemDragItem } from "./OptionsItemDragItem";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useProductData } from "../../../../useProductData";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setProduct,
-  setVariantTableData,
-  setAttributeData,
-  addVariant,
-  addAttribute,
-  showAttributeData,
-  updateProduct,
-  saveProduct,
-} from "../../../../../../../redux/reducer/addProductSlice";
 import { RootState } from "../../../../../../../../../app/store";
 
 interface Item {
@@ -35,10 +24,6 @@ export const VariationEditItem = ({
   const [items, setItems] = useState<Item[]>([{ id: uuidv4(), value: "" }]);
   const [errors, setErrors] = useState<Errors>({});
   const [suffixInputValue, setSuffixInputValue] = useState("");
-  const dispatch = useDispatch();
-  const attributeData = useSelector(
-    (state: RootState) => state.productInAddProduct.attributeData
-  );
 
   const handleInputChange = (id: string, value: string) => {
     let newItems = [...items];

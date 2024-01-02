@@ -75,18 +75,6 @@ const CartItem: React.FC<VoucherComponentProps> = ({
   const [reload, setReload] = useState(false);
 
   // Call the parent component's callback when selected products change
-  //   React.useEffect(() => {
-  //     console.log("selectedProducts: ", selectedProducts);
-  //     // const productIDs = selectedProducts.map((item) => item.valueOf());
-  //     // console.log("productIDs: ", productIDs);
-  //     onSelectedProductsChange(data.shopId, selectedProducts, totalPrice);
-  //   }, [selectedProducts]);
-
-  // React.useEffect(() => {
-  //
-  // }
-
-  // Call the parent component's callback when selected products change
   React.useEffect(() => {
     const totalPrice = calculateTotalPrice(selectedProducts);
     setTotalPrice(totalPrice);
@@ -163,12 +151,6 @@ const CartItem: React.FC<VoucherComponentProps> = ({
       await deleteCart(cartId);
 
       window.location.reload();
-
-      // Update the component state after successful deletio
-
-      // Optionally, you may want to trigger a refetch of your cart data here
-      // to ensure your component reflects the latest state from the server.
-      // Refetching logic depends on how you fetch cart data in your app.
     } catch (error) {
       // Handle error if the deletion fails
       console.error("Error deleting cart item:", error);
@@ -189,11 +171,6 @@ const CartItem: React.FC<VoucherComponentProps> = ({
     });
     return total;
   };
-
-  //   const handleSelectedProductsChange = (shopId: number, cartIds: number[]) => {
-  //     const totalPrice = calculateTotalPrice(cartIds);
-  //     onSelectedProductsChange(shopId, cartIds, totalPrice);
-  //   };
 
   return (
     <div className="">

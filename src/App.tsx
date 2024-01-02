@@ -2,28 +2,23 @@ import React, { lazy, Suspense } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyled from "./styles/GlobalStyles";
-
-const MyAccount = lazy(() => import("./pages/MyAccount"));
-import Login from "./pages/Login";
-import PageNotFound from "./pages/PageNotFound";
-import Register from "./pages/Register";
+import Login from "./pages/common/Login.tsx";
+import PageNotFound from "./pages/common/PageNotFound.tsx";
+import Register from "./pages/common/Register.tsx";
 // import MyAccount from "./pages/MyAccount";
 import { MyProfile, PasswordChanges } from "./features/common/userManagement";
-import { DetailProduct } from "./pages/DetailProduct";
+import { DetailProduct } from "./pages/common/DetailProduct.tsx";
 import RequireAuth from "./features/common/auth/RequireAuth";
-import AdminPage from "./pages/admins/AdminPage";
 import { VendorPage } from "./pages/vendors/VendorPage";
-import Unauthorized from "./pages/Unauthorized";
-import { ProductsByCategory } from "./pages/ProductsByCategory";
+import Unauthorized from "./pages/common/Unauthorized.tsx";
+import { ProductsByCategory } from "./pages/common/ProductsByCategory.tsx";
 import { AddProduct } from "./pages/vendors/AddProduct";
-import Cart from "./pages/Cart";
-import { ForgotPassword } from "./pages/ForgotPassword";
-import { ResetPassword } from "./pages/ResetPassword";
+import Cart from "./pages/common/Cart.tsx";
+import { ForgotPassword } from "./pages/common/ForgotPassword.tsx";
+import { ResetPassword } from "./pages/common/ResetPassword.tsx";
 import { FavoriteProducts } from "./features/common/userManagement/components/FavoriteProducts";
-import { FollowShopList } from "./features/common/userManagement/components/FollowShopList";
-import VoucherList from "./features/common/userManagement/components/VoucherList";
-import PayMent from "./pages/PayMent";
-import { Home } from "./pages/Home";
+import PayMent from "./pages/common/PayMent.tsx";
+import { Home } from "./pages/common/Home.tsx";
 import Address from "./features/common/userManagement/components/Address";
 import ProfileAdmin from "./features/admin/profile";
 import CatagoryAdmin from "./features/admin/catagory";
@@ -33,19 +28,17 @@ import VoucherAdmin from "./features/admin/voucher";
 import UserAdmin from "./features/admin/user";
 // import { DetailProduct } from "./pages/DetailProduct";
 import ManagerCustomer from "./pages/admins/ManagerCustomer";
+import ManagerProductLocked from "./pages/admins/ManagerCustomer";
 import Statistical from "./pages/vendors/Statistical";
 import { AdminReal } from "./pages/admins/AdminReal";
 import { OrderDetailsForm } from "./features/common/payment/components/OrderDetailsForm";
 import { HistoryPurchase } from "./features/common/userManagement/components/HistoryPurchase";
-import { Abc } from "./features/vendor/managerShop/abcxyz";
 import { RegisterShop } from "./pages/vendors/RegisterShop";
 import AddCategory from "./pages/vendors/AddCategory";
 import { Orders } from "./pages/vendors/Orders";
 import Categories from "./pages/vendors/Categories";
 import UpdateCategory from "./pages/vendors/UpdateCategory";
 import ManagerProduct from "./pages/admins/ManagerProduct";
-
-import ManagerProductLocked from "./pages/admins/ManagerCustomer";
 import AddParentCategory from "./pages/admins/AddParentCategory";
 import ParentCategories from "./pages/admins/ParentCategories";
 import UpdateParentCategory from "./pages/admins/UpdateParentCategory";
@@ -58,12 +51,14 @@ import Products from "./pages/vendors/Products";
 import VouchersShop from "./pages/vendors/VouchersShop";
 import AddVoucherShop from "./pages/vendors/AddVoucherShop";
 import UpdateVoucherShop from "./pages/vendors/UpdateVoucherShop";
-import AddReview from "./pages/users/AddReview.tsx";
-import Review from "./pages/users/Review.tsx";
-import SearchProducts from "./features/common/products/components/ProductsBy/Search/SearchProducts.tsx";
+import AddReview from "./pages/common/AddReview.tsx";
+import Review from "./pages/common/Review.tsx";
 import { UpdateProduct } from "./pages/vendors/UpdateProduct.tsx";
 import { OrderDetailShopForm } from "./features/vendor/payment/components/OrderDetailShopForm.tsx";
-import { ProductsBySearch } from "./pages/ProductsBySearch.tsx";
+import { ProductsBySearch } from "./pages/common/ProductsBySearch.tsx";
+import VoucherList from "./features/common/userManagement/components/VoucherList.tsx";
+
+const MyAccount = lazy(() => import("./pages/common/MyAccount.tsx"));
 
 function App() {
   return (
@@ -72,7 +67,6 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route path="login" element={<Login />} />
-          {/*<Route path="/search?keyword=:keyword" element={<SearchProducts/>}/>*/}
           <Route
             path="/search/:keyword/page/:page/size/:size"
             element={<ProductsBySearch />}
@@ -84,30 +78,20 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
           <Route path="home" element={<Home />} index />
           <Route path="/" element={<Home />} />
-          <Route path="/upload" element={<Abc />} />
-          <Route path="/vendor/register" element={<RegisterShop />} />
           <Route path="product/:productId" element={<DetailProduct />} />
 
-          {/* <Route path="unauthorized" element={<Unauthorized />} /> */}
-          {/* <Route path="product/:productId" element={<DetailProduct />} />
-        <Route path="products" element={<ProductsByCategory />} /> */}
           {/* private routes */}
           <Route element={<RequireAuth allowedRoles={["CUSTOMER"]} />}>
-            {/* user/account */}
-            {/* <Route path="home" element={<Home />} index />
-          <Route path="/" element={<Home />} /> */}
-            <Route path="address" element={<Address />} />
-            {/* <Route path="-vtc.:id" element={<ProductsByCategory />} /> */}
+            {/* <Route path="address" element={<Address />} /> */}
             <Route path="products/:id" element={<ProductsByCategory />} />
-            {/* <Route path="product/:productId" element={<DetailProduct />} /> */}
             <Route path="cart" element={<Cart />} />
             <Route path="checkout" element={<PayMent />} />
             <Route path="checkout/:id" element={<OrderDetailsForm />} />
+
             <Route path="user/account" element={<MyAccount />}>
               <Route path="profile" element={<MyProfile />} />
               <Route path="pw_changes" element={<PasswordChanges />} />
               <Route path="favorite-products" element={<FavoriteProducts />} />
-              <Route path="follow-shop" element={<FollowShopList />} />
               <Route path="voucher-wallet" element={<VoucherList />} />
               <Route path="address" element={<Address />} />
               <Route path="history-purchase" element={<HistoryPurchase />} />
@@ -150,6 +134,7 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["VENDOR"]} />}>
+            <Route path="/vendor/register" element={<RegisterShop />} />
             <Route path="/vendor" element={<VendorPage />}>
               <Route path="shop/statistical" element={<Statistical />} />
               <Route path="shop/orders" element={<Orders />} />
@@ -157,28 +142,25 @@ function App() {
                 path="shop/checkout/:id"
                 element={<OrderDetailShopForm />}
               />
-              <Route path="product/new" element={<AddProduct />} />
-              <Route path="product/edit/:id" element={<UpdateProduct />} />
-              <Route path="shop/category/add" element={<AddCategory />} />
-              <Route path="shop/category/add" element={<AddCategory />} />
-              <Route path="shop/categories" element={<Categories />} />
               <Route path="shop/profile" element={<ShopProfile />} />
               <Route path="shop/edit" element={<UpdateShop />} />
+              <Route path="shop/categories" element={<Categories />} />
+              <Route path="shop/category/add" element={<AddCategory />} />
               <Route
                 path="shop/category/edit/:id"
                 element={<UpdateCategory />}
               />
-              <Route path="shop/products" element={<Products />} />
               <Route path="shop/vouchers" element={<VouchersShop />} />
               <Route path="shop/voucher/add" element={<AddVoucherShop />} />
               <Route
                 path="shop/voucher/edit/:id"
                 element={<UpdateVoucherShop />}
               />
+              <Route path="shop/products" element={<Products />} />
+              <Route path="product/new" element={<AddProduct />} />
+              <Route path="product/edit/:id" element={<UpdateProduct />} />
             </Route>
           </Route>
-
-          {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
       </Suspense>
 

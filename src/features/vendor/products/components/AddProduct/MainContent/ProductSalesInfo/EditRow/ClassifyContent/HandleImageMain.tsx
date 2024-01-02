@@ -146,8 +146,6 @@ export const HandleImageMain = ({
           )}
         </div>
 
-        {/* -modal image-cropper-modal */}
-        {/* <div id="image-cropper-modal"></div> */}
         <ImageModal
           isOpen={isOpen}
           onClose={() => {

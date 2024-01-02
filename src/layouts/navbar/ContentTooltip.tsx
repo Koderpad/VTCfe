@@ -42,13 +42,6 @@ function ContentTooltip() {
             </Link>
           </li>
         </ul>
-        {/* <a>Hi</a>
-        <p className="text-sm font-bold text-gray-800 pb-1">
-          Keep track of follow ups
-        </p>
-        <p className="text-xs leading-4 text-gray-600 pb-3">
-          Reach out to more prospects at the right moment.
-        </p> */}
       </div>
     </>
   );

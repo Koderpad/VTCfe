@@ -136,9 +136,6 @@ export const Category = ({ existsCategoryId, setCategoryId }: Props) => {
                           </svg>
                         </div>
                       </div>
-                      {/* <p className="text-sm text-red-600 mt-2">
-                        Please select a valid state.
-                      </p> */}
                     </div>
                   </div>
                 </div>

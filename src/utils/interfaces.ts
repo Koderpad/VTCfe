@@ -1,5 +1,3 @@
-// Tạo các interface tương ứng với cấu trúc dữ liệu trả về từ API
-
 interface IAttribute {
   attributeId: number;
   name: string;

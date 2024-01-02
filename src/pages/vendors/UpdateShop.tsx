@@ -121,6 +121,7 @@ export const UpdateShop = () => {
     status: "",
     username: "",
   });
+
   const [updateShop] = useUpdateShopMutation();
   const [shopResponse, setShopResponse] = useState<ShopResponse | null>(null);
 
@@ -128,18 +129,16 @@ export const UpdateShop = () => {
   const [callDistrict] = useGetAllDistrictByProvinceCodeMutation();
   const [callWard] = useGetAllWardByDistrictCodeMutation();
 
-  const [selectedProvinceName, setSelectedProvinceName] = useState<string>("");
-
   const [listProvinceResponse, setListProvinceResponse] =
     useState<ListProvinceResponse>();
-  const [listDistrictResponse, setListDistrictResponse] =
-    useState<ListProvinceResponse>();
-  const [listWardResponse, setListWardResponse] = useState<ListWardResponse>();
+
   const [listDistrict, setListDistrict] = useState<DistrictDTO[]>([]);
   const [listWard, setListWard] = useState<WardDTO[]>([]);
+
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
+
   const [callShopProfile] = useGetProfileShopMutation();
 
   const handleGetShopProfile = async () => {
@@ -183,7 +182,6 @@ export const UpdateShop = () => {
     try {
       const response = await callDistrict(`${provinceCode}`).unwrap();
       setListDistrict(response.districtDTOs);
-      setListDistrictResponse(response);
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +211,6 @@ export const UpdateShop = () => {
     try {
       const response = await callWard(`${districtCode}`).unwrap();
       setListWard(response.wardDTOs);
-      setListWardResponse(response);
     } catch (error) {
       console.log(error);
     }

@@ -19,9 +19,6 @@ export const ProductTierVariation = () => {
   const dispatch = useDispatch();
 
   const handleDataChange: OnDataChangeType = (newData, index) => {
-    // console.log("newData", newData);
-    // console.log("index", index);
-    // if (newData === undefined) return;
     dispatch(addAttribute({ index: index, data: newData }));
     setData((prevData) => {
       const newDataArray = [...prevData];
@@ -118,8 +115,6 @@ export const ProductTierVariation = () => {
                 fontSize: "12px",
                 fontWeight: 500,
                 lineHeight: "10px",
-                // textAlign: "center",
-                // textTransform: "uppercase",
               }}
             >
               {" "}

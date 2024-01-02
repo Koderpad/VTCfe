@@ -99,14 +99,12 @@ export const OrderDetailsForm = () => {
 
   if (order?.code !== 200) {
     console.log("error", order?.message);
-    // alert("Order not found");
   }
 
   const orderDetails: OrderDTO | undefined = order?.orderDTO;
 
   if (!orderDetails) {
     console.log("error", order?.message);
-    // alert("Order not found");
   }
 
   console.log("order:  ", orderDetails);
@@ -114,12 +112,6 @@ export const OrderDetailsForm = () => {
   const address: AddressDTO | undefined = orderDetails?.addressDTO;
 
   const orderItems: OrderItemDTO[] = orderDetails?.orderItemDTOs;
-
-  // const products: ProductVariantDTO[] = orderItems.map(
-  //   (item) => item.productVariantDTO
-  // );
-
-  // console.log("orderDetails", products);
 
   const voucher: VoucherOrderDTO[] | null | undefined =
     orderDetails?.voucherOrderDTOs;
@@ -154,13 +146,7 @@ export const OrderDetailsForm = () => {
     } else {
       navigate(`/user/account/checkout/review/order-item/${orderItemId}`);
     }
-
-    // navigate(`/user/add-review/${productId}`);
   };
-
-  // const formatPrice = (price: number) => {
-  //     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  // };
 
   const formatPrice = (price?: number) => {
     if (price !== undefined && price !== null) {
@@ -330,7 +316,6 @@ export const OrderDetailsForm = () => {
           <div className="flex items-center">
             <img
               src="/public/voucher.png"
-              // src="public\discount-voucher-outline-icon-thin-line-black-discount-voucher-icon-vector.jpg"
               alt="Voucher Icon"
               className="mr-2"
               style={{ width: "30px", height: "28px" }}
@@ -405,7 +390,6 @@ export const OrderDetailsForm = () => {
                 {formatPrice(orderDetails?.discount)} VNĐ
               </span>
             </div>
-            {/* <div className="border-t my-4 border-black-200"></div> */}
             {/* Tiền vận chuyển Section */}
             <div className="bg-white flex justify-between mb-4">
               <span className="text-gray-700 text-2xl font-medium">
@@ -427,14 +411,6 @@ export const OrderDetailsForm = () => {
             </div>
           </div>
           <div className="border-t my-4 border-black-200"></div>
-          {/* <div className="w-4/5 mx-auto mb-8 flex justify-end">
-              <button
-                className="bg-blue-500 hover:bg-blue-800 focus:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                Đặt hàng
-              </button>
-            </div> */}
         </div>
       </div>
       <Footer_v1 />

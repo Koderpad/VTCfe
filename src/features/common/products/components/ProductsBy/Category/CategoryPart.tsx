@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetAllCategoryFromAdminQuery } from "../../../../redux/api/categoryApi";
 import { useNavigate } from "react-router-dom";
 
 interface Category {
@@ -21,7 +20,6 @@ interface getAllParentRes {
 export const CategoryPart = () => {
   // const [data, setData] = useState([]);
   const [categoryItems, setCategoryItems] = useState<Category[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,21 +43,6 @@ export const CategoryPart = () => {
 
     fetchData();
   }, []);
-
-  // const {
-  //   data: categories,
-  //   error_,
-  //   isLoading_,
-  // } = useGetAllCategoryFromAdminQuery("arg");
-
-  // useEffect(() => {
-  //   try {
-  //     if (categories) setData(categories);
-  //     console.log("categories", categories);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
 
   return (
     <div className="p-4 mb-5 bg-white border border-gray-200 ">

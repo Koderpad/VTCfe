@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import Footer_v1 from "../layouts/footers/Footer_v1";
-import Header_not_fixed from "../layouts/headers/Header_not_fixed";
-import SearchProducts from "../features/common/products/components/ProductsBy/Search/SearchProducts";
+import Footer_v1 from "../../layouts/footers/Footer_v1.tsx";
+import Header_not_fixed from "../../layouts/headers/Header_not_fixed.tsx";
+import SearchProducts from "../../features/common/products/components/ProductsBy/Search/SearchProducts.tsx";
 
 export const ProductsBySearch = () => {
   const { keyword, page, size } = useParams(); // Use useParams to get parameters directly
@@ -25,11 +25,7 @@ export const ProductsBySearch = () => {
         <div className="flex justify-center bg-gradient-to-r from-blue-400 to-emerald-400">
           {/* main container */}
           <div className="w-4/5">
-            <SearchProducts
-              keyword={keyword}
-              page={Number(page)}
-              size={Number(size)}
-            />
+            <SearchProducts keyword={keyword} />
           </div>
         </div>
 

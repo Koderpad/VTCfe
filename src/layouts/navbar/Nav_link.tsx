@@ -26,13 +26,6 @@ const Nav_link = React.memo(() => {
   console.log("isAuthenticated", isAuthenticated);
   console.log("CustomerDTO", CustomerDTO);
 
-  // console.log("auth", auth);
-
-  // if (auth) {
-  //   setIsLogin(auth.isAuthenticated);
-  //   setUser(auth.user);
-  // }
-
   return (
     <>
       <div className="flex gap-1">
@@ -41,12 +34,7 @@ const Nav_link = React.memo(() => {
           {/* account container */}
           <div className="flex cursor-pointer hover:">
             {/* avatar */}
-            <div className="w-10 h-10 rounded-full overflow-hidden">
-              {/* <img
-                src="https://down-vn.img.susercontent.com/file/vn-11134226-7r98o-ln4gdiy4aasz87_tn"
-                className="w-full h-full object-cover"
-              /> */}
-            </div>
+            <div className="w-10 h-10 rounded-full overflow-hidden"></div>
 
             {/* username */}
             <div
@@ -68,9 +56,9 @@ const Nav_link = React.memo(() => {
             text-xl font-medium p-1
             "
                 >
-                  <a href="/login">Đăng nhập</a>
+                  <a href="/common/Login">Đăng nhập</a>
                   <span className="mx-2">/</span>
-                  <a href="/register">Đăng ký</a>
+                  <a href="/common/Register">Đăng ký</a>
                 </div>
               )}
             </div>

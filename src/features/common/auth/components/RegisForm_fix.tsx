@@ -56,28 +56,6 @@ function RegisForm_fix() {
     setFormData((prevData) => ({ ...prevData, birthday: value }));
   };
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   // TODO: Gửi dữ liệu formData lên server ở đây
-  //   console.log("Form data:", formData);
-  // };
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:8181/api/auth/register",
-  //       formData
-  //     );
-
-  //     console.log("Response:", response.data);
-  //     // Điều hướng hoặc thực hiện các bước tiếp theo sau khi đăng ký thành công
-  //   } catch (error) {
-  //     console.error("Error:", error.response.data);
-  //     // Xử lý lỗi, hiển thị thông báo cho người dùng, vv.
-  //   }
-  // };
-
   const handleSubmit = async () => {
     try {
       const response = await axios.post(

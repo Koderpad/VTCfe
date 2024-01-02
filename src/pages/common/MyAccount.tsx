@@ -1,9 +1,8 @@
-import Breadcrumb from "../components/ui/Breadcrumb";
-import Footer_v1 from "../layouts/footers/Footer_v1";
-import Header_not_fixed from "../layouts/headers/Header_not_fixed";
+import Footer_v1 from "../../layouts/footers/Footer_v1.tsx";
+import Header_not_fixed from "../../layouts/headers/Header_not_fixed.tsx";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../app/store";
+import { RootState } from "../../app/store.ts";
 
 function MyAccount() {
   const state = useSelector((state: RootState) => state.auth.user);
@@ -53,11 +52,7 @@ function MyAccount() {
                     Sản phẩm yêu thích
                   </Link>
                 </li>
-                {/* <li>
-                  <Link to="follow-shop" className=" hover:text-green-600 ">
-                    Cửa hàng theo dõi
-                  </Link>
-                </li> */}
+
                 <li>
                   <Link to="voucher-wallet" className=" hover:text-green-600 ">
                     Kho voucher

@@ -2,17 +2,6 @@ import { useEffect, useState } from "react";
 import { userApi } from "../services/userApi";
 
 function PasswordChanges() {
-  // const [oldpw, setOldpw] = useState("");
-  // const [newpw, setNewpw] = useState("");
-
-  // const handleOldpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setOldpw(event.target.value);
-  // };
-
-  // const handleNewpwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setNewpw(event.target.value);
-  // };
-
   const [oldpw, setOldpw] = useState("");
   const [newpw, setNewpw] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -91,12 +80,7 @@ function PasswordChanges() {
                       onChange={handleNewpwChange}
                     />
                   </div>
-                  {/* <button
-                    type="reset"
-                    className="w-1/4 py-3 px-4 inline-flex items-center justify-center gap-x-2 text-xl font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-                  >
-                    Lưu
-                  </button> */}
+
                   <button
                     type="submit"
                     disabled={isLoading}

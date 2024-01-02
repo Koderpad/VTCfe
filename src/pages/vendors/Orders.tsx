@@ -47,8 +47,6 @@ export const Orders = () => {
 
   const [isUpdate, setIsUpdate] = useState(false);
   const statusString = purchaseStatusString[status];
-  console.log("statusString", statusString);
-  console.log("queryParams", queryParams);
 
   const [updateOrderStatus, { isLoading, isError }] =
     useUpdateOrderStatusMutation();
@@ -60,10 +58,6 @@ export const Orders = () => {
     refetch: refetchOther,
   } = useGetOrdersByStatusQuery(statusString);
 
-  // useEffect(() => {
-  //   refetchOther();
-  // }, [refetchOther]);
-
   const refetchData = async () => {
     await refetchOther();
   };
@@ -71,10 +65,6 @@ export const Orders = () => {
   useEffect(() => {
     refetchData();
   }, [isUpdate, status]);
-
-  // useEffect(() => {
-  //   refetchData();
-  // }, []);
 
   if (isLoadingOther) {
     return <div>Loading...</div>;

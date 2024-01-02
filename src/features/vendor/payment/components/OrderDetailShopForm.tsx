@@ -124,32 +124,24 @@ export const OrderDetailShopForm = () => {
     (e) => e.type !== false
   );
 
-  console.log("voucher of sys: ", voucherOfSys);
+  // const [callApiCheckReview] = useCheckReviewExistMutation();
 
-  const [callApiCheckReview] = useCheckReviewExistMutation();
+  // const navigate = useNavigate();
 
-  const navigate = useNavigate();
+  // const handleReview = async (
+  //   e: React.MouseEvent<HTMLButtonElement>,
+  //   orderItemId: number
+  // ) => {
+  //   e.preventDefault();
+  //   console.log("orderItemId", orderItemId);
+  //   const isExist = await callApiCheckReview(orderItemId).unwrap();
 
-  const handleReview = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-    orderItemId: number
-  ) => {
-    e.preventDefault();
-    console.log("orderItemId", orderItemId);
-    const isExist = await callApiCheckReview(orderItemId).unwrap();
-
-    console.log("ba", isExist);
-    if (!isExist) {
-      navigate(`/user/account/checkout/add/review/order-item/${orderItemId}`);
-    } else {
-      navigate(`/user/account/checkout/review/order-item/${orderItemId}`);
-    }
-
-    // navigate(`/user/add-review/${productId}`);
-  };
-
-  // const formatPrice = (price: number) => {
-  //     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  //   console.log("ba", isExist);
+  //   if (!isExist) {
+  //     navigate(`/user/account/checkout/add/review/order-item/${orderItemId}`);
+  //   } else {
+  //     navigate(`/user/account/checkout/review/order-item/${orderItemId}`);
+  //   }
   // };
 
   const formatPrice = (price?: number) => {
@@ -387,14 +379,6 @@ export const OrderDetailShopForm = () => {
             </div>
           </div>
           <div className="border-t my-4 border-black-200"></div>
-          {/* <div className="w-4/5 mx-auto mb-8 flex justify-end">
-              <button
-                className="bg-blue-500 hover:bg-blue-800 focus:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                Đặt hàng
-              </button>
-            </div> */}
         </div>
       </div>
     </div>

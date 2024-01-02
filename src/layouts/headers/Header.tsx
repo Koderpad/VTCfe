@@ -10,11 +10,7 @@ function Header() {
       />
       {/* search */}
       <Search />
-      {/* <div className="text-black text-xl my-auto">
-        <span className="">VTC E-</span>
-        <span className="">Commerce</span>
-        <span className=""> </span>
-      </div> */}
+
       <a href="#" className="self-center flex items-start gap-2 my-auto">
         <img
           loading="lazy"
